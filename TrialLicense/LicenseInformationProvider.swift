@@ -24,11 +24,10 @@ public class LicenseInformationProvider {
 
         self.init(trialProvider: TrialProvider(),
                   licenseProvider: LicenseProvider(),
-                  licenseVerifier: LicenseVerifier(configuration: configuration),
-                  clock: Clock())
+                  licenseVerifier: LicenseVerifier(configuration: configuration))
     }
 
-    init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate) {
+    init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider
