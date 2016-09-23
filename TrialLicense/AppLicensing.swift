@@ -107,7 +107,18 @@ public class AppLicensing {
 
     fileprivate func configureTrialRunner() {
 
+        guard shouldStartTrialRunner else { return }
+
         self.trialRunner.startTrialTimer()
+    }
+
+    fileprivate var shouldStartTrialRunner: Bool {
+
+        if case .registered = self.currentLicenseInformation {
+            return false
+        }
+
+        return true
     }
 
     fileprivate func stopTrialRunner() {
