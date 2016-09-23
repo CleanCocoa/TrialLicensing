@@ -184,6 +184,12 @@ public class AppLicensing {
 
     fileprivate func licenseDidChange(licenseInformation: LicenseInformation) {
 
+        switch licenseInformation {
+        case .onTrial: self.configureTrialRunner()
+        case .registered: self.stopTrialRunner()
+        case .trialUp: break
+        }
+
         DispatchQueue.main.async {
 
             self.delegate?.licenseDidChange(licenseInformation: licenseInformation)
