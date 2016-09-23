@@ -9,7 +9,12 @@ class LicenseWriter {
     lazy var userDefaults: UserDefaults = UserDefaults.standard
     
     init() { }
-    
+
+    func store(license: License) {
+
+        self.store(licenseCode: license.licenseCode, forName: license.name)
+    }
+
     func store(licenseCode: String, forName name: String) {
         
         userDefaults.setValue(name, forKey: "\(License.UserDefaultsKeys.name)")
