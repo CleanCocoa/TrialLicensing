@@ -8,7 +8,12 @@ public class TrialTimer {
     
     let trialEndDate: Date
     let trialExpirationBlock: () -> Void
-    
+
+    public convenience init(trialPeriod: TrialPeriod, trialExpirationBlock: @escaping () -> Void) {
+
+        self.init(trialEndDate: trialPeriod.endDate, trialExpirationBlock: trialExpirationBlock)
+    }
+
     public init(trialEndDate: Date, trialExpirationBlock: @escaping () -> Void) {
         
         self.trialEndDate = trialEndDate
@@ -41,7 +46,8 @@ public class TrialTimer {
         
         trialExpirationBlock()
     }
-    
+
+    /// - note: Try to stop a non-running timer raises an assertion failure.
     public func stop() {
         
         guard isRunning else {

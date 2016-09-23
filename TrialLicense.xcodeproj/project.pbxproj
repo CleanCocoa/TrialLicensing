@@ -43,6 +43,7 @@
 		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
 		501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABA1D950E8900D8D68C /* LicenseInformation.swift */; };
 		501FAAC01D950FB300D8D68C /* CancelableTimedBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */; };
+		501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAC41D9511FD00D8D68C /* TrialRunner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseConfiguration.swift; sourceTree = "<group>"; };
 		501FAABA1D950E8900D8D68C /* LicenseInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformation.swift; sourceTree = "<group>"; };
 		501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableTimedBlock.swift; sourceTree = "<group>"; };
+		501FAAC41D9511FD00D8D68C /* TrialRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrialRunner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 				501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */,
 				501FAA6E1D94255500D8D68C /* LicenseProvider.swift */,
 				501FAA6C1D94255500D8D68C /* LicenseChangeBroadcaster.swift */,
+				501FAAC41D9511FD00D8D68C /* TrialRunner.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */,
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
 				501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */,
+				501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */,
 				501FAA711D94255500D8D68C /* License.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
