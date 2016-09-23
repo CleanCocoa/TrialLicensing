@@ -21,8 +21,8 @@ class TrialProviderTests: XCTestCase {
         
     func provideTrialDefaults(_ startDate: Date, endDate: Date) {
         userDefaultsDouble.testValues = [
-            TrialPeriod.UserDefaultsKeys.startDate.rawValue : startDate,
-            TrialPeriod.UserDefaultsKeys.endDate.rawValue : endDate
+            TrialPeriod.UserDefaultsKeys.startDate : startDate,
+            TrialPeriod.UserDefaultsKeys.endDate : endDate
         ]
     }
     
@@ -39,7 +39,7 @@ class TrialProviderTests: XCTestCase {
         
         if let usedDefaultNames = usedDefaultNames {
             
-            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate.rawValue))
+            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate))
         }
     }
     
@@ -64,7 +64,7 @@ class TrialProviderTests: XCTestCase {
         
         if let usedDefaultNames = usedDefaultNames {
             
-            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate.rawValue))
+            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate))
         }
     }
     

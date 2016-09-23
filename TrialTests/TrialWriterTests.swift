@@ -35,8 +35,8 @@ class TrialWriterTests: XCTestCase {
         
         if let changedDefaults = changedDefaults {
             
-            XCTAssert(changedDefaults[TrialPeriod.UserDefaultsKeys.startDate.rawValue] == startDate)
-            XCTAssert(changedDefaults[TrialPeriod.UserDefaultsKeys.endDate.rawValue] == endDate)
+            XCTAssert(changedDefaults[TrialPeriod.UserDefaultsKeys.startDate] == startDate)
+            XCTAssert(changedDefaults[TrialPeriod.UserDefaultsKeys.endDate] == endDate)
         }
     }
 

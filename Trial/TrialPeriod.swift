@@ -41,12 +41,10 @@ extension TrialPeriod {
 
 extension TrialPeriod {
     
-    enum UserDefaultsKeys: String, CustomStringConvertible {
+    enum UserDefaultsKeys {
         
-        case startDate = "trial_starting"
-        case endDate = "trial_ending"
-        
-        public var description: String { return rawValue }
+        static let startDate = "trial_starting"
+        static let endDate = "trial_ending"
     }
 }
 
