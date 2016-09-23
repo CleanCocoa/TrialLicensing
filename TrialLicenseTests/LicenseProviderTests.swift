@@ -21,8 +21,8 @@ class LicenseProviderTests: XCTestCase {
 
     func provideLicenseDefaults(_ name: String, licenseCode: String) {
         userDefaultsDouble.testValues = [
-            License.UserDefaultsKeys.name.rawValue : name,
-            License.UserDefaultsKeys.licenseCode.rawValue : licenseCode
+            License.UserDefaultsKeys.name : name,
+            License.UserDefaultsKeys.licenseCode : licenseCode
         ]
     }
     
@@ -39,7 +39,7 @@ class LicenseProviderTests: XCTestCase {
         
         if let usedDefaultNames = usedDefaultNames {
             
-            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name.rawValue))
+            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name))
         }
     }
 
@@ -62,8 +62,8 @@ class LicenseProviderTests: XCTestCase {
         
         if let usedDefaultNames = usedDefaultNames {
             
-            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name.rawValue))
-            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.licenseCode.rawValue))
+            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name))
+            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.licenseCode))
         }
     }
 

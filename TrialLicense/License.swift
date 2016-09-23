@@ -16,18 +16,16 @@ public struct License {
         self.licenseCode = licenseCode
     }
     
-    enum UserDefaultsKeys: String, CustomStringConvertible {
+    enum UserDefaultsKeys {
         
-        case name = "licensee"
-        case licenseCode = "license_code"
-        
-        public var description: String { return rawValue }
+        static let name = "licensee"
+        static let licenseCode = "license_code"
     }
 }
 
 extension License: Equatable { }
 
-public func ==(lhs: License, rhs: License) -> Bool {
+func ==(lhs: License, rhs: License) -> Bool {
     
     return lhs.name == rhs.name && lhs.licenseCode == rhs.licenseCode
 }
@@ -39,9 +37,9 @@ public enum LicenseInformation {
     case trialUp
 }
 
-public typealias UserInfo = [AnyHashable : Any]
+typealias UserInfo = [AnyHashable : Any]
 
-public extension LicenseInformation {
+extension LicenseInformation {
 
     func userInfo() -> UserInfo {
 
@@ -96,7 +94,7 @@ public extension LicenseInformation {
 
 extension LicenseInformation: Equatable { }
 
-public func ==(lhs: LicenseInformation, rhs: LicenseInformation) -> Bool {
+func ==(lhs: LicenseInformation, rhs: LicenseInformation) -> Bool {
     
     switch (lhs, rhs) {
     case (.trialUp, .trialUp): return true
