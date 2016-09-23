@@ -19,8 +19,16 @@ public class LicenseInformationProvider {
     let licenseProvider: LicenseProvider
     let clock: KnowsTimeAndDate
     let licenseVerifier: LicenseVerifier
-    
-    public init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
+
+    public convenience init(configuration: LicenseConfiguration) {
+
+        self.init(trialProvider: TrialProvider(),
+                  licenseProvider: LicenseProvider(),
+                  licenseVerifier: LicenseVerifier(configuration: configuration),
+                  clock: Clock())
+    }
+
+    init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider

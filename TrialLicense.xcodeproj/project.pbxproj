@@ -41,6 +41,7 @@
 		501FAAB11D95017600D8D68C /* CocoaFob.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; };
 		501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
+		501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABA1D950E8900D8D68C /* LicenseInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		501FAA931D9427FD00D8D68C /* NullNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullNotificationCenter.swift; sourceTree = "<group>"; };
 		501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaFob.xcodeproj; path = Extern/cocoafob/swift3/CocoaFob.xcodeproj; sourceTree = "<group>"; };
 		501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseConfiguration.swift; sourceTree = "<group>"; };
+		501FAABA1D950E8900D8D68C /* LicenseInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,14 +213,10 @@
 		501FAA041D94232C00D8D68C /* TrialLicense */ = {
 			isa = PBXGroup;
 			children = (
+				501FAABC1D950EAF00D8D68C /* License Model */,
+				501FAABE1D950EE900D8D68C /* Services */,
+				501FAABD1D950EB700D8D68C /* Infrastructure */,
 				501FAA051D94232C00D8D68C /* TrialLicense.h */,
-				501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */,
-				501FAA6B1D94255500D8D68C /* License.swift */,
-				501FAA6C1D94255500D8D68C /* LicenseChangeBroadcaster.swift */,
-				501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */,
-				501FAA6E1D94255500D8D68C /* LicenseProvider.swift */,
-				501FAA6F1D94255500D8D68C /* LicenseVerifier.swift */,
-				501FAA701D94255500D8D68C /* LicenseWriter.swift */,
 				501FAA061D94232C00D8D68C /* Info.plist */,
 			);
 			path = TrialLicense;
@@ -283,6 +281,35 @@
 				501FAAB01D95016700D8D68C /* cocoafob-keygen */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		501FAABC1D950EAF00D8D68C /* License Model */ = {
+			isa = PBXGroup;
+			children = (
+				501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */,
+				501FAA6B1D94255500D8D68C /* License.swift */,
+				501FAABA1D950E8900D8D68C /* LicenseInformation.swift */,
+			);
+			name = "License Model";
+			sourceTree = "<group>";
+		};
+		501FAABD1D950EB700D8D68C /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA6F1D94255500D8D68C /* LicenseVerifier.swift */,
+				501FAA701D94255500D8D68C /* LicenseWriter.swift */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
+		501FAABE1D950EE900D8D68C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */,
+				501FAA6E1D94255500D8D68C /* LicenseProvider.swift */,
+				501FAA6C1D94255500D8D68C /* LicenseChangeBroadcaster.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +530,7 @@
 				501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */,
 				501FAA651D9424AE00D8D68C /* Optional.swift in Sources */,
 				501FAA721D94255500D8D68C /* LicenseChangeBroadcaster.swift in Sources */,
+				501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */,
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
 				501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */,
 				501FAA711D94255500D8D68C /* License.swift in Sources */,

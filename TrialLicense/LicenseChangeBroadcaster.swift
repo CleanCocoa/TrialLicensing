@@ -14,16 +14,16 @@ public enum Events: String {
     }
 }
 
-open class LicenseChangeBroadcaster {
+class LicenseChangeBroadcaster {
     
     let notificationCenter: NotificationCenter
     
-    public init(notificationCenter: NotificationCenter) {
+    init(notificationCenter: NotificationCenter) {
         
         self.notificationCenter = notificationCenter
     }
     
-    open func broadcast(_ licenseInformation: LicenseInformation) {
+    func broadcast(_ licenseInformation: LicenseInformation) {
         
         notificationCenter.post(name: Events.licenseChanged.notificationName, object: self, userInfo: licenseInformation.userInfo())
     }
