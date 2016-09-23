@@ -25,7 +25,7 @@ public struct License {
 
 extension License: Equatable { }
 
-func ==(lhs: License, rhs: License) -> Bool {
+public func ==(lhs: License, rhs: License) -> Bool {
     
     return lhs.name == rhs.name && lhs.licenseCode == rhs.licenseCode
 }
@@ -94,7 +94,7 @@ extension LicenseInformation {
 
 extension LicenseInformation: Equatable { }
 
-func ==(lhs: LicenseInformation, rhs: LicenseInformation) -> Bool {
+public func ==(lhs: LicenseInformation, rhs: LicenseInformation) -> Bool {
     
     switch (lhs, rhs) {
     case (.trialUp, .trialUp): return true

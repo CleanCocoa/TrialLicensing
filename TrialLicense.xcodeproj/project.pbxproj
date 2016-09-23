@@ -40,6 +40,7 @@
 		501FAA941D9427FD00D8D68C /* NullNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA931D9427FD00D8D68C /* NullNotificationCenter.swift */; };
 		501FAAB11D95017600D8D68C /* CocoaFob.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; };
 		501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserDefaults.swift; sourceTree = "<group>"; };
 		501FAA931D9427FD00D8D68C /* NullNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullNotificationCenter.swift; sourceTree = "<group>"; };
 		501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaFob.xcodeproj; path = Extern/cocoafob/swift3/CocoaFob.xcodeproj; sourceTree = "<group>"; };
+		501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				501FAA051D94232C00D8D68C /* TrialLicense.h */,
+				501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */,
 				501FAA6B1D94255500D8D68C /* License.swift */,
 				501FAA6C1D94255500D8D68C /* LicenseChangeBroadcaster.swift */,
 				501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */,
@@ -495,6 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */,
 				501FAA741D94255500D8D68C /* LicenseProvider.swift in Sources */,
 				501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */,
 				501FAA651D9424AE00D8D68C /* Optional.swift in Sources */,

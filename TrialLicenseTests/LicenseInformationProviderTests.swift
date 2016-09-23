@@ -20,8 +20,11 @@ class LicenseInformationProviderTests: XCTestCase {
         
         super.setUp()
         
-        licenseInfoProvider = LicenseInformationProvider(trialProvider: trialProviderDouble, licenseProvider: licenseProviderDouble, clock: clockDouble)
-        licenseInfoProvider.licenseVerifier = verifierDouble
+        licenseInfoProvider = LicenseInformationProvider(
+            trialProvider: trialProviderDouble,
+            licenseProvider: licenseProviderDouble,
+            licenseVerifier: verifierDouble,
+            clock: clockDouble)
     }
     
     let irrelevantLicense = License(name: "", licenseCode: "")
@@ -229,7 +232,7 @@ class LicenseInformationProviderTests: XCTestCase {
     class TestVerifier: LicenseVerifier {
         
         init() {
-            super.init(appName: "irrelevant app name")
+            super.init(configuration: LicenseConfiguration(appName: "irrelevant app name", publicKey: "irrelevant key"))
         }
         
         var testValidity = false

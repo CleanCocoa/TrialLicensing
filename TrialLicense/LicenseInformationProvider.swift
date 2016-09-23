@@ -18,15 +18,15 @@ public class LicenseInformationProvider {
     let trialProvider: TrialProvider
     let licenseProvider: LicenseProvider
     let clock: KnowsTimeAndDate
+    let licenseVerifier: LicenseVerifier
     
-    public init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, clock: KnowsTimeAndDate) {
+    public init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider
+        self.licenseVerifier = licenseVerifier
         self.clock = clock
     }
-    
-    public lazy var licenseVerifier: LicenseVerifier = LicenseVerifier()
     
     public var licenseIsInvalid: Bool {
         
