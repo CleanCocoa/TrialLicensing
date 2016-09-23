@@ -10,6 +10,8 @@ open class TrialProvider {
     
     lazy var userDefaults: UserDefaults = UserDefaults.standard
 
+    public var isConfigured: Bool { return hasValue(currentTrialPeriod) }
+
     open var currentTrialPeriod: TrialPeriod? {
         
         if let startDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.startDate) as? Date,
