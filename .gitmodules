@@ -1,0 +1,3 @@
+[submodule "Extern/cocoafob"]
+	path = Extern/cocoafob
+	url = git@github.com:glebd/cocoafob.git
