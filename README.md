@@ -14,84 +14,92 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 Example:
 
-    import TrialLicense
+```swift
+import TrialLicense
 
-    let publicKey = [
-            "-----BEGIN DSA PUBLIC KEY-----\n",
-            // ...
-            "-----END DSA PUBLIC KEY-----\n"
-        ].join("")
-    let configuration = LicenseConfiguration(appName: "AmazingApp!", publicKey: publicKey)
+let publicKey = [
+        "-----BEGIN DSA PUBLIC KEY-----\n",
+        // ...
+        "-----END DSA PUBLIC KEY-----\n"
+    ].join("")
+let configuration = LicenseConfiguration(appName: "AmazingApp!", publicKey: publicKey)
+
+class MyApp: AppLicensingDelegate {
     
-    class MyApp: AppLicensingDelegate {
+    init() {
         
-        init() {
+        AppLicensing.setUp(
+            configuration: configuration,
+            initialTrialDuration: Days(30),
+            delegate: self,
             
-            AppLicensing.setUp(
-                configuration: configuration,
-                initialTrialDuration: Days(30),
-                delegate: self,
-                
-                // Get notified about initial state to unlock the app immediately:
-                fireInitialState: true)
-        }
-        
-        func licenseDidChange(licenseInformation: LicenseInformation) {
-            
-            switch licenseInformation {
-            case .onTrial(_):
-                // Changing back to trial may be possible if you support unregistering
-                // form the app (and the trial period is still good.)
-                return
+            // Get notified about initial state to unlock the app immediately:
+            fireInitialState: true)
+    }
     
-            case .registered(_):
-                // For example:
-                //   displayThankYouAlert()
-                //   unlockApp()
-    
-            case .trialUp:
-                // For example:
-                //   displayTrialUpAlert()
-                //   lockApp()
-                //   showRegisterApp()
-            }
-        }
+    func licenseDidChange(licenseInformation: LicenseInformation) {
         
-        func didEnterInvalidLicenseCode(name: String, licenseCode: String) {
-            
+        switch licenseInformation {
+        case .onTrial(_):
+            // Changing back to trial may be possible if you support unregistering
+            // form the app (and the trial period is still good.)
+            return
+
+        case .registered(_):
             // For example:
-            //   displayInvalidLicenseAlert()
-            // -- or show an error label in the license window.
+            //   displayThankYouAlert()
+            //   unlockApp()
+
+        case .trialUp:
+            // For example:
+            //   displayTrialUpAlert()
+            //   lockApp()
+            //   showRegisterApp()
         }
     }
     
-    let myApp = MyApp()
+    func didEnterInvalidLicenseCode(name: String, licenseCode: String) {
+        
+        // For example:
+        //   displayInvalidLicenseAlert()
+        // -- or show an error label in the license window.
+    }
+}
+
+let myApp = MyApp()
+```
 
 ## Components
 
 `LicenseInformation` reveals the state your app is in:
 
-    enum LicenseInformation {
-        case registered(License)
-        case onTrial(TrialPeriod)
-        case trialUp
-    }
+```swift
+enum LicenseInformation {
+    case registered(License)
+    case onTrial(TrialPeriod)
+    case trialUp
+}
+```
 
 The associated types provide additional information, for example to display details in a settings window or show remaining trial days in the title bar of your app.
 
 `License` represents a valid name--license code pair:
 
-    struct License {
-        let name: String
-        let licenseCode: String
-    }
+```swift
+struct License {
+    let name: String
+    let licenseCode: String
+}
+```
 
 `TrialPeriod` encapsulates the duration of the trial.
 
-    struct TrialPeriod {
-        let startDate: Date
-        let endDate: Date
-    }
+```swift
+struct TrialPeriod {
+    let startDate: Date
+    let endDate: Date
+}
+```
 
 `TrialPeriod` also provides these convenience methods:
 
