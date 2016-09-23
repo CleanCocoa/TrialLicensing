@@ -153,6 +153,7 @@
 		501FAAC61D9512CF00D8D68C /* RegisterApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApplication.swift; sourceTree = "<group>"; };
 		501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApplicationTests.swift; sourceTree = "<group>"; };
 		501FAACA1D9519B600D8D68C /* AppLicensing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLicensing.swift; sourceTree = "<group>"; };
+		501FAACE1D95258500D8D68C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +194,7 @@
 		501FA9F81D94232C00D8D68C = {
 			isa = PBXGroup;
 			children = (
+				501FAACE1D95258500D8D68C /* README.md */,
 				501FAA631D9424AE00D8D68C /* Shared */,
 				501FAA041D94232C00D8D68C /* TrialLicense */,
 				501FAA0F1D94232D00D8D68C /* TrialLicenseTests */,
