@@ -6,7 +6,7 @@ import Foundation
 
 public struct Days {
     
-    public static func timeInterval(amount: Double) -> Double {
+    public static func timeInterval(amount: Double) -> TimeInterval {
         return amount * 60 * 60 * 24
     }
     

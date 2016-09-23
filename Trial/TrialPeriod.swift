@@ -24,13 +24,13 @@ public struct TrialPeriod {
 
 extension TrialPeriod {
 
-    public func ended(clock: KnowsTimeAndDate) -> Bool {
+    public func ended(clock: KnowsTimeAndDate = Clock()) -> Bool {
         
         let now = clock.now()
         return endDate < now
     }
     
-    public func daysLeft(clock: KnowsTimeAndDate) -> Days {
+    public func daysLeft(clock: KnowsTimeAndDate = Clock()) -> Days {
         
         let now = clock.now()
         let timeUntil = now.timeIntervalSince(endDate)
