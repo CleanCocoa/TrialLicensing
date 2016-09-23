@@ -35,7 +35,7 @@ public class LicenseInformationProvider {
         self.clock = clock
     }
     
-    public var licenseIsInvalid: Bool {
+    public var isLicenseInvalid: Bool {
         
         guard let license = self.license() else {
             return false

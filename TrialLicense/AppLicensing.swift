@@ -28,7 +28,7 @@ public class AppLicensing {
     }
 
     public static var isLicenseInvalid: Bool? {
-        return sharedInstance?.licenseInformationProvider.licenseIsInvalid
+        return sharedInstance?.licenseInformationProvider.isLicenseInvalid
     }
 
     public static var registerApplication: HandlesRegistering? {

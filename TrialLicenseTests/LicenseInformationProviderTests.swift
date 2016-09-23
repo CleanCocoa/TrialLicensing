@@ -31,7 +31,7 @@ class LicenseInformationProviderTests: XCTestCase {
 
     func testLicenceInvalidity_NoLicense_ReturnsFalse() {
         
-        XCTAssertFalse(licenseInfoProvider.licenseIsInvalid)
+        XCTAssertFalse(licenseInfoProvider.isLicenseInvalid)
     }
     
     func testLicenceInvalidity_ValidLicense_ReturnsFalse() {
@@ -39,7 +39,7 @@ class LicenseInformationProviderTests: XCTestCase {
         verifierDouble.testValidity = true
         licenseProviderDouble.testLicense = irrelevantLicense
         
-        XCTAssertFalse(licenseInfoProvider.licenseIsInvalid)
+        XCTAssertFalse(licenseInfoProvider.isLicenseInvalid)
     }
     
     func testLicenceInvalidity_InvalidLicense_ReturnsFalse() {
@@ -47,7 +47,7 @@ class LicenseInformationProviderTests: XCTestCase {
         verifierDouble.testValidity = false
         licenseProviderDouble.testLicense = irrelevantLicense
         
-        XCTAssert(licenseInfoProvider.licenseIsInvalid)
+        XCTAssert(licenseInfoProvider.isLicenseInvalid)
     }
     
     func testCurrentInfo_NoLicense_NoTrialPeriod_ReturnsTrialUp() {
