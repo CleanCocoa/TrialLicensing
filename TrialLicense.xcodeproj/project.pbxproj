@@ -42,6 +42,7 @@
 		501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
 		501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABA1D950E8900D8D68C /* LicenseInformation.swift */; };
+		501FAAC01D950FB300D8D68C /* CancelableTimedBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaFob.xcodeproj; path = Extern/cocoafob/swift3/CocoaFob.xcodeproj; sourceTree = "<group>"; };
 		501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseConfiguration.swift; sourceTree = "<group>"; };
 		501FAABA1D950E8900D8D68C /* LicenseInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformation.swift; sourceTree = "<group>"; };
+		501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableTimedBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,14 +242,10 @@
 		501FAA2B1D94235900D8D68C /* Trial */ = {
 			isa = PBXGroup;
 			children = (
+				501FAAC11D95100300D8D68C /* Trial Model */,
+				501FAAC21D95101000D8D68C /* Services */,
+				501FAAC31D95101E00D8D68C /* Infrastructure */,
 				501FAA2C1D94235900D8D68C /* Trial.h */,
-				501FAA471D9423A000D8D68C /* Clock.swift */,
-				501FAA481D9423A000D8D68C /* Days.swift */,
-				501FAA491D9423A000D8D68C /* Trial.swift */,
-				501FAA4A1D9423A000D8D68C /* TrialPeriod.swift */,
-				501FAA4B1D9423A000D8D68C /* TrialProvider.swift */,
-				501FAA4C1D9423A000D8D68C /* TrialTimer.swift */,
-				501FAA4D1D9423A000D8D68C /* TrialWriter.swift */,
 				501FAA2D1D94235900D8D68C /* Info.plist */,
 			);
 			path = Trial;
@@ -310,6 +308,35 @@
 				501FAA6C1D94255500D8D68C /* LicenseChangeBroadcaster.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		501FAAC11D95100300D8D68C /* Trial Model */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA471D9423A000D8D68C /* Clock.swift */,
+				501FAA481D9423A000D8D68C /* Days.swift */,
+				501FAA491D9423A000D8D68C /* Trial.swift */,
+				501FAA4A1D9423A000D8D68C /* TrialPeriod.swift */,
+			);
+			name = "Trial Model";
+			sourceTree = "<group>";
+		};
+		501FAAC21D95101000D8D68C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA4B1D9423A000D8D68C /* TrialProvider.swift */,
+				501FAA4C1D9423A000D8D68C /* TrialTimer.swift */,
+				501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		501FAAC31D95101E00D8D68C /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA4D1D9423A000D8D68C /* TrialWriter.swift */,
+			);
+			name = Infrastructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -556,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501FAAC01D950FB300D8D68C /* CancelableTimedBlock.swift in Sources */,
 				501FAA531D9423A000D8D68C /* TrialTimer.swift in Sources */,
 				501FAA4F1D9423A000D8D68C /* Days.swift in Sources */,
 				501FAA501D9423A000D8D68C /* Trial.swift in Sources */,

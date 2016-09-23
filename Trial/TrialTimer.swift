@@ -4,43 +4,6 @@
 
 import Foundation
 
-typealias CancelableDispatchBlock = (_ cancel: Bool) -> Void
-
-func dispatch(cancelableBlock block: @escaping () -> Void, atDate date: Date) -> CancelableDispatchBlock? {
-    
-    // Use two pointers for the same block handle to make
-    // the block reference itself.
-    var cancelableBlock: CancelableDispatchBlock? = nil
-    
-    let delayBlock: CancelableDispatchBlock = { cancel in
-        
-        if !cancel {
-            DispatchQueue.main.async(execute: block)
-        }
-        
-        cancelableBlock = nil
-    }
-    
-    cancelableBlock = delayBlock
-    
-    let delay = Int(date.timeIntervalSinceNow)
-    DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now() + .seconds(delay)) {
-        
-        guard case let .some(cancelableBlock) = cancelableBlock else { return }
-
-        cancelableBlock(false)
-    }
-    
-    return cancelableBlock
-}
-
-func cancelBlock(_ block: CancelableDispatchBlock?) {
-    
-    guard case let .some(block) = block else { return }
-
-    block(true)
-}
-
 public class TrialTimer {
     
     let trialEndDate: Date
@@ -62,7 +25,7 @@ public class TrialTimer {
     public func start() {
         
         guard !isRunning else {
-            NSLog("invalid re-starting of a running timer")
+            assertionFailure("invalid re-starting of a running timer")
             return
         }
         
@@ -70,7 +33,7 @@ public class TrialTimer {
             fatalError("Cannot create a cancellable timer.")
         }
         
-        NSLog("Starting trial timer for: \(trialEndDate)")
+//        NSLog("Starting trial timer for: \(trialEndDate)")
         self.delayedBlock = delayedBlock
     }
     
@@ -82,7 +45,7 @@ public class TrialTimer {
     public func stop() {
         
         guard isRunning else {
-            NSLog("attempting to stop non-running timer")
+            assertionFailure("attempting to stop non-running timer")
             return
         }
         
