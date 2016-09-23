@@ -27,6 +27,14 @@ public class AppLicensing {
         return sharedInstance?.currentLicenseInformation
     }
 
+    public static var isLicenseInvalid: Bool? {
+        return sharedInstance?.licenseInformationProvider.licenseIsInvalid
+    }
+
+    public static var registerApplication: HandlesRegistering? {
+        return sharedInstance?.register
+    }
+    
     /// Performs initial licensing setup:
     /// 
     /// 1. Sets up the `sharedInstance`,
