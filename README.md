@@ -22,9 +22,19 @@ Example:
             "-----END DSA PUBLIC KEY-----\n"
         ].join("")
     let configuration = LicenseConfiguration(appName: "AmazingApp!", publicKey: publicKey)
-    let licensing = AppLicensing(configuration: configuration)
     
     class MyApp: AppLicensingDelegate {
+        
+        init() {
+            
+            AppLicensing.setUp(
+                configuration: configuration,
+                initialTrialDuration: Days(30),
+                delegate: self,
+                
+                // Get notified about initial state to unlock the app immediately:
+                fireInitialState: true)
+        }
         
         func licenseDidChange(licenseInformation: LicenseInformation) {
             
@@ -56,7 +66,6 @@ Example:
     }
     
     let myApp = MyApp()
-    licensing.delegate = myApp
 
 ## Components
 
