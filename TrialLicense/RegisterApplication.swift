@@ -15,19 +15,20 @@ class RegisterApplication: HandlesRegistering {
 
     let licenseVerifier: LicenseVerifier
     let licenseWriter: LicenseWriter
-    let changeBroadcaster: LicenseChangeBroadcaster
+
+    let licenseChangeCallback: LicenseChangeCallback
 
     typealias InvalidLicenseCallback = (_ name: String, _ licenseCode: String) -> Void
     let invalidLicenseCallback: InvalidLicenseCallback
 
     init(licenseVerifier: LicenseVerifier,
          licenseWriter: LicenseWriter,
-         changeBroadcaster: LicenseChangeBroadcaster,
+         licenseChangeCallback: @escaping LicenseChangeCallback,
          invalidLicenseCallback: @escaping InvalidLicenseCallback) {
 
         self.licenseVerifier = licenseVerifier
         self.licenseWriter = licenseWriter
-        self.changeBroadcaster = changeBroadcaster
+        self.licenseChangeCallback = licenseChangeCallback
         self.invalidLicenseCallback = invalidLicenseCallback
     }
 
@@ -43,6 +44,6 @@ class RegisterApplication: HandlesRegistering {
         let licenseInformation = LicenseInformation.registered(license)
 
         licenseWriter.store(license: license)
-        changeBroadcaster.broadcast(licenseInformation)
+        licenseChangeCallback(licenseInformation)
     }
 }

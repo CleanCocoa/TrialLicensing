@@ -12,14 +12,18 @@ class RegisterApplicationTests: XCTestCase {
 
     let verifierDouble = TestVerifier()
     let writerDouble = TestWriter()
-    let broadcasterDouble = TestBroadcaster()
-    let invalidLicenseCallback = InvalidLicenseCallback()
+    let licenseChangeCallback = LicenseChangeCallbackDouble()
+    let invalidLicenseCallback = InvalidLicenseCallbackDouble()
 
     override func setUp() {
         
         super.setUp()
         
-        service = RegisterApplication(licenseVerifier: verifierDouble, licenseWriter: writerDouble, changeBroadcaster: broadcasterDouble, invalidLicenseCallback: invalidLicenseCallback.receive)
+        service = RegisterApplication(
+            licenseVerifier: verifierDouble,
+            licenseWriter: writerDouble,
+            licenseChangeCallback: licenseChangeCallback.receive,
+            invalidLicenseCallback: invalidLicenseCallback.receive)
     }
     
     let irrelevantName = "irrelevant"
@@ -32,7 +36,7 @@ class RegisterApplicationTests: XCTestCase {
         
         service.register(name: name, licenseCode: licenseCode)
         
-        XCTAssert(hasValue(verifierDouble.didCallIsValidWith))
+        XCTAssertNotNil(verifierDouble.didCallIsValidWith)
         if let values = verifierDouble.didCallIsValidWith {
             
             XCTAssertEqual(values.name, name)
@@ -46,7 +50,7 @@ class RegisterApplicationTests: XCTestCase {
         
         service.register(name: irrelevantName, licenseCode: irrelevantLicenseCode)
         
-        XCTAssertFalse(hasValue(writerDouble.didStoreWith))
+        XCTAssertNil(writerDouble.didStoreWith)
     }
     
     func testRegister_InvalidLicense_DoesntBroadcastChange() {
@@ -55,7 +59,22 @@ class RegisterApplicationTests: XCTestCase {
         
         service.register(name: irrelevantName, licenseCode: irrelevantLicenseCode)
         
-        XCTAssertFalse(hasValue(broadcasterDouble.didBroadcastWith))
+        XCTAssertNil(licenseChangeCallback.didReceiveWith)
+    }
+
+    func testRegister_InvalidLicense_TriggersInvalidLicenseCallback() {
+
+        let name = "the name"
+        let licenseCode = "the code"
+        verifierDouble.testValidity = false
+
+        service.register(name: name, licenseCode: licenseCode)
+
+        XCTAssertNotNil(invalidLicenseCallback.didReceiveWith)
+        if let values = invalidLicenseCallback.didReceiveWith {
+            XCTAssertEqual(values.name, name)
+            XCTAssertEqual(values.licenseCode, licenseCode)
+        }
     }
     
     func testRegister_ValidLicense_DelegatesToStore() {
@@ -66,7 +85,7 @@ class RegisterApplicationTests: XCTestCase {
         
         service.register(name: name, licenseCode: licenseCode)
         
-        XCTAssert(hasValue(writerDouble.didStoreWith))
+        XCTAssertNotNil(writerDouble.didStoreWith)
         if let values = writerDouble.didStoreWith {
             
             XCTAssertEqual(values.name, name)
@@ -82,8 +101,8 @@ class RegisterApplicationTests: XCTestCase {
         
         service.register(name: name, licenseCode: licenseCode)
         
-        XCTAssert(hasValue(broadcasterDouble.didBroadcastWith))
-        if let licenseInfo = broadcasterDouble.didBroadcastWith {
+        XCTAssertNotNil(licenseChangeCallback.didReceiveWith)
+        if let licenseInfo = licenseChangeCallback.didReceiveWith {
             
             switch licenseInfo {
             case let .registered(license):
@@ -122,21 +141,16 @@ class RegisterApplicationTests: XCTestCase {
         }
     }
     
-    class TestBroadcaster: LicenseChangeBroadcaster {
+    class LicenseChangeCallbackDouble {
         
-        convenience init() {
+        var didReceiveWith: LicenseInformation?
+        func receive(licenseInformation: LicenseInformation) {
             
-            self.init(notificationCenter: NullNotificationCenter())
-        }
-        
-        var didBroadcastWith: LicenseInformation?
-        override func broadcast(_ licenseInformation: LicenseInformation) {
-            
-            didBroadcastWith = licenseInformation
+            didReceiveWith = licenseInformation
         }
     }
 
-    class InvalidLicenseCallback {
+    class InvalidLicenseCallbackDouble {
 
         var didReceiveWith: (name: String, licenseCode: String)?
         func receive(name: String, licenseCode: String) {

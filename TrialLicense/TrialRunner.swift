@@ -7,12 +7,12 @@ import Trial
 
 class TrialRunner {
 
-    let licenseChangeBroadcaster: LicenseChangeBroadcaster
+    let licenseChangeCallback: LicenseChangeCallback
     let trialProvider: TrialProvider
 
-    init(licenseChangeBroadcaster: LicenseChangeBroadcaster, trialProvider: TrialProvider) {
+    init(trialProvider: TrialProvider, licenseChangeCallback: @escaping LicenseChangeCallback) {
 
-        self.licenseChangeBroadcaster = licenseChangeBroadcaster
+        self.licenseChangeCallback = licenseChangeCallback
         self.trialProvider = trialProvider
     }
 
@@ -26,7 +26,7 @@ class TrialRunner {
             else { return }
 
         let trialTimer = TrialTimer(trialPeriod: trialPeriod) { [weak self] in
-            self?.licenseChangeBroadcaster.broadcast(.trialUp)
+            self?.licenseChangeCallback(.trialUp)
         }
         trialTimer.start()
         self.trialTimer = trialTimer
