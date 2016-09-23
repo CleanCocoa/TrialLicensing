@@ -35,13 +35,11 @@
 		501FAA801D94257A00D8D68C /* LicenseProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7A1D94257A00D8D68C /* LicenseProviderTests.swift */; };
 		501FAA811D94257A00D8D68C /* LicenseVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */; };
 		501FAA821D94257A00D8D68C /* LicenseWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7C1D94257A00D8D68C /* LicenseWriterTests.swift */; };
-		501FAA881D9425B700D8D68C /* CFUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA831D9425B700D8D68C /* CFUtil.swift */; };
-		501FAA891D9425B700D8D68C /* CocoaFobError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA841D9425B700D8D68C /* CocoaFobError.swift */; };
-		501FAA8A1D9425B700D8D68C /* CocoaFobLicVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA851D9425B700D8D68C /* CocoaFobLicVerifier.swift */; };
-		501FAA8B1D9425B700D8D68C /* CocoaFobStringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA861D9425B700D8D68C /* CocoaFobStringExt.swift */; };
 		501FAA8D1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAA8E1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAA941D9427FD00D8D68C /* NullNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA931D9427FD00D8D68C /* NullNotificationCenter.swift */; };
+		501FAAB11D95017600D8D68C /* CocoaFob.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; };
+		501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +64,49 @@
 			remoteGlobalIDString = 501FAA291D94235900D8D68C;
 			remoteInfo = Trial;
 		};
+		501FAAAB1D95016700D8D68C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C739DCC21B48DFA00074D8F2;
+			remoteInfo = CocoaFob;
+		};
+		501FAAAD1D95016700D8D68C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C739DCCC1B48DFA10074D8F2;
+			remoteInfo = CocoaFobTests;
+		};
+		501FAAAF1D95016700D8D68C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C77D71271B5496F00019F670;
+			remoteInfo = "cocoafob-keygen";
+		};
+		501FAAB41D9501A000D8D68C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C739DCC11B48DFA00074D8F2;
+			remoteInfo = CocoaFob;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		501FAAB21D95017E00D8D68C /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		501FAA021D94232C00D8D68C /* TrialLicense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrialLicense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,12 +142,9 @@
 		501FAA7A1D94257A00D8D68C /* LicenseProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseProviderTests.swift; sourceTree = "<group>"; };
 		501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseVerifierTests.swift; sourceTree = "<group>"; };
 		501FAA7C1D94257A00D8D68C /* LicenseWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseWriterTests.swift; sourceTree = "<group>"; };
-		501FAA831D9425B700D8D68C /* CFUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFUtil.swift; sourceTree = "<group>"; };
-		501FAA841D9425B700D8D68C /* CocoaFobError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaFobError.swift; sourceTree = "<group>"; };
-		501FAA851D9425B700D8D68C /* CocoaFobLicVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaFobLicVerifier.swift; sourceTree = "<group>"; };
-		501FAA861D9425B700D8D68C /* CocoaFobStringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaFobStringExt.swift; sourceTree = "<group>"; };
 		501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserDefaults.swift; sourceTree = "<group>"; };
 		501FAA931D9427FD00D8D68C /* NullNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullNotificationCenter.swift; sourceTree = "<group>"; };
+		501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaFob.xcodeproj; path = Extern/cocoafob/swift3/CocoaFob.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501FAAB11D95017600D8D68C /* CocoaFob.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,8 +190,8 @@
 				501FAA0F1D94232D00D8D68C /* TrialLicenseTests */,
 				501FAA2B1D94235900D8D68C /* Trial */,
 				501FAA361D94235900D8D68C /* TrialTests */,
-				501FAA871D9425B700D8D68C /* CocoaFob */,
 				501FAA031D94232C00D8D68C /* Products */,
+				501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,17 +272,15 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		501FAA871D9425B700D8D68C /* CocoaFob */ = {
+		501FAAA61D95016700D8D68C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				501FAA831D9425B700D8D68C /* CFUtil.swift */,
-				501FAA841D9425B700D8D68C /* CocoaFobError.swift */,
-				501FAA851D9425B700D8D68C /* CocoaFobLicVerifier.swift */,
-				501FAA861D9425B700D8D68C /* CocoaFobStringExt.swift */,
+				501FAAAC1D95016700D8D68C /* CocoaFob.framework */,
+				501FAAAE1D95016700D8D68C /* CocoaFobTests.xctest */,
+				501FAAB01D95016700D8D68C /* cocoafob-keygen */,
 			);
-			name = CocoaFob;
-			path = "/Users/ctm/Coding/mac-fastspring-book/Trial-Expire-While-Running/../External/cocoafob/swift3/CocoaFob";
-			sourceTree = "<absolute>";
+			name = Products;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -276,10 +312,12 @@
 				501FA9FE1D94232C00D8D68C /* Frameworks */,
 				501FA9FF1D94232C00D8D68C /* Headers */,
 				501FAA001D94232C00D8D68C /* Resources */,
+				501FAAB21D95017E00D8D68C /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				501FAAB51D9501A000D8D68C /* PBXTargetDependency */,
 				501FAAA11D94FC8500D8D68C /* PBXTargetDependency */,
 			);
 			name = TrialLicense;
@@ -381,6 +419,12 @@
 			mainGroup = 501FA9F81D94232C00D8D68C;
 			productRefGroup = 501FAA031D94232C00D8D68C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 501FAAA61D95016700D8D68C /* Products */;
+					ProjectRef = 501FAAA51D95016700D8D68C /* CocoaFob.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				501FAA011D94232C00D8D68C /* TrialLicense */,
@@ -390,6 +434,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		501FAAAC1D95016700D8D68C /* CocoaFob.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaFob.framework;
+			remoteRef = 501FAAAB1D95016700D8D68C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		501FAAAE1D95016700D8D68C /* CocoaFobTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CocoaFobTests.xctest;
+			remoteRef = 501FAAAD1D95016700D8D68C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		501FAAB01D95016700D8D68C /* cocoafob-keygen */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "cocoafob-keygen";
+			remoteRef = 501FAAAF1D95016700D8D68C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		501FAA001D94232C00D8D68C /* Resources */ = {
@@ -429,15 +497,11 @@
 			files = (
 				501FAA741D94255500D8D68C /* LicenseProvider.swift in Sources */,
 				501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */,
-				501FAA8A1D9425B700D8D68C /* CocoaFobLicVerifier.swift in Sources */,
 				501FAA651D9424AE00D8D68C /* Optional.swift in Sources */,
 				501FAA721D94255500D8D68C /* LicenseChangeBroadcaster.swift in Sources */,
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
-				501FAA891D9425B700D8D68C /* CocoaFobError.swift in Sources */,
 				501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */,
-				501FAA881D9425B700D8D68C /* CFUtil.swift in Sources */,
 				501FAA711D94255500D8D68C /* License.swift in Sources */,
-				501FAA8B1D9425B700D8D68C /* CocoaFobStringExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +564,11 @@
 			target = 501FAA291D94235900D8D68C /* Trial */;
 			targetProxy = 501FAAA01D94FC8500D8D68C /* PBXContainerItemProxy */;
 		};
+		501FAAB51D9501A000D8D68C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaFob;
+			targetProxy = 501FAAB41D9501A000D8D68C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -544,7 +613,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -590,7 +659,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -756,6 +825,7 @@
 				501FAA181D94232D00D8D68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		501FAA191D94232D00D8D68C /* Build configuration list for PBXNativeTarget "TrialLicenseTests" */ = {
 			isa = XCConfigurationList;
@@ -764,6 +834,7 @@
 				501FAA1B1D94232D00D8D68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		501FAA3B1D94235900D8D68C /* Build configuration list for PBXNativeTarget "Trial" */ = {
 			isa = XCConfigurationList;
@@ -772,6 +843,7 @@
 				501FAA3D1D94235900D8D68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		501FAA3E1D94235900D8D68C /* Build configuration list for PBXNativeTarget "TrialTests" */ = {
 			isa = XCConfigurationList;
@@ -780,6 +852,7 @@
 				501FAA401D94235900D8D68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
