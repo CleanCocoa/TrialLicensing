@@ -5,12 +5,6 @@
 import Foundation
 import Trial
 
-public protocol AppLicensingDelegate: class {
-
-    func licenseDidChange(licenseInformation: LicenseInformation)
-    func didEnterInvalidLicenseCode(name: String, licenseCode: String)
-}
-
 typealias LicenseChangeCallback = (_ licenseInformation:LicenseInformation) -> Void
 
 /// Central licensing configuration object.
@@ -34,23 +28,25 @@ public class AppLicensing {
     public static var registerApplication: HandlesRegistering? {
         return sharedInstance?.register
     }
-    
+
     /// Performs initial licensing setup:
-    /// 
+    ///
     /// 1. Sets up the `sharedInstance`,
     /// 2. starts the trial timer,
     /// 3. optionally reports back the current `LicenseInformation`.
     ///
-    /// - parameter configuration: Settings used to verify licenses for 
+    /// - parameter configuration: Settings used to verify licenses for
     ///   this app.
     /// - parameter initialTrialDuration: Number of `Days` the time-based
     ///   trial should run beginning at the first invocation. (Consecutive
     ///   initialization calls will not alter the expiration date.)
-    /// - parameter delegate: Receiver of license state changes.
-    /// - parameter clock: Testing seam so you can see what happens if the 
+    /// - parameter licenseChangeBlock: Invoked on license state changes.
+    /// - parameter invalidLicenseInformationBlock: Invoked when license details
+    ///   used to register are invalid.
+    /// - parameter clock: Testing seam so you can see what happens if the
     ///   trial is up with manual or integration tests.
-    /// - parameter fireInitialState: Pass `true` to have the end of the 
-    ///   setup routine immediately call `delegate.licenseDidChange`.
+    /// - parameter fireInitialState: Pass `true` to have the end of the
+    ///   setup routine immediately call `licenseChangeBlock`.
     ///
     ///   Default is `false`.
     ///
@@ -58,7 +54,8 @@ public class AppLicensing {
     public static func startUp(
         configuration: LicenseConfiguration,
         initialTrialDuration: Days,
-        delegate: AppLicensingDelegate,
+        licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
+        invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
         clock: KnowsTimeAndDate = Clock(),
         fireInitialState: Bool = false) {
 
@@ -67,7 +64,12 @@ public class AppLicensing {
 
         AppLicensing.sharedInstance = {
 
-            let appLicensing = AppLicensing(configuration: configuration, initialTrialDuration: initialTrialDuration, delegate: delegate, clock: clock)
+            let appLicensing = AppLicensing(
+                configuration: configuration,
+                initialTrialDuration: initialTrialDuration,
+                licenseChangeBlock: licenseChangeBlock,
+                invalidLicenseInformationBlock: invalidLicenseInformationBlock,
+                clock: clock)
 
             appLicensing.setupTrial(initialTrialDuration: initialTrialDuration)
             appLicensing.configureTrialRunner()
@@ -171,15 +173,19 @@ public class AppLicensing {
     fileprivate(set) var register: RegisterApplication!
     fileprivate(set) var trialRunner: TrialRunner!
 
-    public weak fileprivate(set) var delegate: AppLicensingDelegate?
+    fileprivate(set) var licenseChangeBlock: (LicenseInformation) -> Void
+    fileprivate(set) var invalidLicenseInformationBlock: (String, String) -> Void
 
     init(
         configuration: LicenseConfiguration,
         initialTrialDuration: Days,
-        delegate: AppLicensingDelegate? = nil,
+        licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
+        invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
         clock: KnowsTimeAndDate = Clock()) {
 
         self.clock = clock
+        self.licenseChangeBlock = licenseChangeBlock
+        self.invalidLicenseInformationBlock = invalidLicenseInformationBlock
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
         let licenseProvider = LicenseProvider()
@@ -208,8 +214,6 @@ public class AppLicensing {
             invalidLicenseCallback: { [weak self] in
                 self?.didEnterInvalidLicense(name: $0, licenseCode: $1)
             })
-
-        self.delegate = delegate
     }
 
     public var currentLicenseInformation: LicenseInformation {
@@ -230,7 +234,7 @@ public class AppLicensing {
 
         DispatchQueue.main.async {
 
-            self.delegate?.licenseDidChange(licenseInformation: licenseInformation)
+            self.licenseChangeBlock(licenseInformation)
         }
     }
 
@@ -238,7 +242,7 @@ public class AppLicensing {
 
         DispatchQueue.main.async {
             
-            self.delegate?.didEnterInvalidLicenseCode(name: name, licenseCode: licenseCode)
+            self.invalidLicenseInformationBlock(name, licenseCode)
         }
     }
 }
