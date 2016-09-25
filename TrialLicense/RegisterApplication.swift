@@ -59,11 +59,16 @@ class RegisterApplication: HandlesRegistering {
 
         let currentLicenseInformation = licenseInformationProvider.currentLicenseInformation
 
-        guard case .onTrial = currentLicenseInformation,
-            let trialPeriod = trialProvider.currentTrialPeriod
-            else { return }
-
         licenseWriter.removeLicense()
+
+        // Pass through when there was no registration info.
+        guard case .registered = currentLicenseInformation else { return }
+
+        guard let trialPeriod = trialProvider.currentTrialPeriod else {
+            licenseChangeCallback(.trialUp)
+            return
+        }
+
         licenseChangeCallback(.onTrial(trialPeriod))
     }
 }
