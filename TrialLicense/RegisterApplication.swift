@@ -3,18 +3,22 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
+import Trial
 
 /// Implemented by `RegisterApplication`; use this for delegates
 /// or view controller callbacks.
 public protocol HandlesRegistering: class {
 
     func register(name: String, licenseCode: String)
+    func unregister()
 }
 
 class RegisterApplication: HandlesRegistering {
 
     let licenseVerifier: LicenseVerifier
     let licenseWriter: LicenseWriter
+    let licenseInformationProvider: LicenseInformationProvider
+    let trialProvider: TrialProvider
 
     let licenseChangeCallback: LicenseChangeCallback
 
@@ -23,11 +27,15 @@ class RegisterApplication: HandlesRegistering {
 
     init(licenseVerifier: LicenseVerifier,
          licenseWriter: LicenseWriter,
+         licenseInformationProvider: LicenseInformationProvider,
+         trialProvider: TrialProvider,
          licenseChangeCallback: @escaping LicenseChangeCallback,
          invalidLicenseCallback: @escaping InvalidLicenseCallback) {
 
         self.licenseVerifier = licenseVerifier
         self.licenseWriter = licenseWriter
+        self.licenseInformationProvider = licenseInformationProvider
+        self.trialProvider = trialProvider
         self.licenseChangeCallback = licenseChangeCallback
         self.invalidLicenseCallback = invalidLicenseCallback
     }
@@ -45,5 +53,17 @@ class RegisterApplication: HandlesRegistering {
 
         licenseWriter.store(license: license)
         licenseChangeCallback(licenseInformation)
+    }
+
+    func unregister() {
+
+        let currentLicenseInformation = licenseInformationProvider.currentLicenseInformation
+
+        guard case .onTrial = currentLicenseInformation,
+            let trialPeriod = trialProvider.currentTrialPeriod
+            else { return }
+
+        licenseWriter.removeLicense()
+        licenseChangeCallback(.onTrial(trialPeriod))
     }
 }

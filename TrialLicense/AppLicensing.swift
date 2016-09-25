@@ -164,6 +164,8 @@ public class AppLicensing {
         self.register = RegisterApplication(
             licenseVerifier: licenseVerifier,
             licenseWriter: licenseWriter,
+            licenseInformationProvider: licenseInformationProvider,
+            trialProvider: trialProvider,
             licenseChangeCallback: { [weak self] in
                 self?.licenseDidChange(licenseInformation: $0)
             },
