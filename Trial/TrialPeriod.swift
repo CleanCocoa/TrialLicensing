@@ -29,7 +29,12 @@ extension TrialPeriod {
         let now = clock.now()
         return endDate < now
     }
-    
+
+    public func userFacingDaysLeft(clock: KnowsTimeAndDate = Clock()) -> Int {
+
+        return daysLeft(clock: clock).userFacingAmount
+    }
+
     public func daysLeft(clock: KnowsTimeAndDate = Clock()) -> Days {
         
         let now = clock.now()
