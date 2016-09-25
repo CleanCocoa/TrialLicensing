@@ -106,6 +106,7 @@ public class AppLicensing {
     }
 
     fileprivate func configureTrialRunner() {
+        // TODO: change `configureTrialRunner` and `TrialRunner.startTrialTimer` to accept `TrialPeriod` parameter.
 
         guard shouldStartTrialRunner else { return }
 
@@ -126,6 +127,41 @@ public class AppLicensing {
         self.trialRunner.stopTrialTimer()
     }
 
+
+    // MARK: App license cycle convenience methods
+
+    /// Shortcut to use the registration handler to
+    /// try to validate a license and change the state
+    /// of the app; will fire a change event if things go well.
+    ///
+    /// See the callbacks or `AppLicensingDelegate` methods.
+    ///
+    /// - important: Set up licensing with `setUp` first or the app will crash here.
+    /// - parameter name: Licensee name; surrounding whitespace will be removed.
+    /// - parameter licenseCode: Licence code; surrounding whitespace will be removed.
+    public static func register(name: String, licenseCode: String) {
+
+        guard let registerApplication = registerApplication
+            else { preconditionFailure("Call setUp first") }
+
+        registerApplication.register(name: name, licenseCode: licenseCode)
+    }
+
+    /// Unregisters from whatever state the app is in;
+    /// only makes sense to call this when the app is `.registered`
+    /// or the state won't change and no event will
+    /// be fired.
+    ///
+    /// See the callbacks or `AppLicensingDelegate` methods.
+    ///
+    /// - important: Set up licensing with  `setUp` first or the app will crash here.
+    public static func unregister() {
+
+        guard let registerApplication = registerApplication
+            else { preconditionFailure("Call setUp first") }
+
+        registerApplication.unregister()
+    }
 
     // MARK: -
 
