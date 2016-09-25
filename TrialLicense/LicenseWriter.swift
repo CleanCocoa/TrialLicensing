@@ -17,7 +17,13 @@ class LicenseWriter {
 
     func store(licenseCode: String, forName name: String) {
         
-        userDefaults.setValue(name, forKey: "\(License.UserDefaultsKeys.name)")
-        userDefaults.setValue(licenseCode, forKey: "\(License.UserDefaultsKeys.licenseCode)")
+        userDefaults.setValue(name, forKey: License.UserDefaultsKeys.name)
+        userDefaults.setValue(licenseCode, forKey: License.UserDefaultsKeys.licenseCode)
+    }
+
+    func removeLicense() {
+
+        userDefaults.removeObject(forKey: License.UserDefaultsKeys.name)
+        userDefaults.removeObject(forKey: License.UserDefaultsKeys.licenseCode)
     }
 }
