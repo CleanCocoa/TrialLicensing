@@ -149,6 +149,31 @@ public class AppLicensing {
         registerApplication.register(name: name, licenseCode: licenseCode)
     }
 
+    /// Registers a license owner from an incoming URL Scheme query.
+    ///
+    /// The parser expects requests of the format:
+    ///
+    ///     ://activate?name=ENC_NAME&licenseCode=CODE
+    ///
+    /// Where `ENC_NAME` is a base64-encoded version of the 
+    /// licensee name and `CODE` is the regularly encoded
+    /// license code.
+    ///
+    /// You can create a supported URL from the incoming event like this:
+    ///
+    /// ```
+    /// if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
+    ///     let url = URL(string: urlString) {
+    ///     AppLicensing.register(fromURL: url)
+    /// }
+    /// ```
+    ///
+    /// - parameter url: Complete query URL.
+    public static func register(fromUrl url: URL) {
+
+        URLQueryRegistration().register(fromUrl: url)
+    }
+
     /// Unregisters from whatever state the app is in;
     /// only makes sense to call this when the app is `.registered`
     /// or the state won't change and no event will

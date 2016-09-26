@@ -44,6 +44,11 @@
 		501FAAC71D9512CF00D8D68C /* RegisterApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAC61D9512CF00D8D68C /* RegisterApplication.swift */; };
 		501FAAC91D95134900D8D68C /* RegisterApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */; };
 		501FAACB1D9519B600D8D68C /* AppLicensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAACA1D9519B600D8D68C /* AppLicensing.swift */; };
+		507FDBD81D990F8A00FE07E7 /* URLQueryRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */; };
+		507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */; };
+		507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD71D990F8A00FE07E7 /* URLComponents.swift */; };
+		507FDBDF1D99115300FE07E7 /* SequenceType+MapDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBDE1D99115300FE07E7 /* SequenceType+MapDictionary.swift */; };
+		507FDBE11D99119300FE07E7 /* CollectionType+SafeSubscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBE01D99119300FE07E7 /* CollectionType+SafeSubscript.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +159,11 @@
 		501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApplicationTests.swift; sourceTree = "<group>"; };
 		501FAACA1D9519B600D8D68C /* AppLicensing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLicensing.swift; sourceTree = "<group>"; };
 		501FAACE1D95258500D8D68C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryRegistration.swift; sourceTree = "<group>"; };
+		507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryLicenseParser.swift; sourceTree = "<group>"; };
+		507FDBD71D990F8A00FE07E7 /* URLComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLComponents.swift; sourceTree = "<group>"; };
+		507FDBDE1D99115300FE07E7 /* SequenceType+MapDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+MapDictionary.swift"; sourceTree = "<group>"; };
+		507FDBE01D99119300FE07E7 /* CollectionType+SafeSubscript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+SafeSubscript.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,10 +230,13 @@
 			isa = PBXGroup;
 			children = (
 				501FAACA1D9519B600D8D68C /* AppLicensing.swift */,
+				507FDBDD1D990F9000FE07E7 /* URL Scheme Activation */,
 				501FAABC1D950EAF00D8D68C /* License Model */,
 				501FAABE1D950EE900D8D68C /* Services */,
 				501FAABD1D950EB700D8D68C /* Infrastructure */,
 				501FAA051D94232C00D8D68C /* TrialLicense.h */,
+				507FDBDE1D99115300FE07E7 /* SequenceType+MapDictionary.swift */,
+				507FDBE01D99119300FE07E7 /* CollectionType+SafeSubscript.swift */,
 				501FAA061D94232C00D8D68C /* Info.plist */,
 			);
 			path = TrialLicense;
@@ -342,6 +355,16 @@
 				501FAA4D1D9423A000D8D68C /* TrialWriter.swift */,
 			);
 			name = Infrastructure;
+			sourceTree = "<group>";
+		};
+		507FDBDD1D990F9000FE07E7 /* URL Scheme Activation */ = {
+			isa = PBXGroup;
+			children = (
+				507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */,
+				507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */,
+				507FDBD71D990F8A00FE07E7 /* URLComponents.swift */,
+			);
+			name = "URL Scheme Activation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -561,11 +584,16 @@
 				501FAA741D94255500D8D68C /* LicenseProvider.swift in Sources */,
 				501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */,
 				501FAA651D9424AE00D8D68C /* Optional.swift in Sources */,
+				507FDBE11D99119300FE07E7 /* CollectionType+SafeSubscript.swift in Sources */,
 				501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */,
 				501FAACB1D9519B600D8D68C /* AppLicensing.swift in Sources */,
+				507FDBDF1D99115300FE07E7 /* SequenceType+MapDictionary.swift in Sources */,
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
+				507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */,
+				507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */,
 				501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */,
 				501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */,
+				507FDBD81D990F8A00FE07E7 /* URLQueryRegistration.swift in Sources */,
 				501FAA711D94255500D8D68C /* License.swift in Sources */,
 				501FAAC71D9512CF00D8D68C /* RegisterApplication.swift in Sources */,
 			);
