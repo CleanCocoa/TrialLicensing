@@ -7,18 +7,36 @@ import Foundation
 public class URLQueryLicenseParser {
     
     public init() { }
-    
+
+    @available(macOS, introduced: 10.10)
+    public func parse(queryItems: [Foundation.URLQueryItem]) -> License? {
+
+        let nameQueryItem: URLQueryItem? = queryItems
+            .filter { $0.name == TrialLicense.URLComponents.licensee }
+            .first
+
+        let licenseCodeQueryItem: URLQueryItem? = queryItems
+            .filter { $0.name == TrialLicense.URLComponents.licenseCode }
+            .first
+
+        guard let encodedName = nameQueryItem?.value,
+            let name = decode(string: encodedName),
+            let licenseCode = licenseCodeQueryItem?.value
+            else { return .none }
+
+        return License(name: name, licenseCode: licenseCode)
+    }
+
+    @available(macOS, deprecated: 10.10, message: "use parse(queryItems:) instead")
     public func parse(query: String) -> License? {
         
         let queryDictionary = dictionary(fromQuery: query)
         
-        if let name = decode(string: queryDictionary[URLComponents.licensee]),
-            let licenseCode = queryDictionary[URLComponents.licenseCode] {
+        guard let name = decode(string: queryDictionary[URLComponents.licensee]),
+            let licenseCode = queryDictionary[URLComponents.licenseCode]
+            else { return .none }
                 
-            return License(name: name, licenseCode: licenseCode)
-        }
-        
-        return .none
+        return License(name: name, licenseCode: licenseCode)
     }
     
     func dictionary(fromQuery query: String) -> [String : String] {
@@ -66,10 +84,10 @@ public class URLQueryLicenseParser {
     fileprivate func decode(string: String?) -> String? {
         
         guard let string = string,
-            let decodedData = NSData(base64Encoded: string, options: [])
+            let decodedData = Data(base64Encoded: string)
             else { return nil }
             
-        return NSString(data: decodedData as Data, encoding: String.Encoding.utf8.rawValue) as? String
+        return String(data: decodedData, encoding: .utf8)
     }
     
 }

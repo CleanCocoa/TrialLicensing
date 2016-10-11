@@ -155,7 +155,7 @@ public class AppLicensing {
     ///
     ///     ://activate?name=ENC_NAME&licenseCode=CODE
     ///
-    /// Where `ENC_NAME` is a base64-encoded version of the 
+    /// Where `ENC_NAME` is a base64-encoded version of the
     /// licensee name and `CODE` is the regularly encoded
     /// license code.
     ///
@@ -169,6 +169,13 @@ public class AppLicensing {
     /// ```
     ///
     /// - parameter url: Complete query URL.
+    @available(macOS, introduced: 10.10)
+    public static func register(urlComponents: Foundation.URLComponents) {
+
+        URLQueryRegistration().register(urlComponents: urlComponents)
+    }
+
+    @available(macOS, deprecated: 10.10, message: "use register(urlComponents:) instead")
     public static func register(fromUrl url: URL) {
 
         URLQueryRegistration().register(fromUrl: url)
