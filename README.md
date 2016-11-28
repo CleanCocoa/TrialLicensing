@@ -8,6 +8,8 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 ## Usage 
 
+* Include the `Trial` and `TrialLicense` library in your project.
+* Include the [CocoaFob (Swift 3)](https://github.com/glebd/cocoafob/tree/master/swift3) library in your project, too. (You have to link this in the app because a library cannot embed another library.)
 * Create an `AppLicensing` instance.
 * Conform to `AppLicensingDelegate` in your project to receive license change notifications.
 * Set up and start the trial.
