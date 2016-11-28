@@ -36,7 +36,6 @@
 		501FAA8D1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAA8E1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAAB11D95017600D8D68C /* CocoaFob.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; };
-		501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAAAC1D95016700D8D68C /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
 		501FAABB1D950E8900D8D68C /* LicenseInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABA1D950E8900D8D68C /* LicenseInformation.swift */; };
 		501FAAC01D950FB300D8D68C /* CancelableTimedBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAABF1D950FB300D8D68C /* CancelableTimedBlock.swift */; };
@@ -102,20 +101,6 @@
 			remoteInfo = CocoaFob;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		501FAAB21D95017E00D8D68C /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				501FAAB31D95018900D8D68C /* CocoaFob.framework in Copy Frameworks */,
-			);
-			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		501FAA021D94232C00D8D68C /* TrialLicense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrialLicense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -397,7 +382,6 @@
 				501FA9FE1D94232C00D8D68C /* Frameworks */,
 				501FA9FF1D94232C00D8D68C /* Headers */,
 				501FAA001D94232C00D8D68C /* Resources */,
-				501FAAB21D95017E00D8D68C /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -481,16 +465,16 @@
 					};
 					501FAA0A1D94232D00D8D68C = {
 						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					501FAA291D94235900D8D68C = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					501FAA311D94235900D8D68C = {
 						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -687,7 +671,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -739,7 +724,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -766,9 +752,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -788,9 +775,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -835,7 +823,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -857,7 +844,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
