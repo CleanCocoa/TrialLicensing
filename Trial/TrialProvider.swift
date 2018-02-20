@@ -23,7 +23,7 @@ open class TrialProvider {
         return .none
     }
     
-    public func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
+    open func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
         
         if let trialPeriod = currentTrialPeriod {
             

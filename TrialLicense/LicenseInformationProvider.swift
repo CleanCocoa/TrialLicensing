@@ -13,7 +13,7 @@ fileprivate extension License {
     }
 }
 
-public class LicenseInformationProvider {
+open class LicenseInformationProvider {
     
     let trialProvider: TrialProvider
     let licenseProvider: LicenseProvider
@@ -27,7 +27,7 @@ public class LicenseInformationProvider {
                   licenseVerifier: LicenseVerifier(configuration: configuration))
     }
 
-    init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
+    internal init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider
@@ -35,7 +35,7 @@ public class LicenseInformationProvider {
         self.clock = clock
     }
     
-    public var isLicenseInvalid: Bool {
+    open var isLicenseInvalid: Bool {
         
         guard let license = self.license() else {
             return false
@@ -44,7 +44,7 @@ public class LicenseInformationProvider {
         return !license.isValid(licenseVerifier: licenseVerifier)
     }
     
-    public var currentLicenseInformation: LicenseInformation {
+    open var currentLicenseInformation: LicenseInformation {
         
         if let license = self.license(),
             license.isValid(licenseVerifier: licenseVerifier) {
@@ -61,12 +61,12 @@ public class LicenseInformationProvider {
         return .trialUp
     }
     
-    func license() -> License? {
+    private func license() -> License? {
         
         return licenseProvider.currentLicense
     }
     
-    func trial() -> Trial? {
+    private func trial() -> Trial? {
         
         return trialProvider.currentTrial(clock: clock)
     }
