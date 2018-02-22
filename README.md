@@ -8,10 +8,9 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 ## Usage 
 
-* Include the `Trial` and `TrialLicense` library in your project.
-* Include the [CocoaFob (Swift 3)](https://github.com/glebd/cocoafob/tree/master/swift3) library in your project, too. (You have to link this in the app because a library cannot embed another library.)
-* Create an `AppLicensing` instance.
-* Conform to `AppLicensingDelegate` in your project to receive license change notifications.
+* Include the `Trial` and `TrialLicense` libraries in your project.
+* Include the [CocoaFob (Swift 4)](https://github.com/glebd/cocoafob/tree/master/swift4) library in your project, too. (You have to link this in the app because a library cannot embed another library.)
+* Create an `AppLicensing` instance with `licenseChangeBlock` and `invalidLicenseInformationBlock` handling change events.
 * Set up and start the trial.
 
 Example:
@@ -33,7 +32,10 @@ class MyApp: AppLicensingDelegate {
         AppLicensing.setUp(
             configuration: configuration,
             initialTrialDuration: Days(30),
-            delegate: self,
+            
+            // Set up the callbacks:
+            licenseChangeBlock: self.licenseDidChange(licenseInfo:),
+            invalidLicenseInformationBlock: self.didEnterInvalidLicenseCode(name:licenseCode:),
             
             // Get notified about initial state to unlock the app immediately:
             fireInitialState: true)
@@ -112,6 +114,4 @@ struct TrialPeriod {
 
 ## License
 
-Copyright (c) 2016 by [Christian Tietze](http://christiantietze.de/).
-
-The MIT License. See the LICENSE file for details.
+Copyright (c) 2016 by [Christian Tietze](http://christiantietze.de/). Distributed under the MIT License. See the LICENSE file for details.
