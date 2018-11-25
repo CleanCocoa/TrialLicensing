@@ -15,10 +15,16 @@ public struct License {
         self.licenseCode = licenseCode
     }
     
-    enum UserDefaultsKeys {
-        
-        static let name = "licensee"
-        static let licenseCode = "license_code"
+    public struct UserDefaultsKeys {
+        private init() { }
+
+        public static func change(nameKey: String, licenseCodeKey: String) {
+            UserDefaultsKeys.name = nameKey
+            UserDefaultsKeys.licenseCode = licenseCodeKey
+        }
+
+        public static var name = "licensee"
+        public static var licenseCode = "license_code"
     }
 }
 
