@@ -44,6 +44,9 @@
 		501FAACB1D9519B600D8D68C /* AppLicensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAACA1D9519B600D8D68C /* AppLicensing.swift */; };
 		5050CAC021AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5050CABF21AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift */; };
 		5050CAC221AEA20900528988 /* UserDefaultsTrialPeriodReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5050CAC121AEA20900528988 /* UserDefaultsTrialPeriodReader.swift */; };
+		5050CAC321AEB08B00528988 /* Trial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501FAA2A1D94235900D8D68C /* Trial.framework */; };
+		5050CAC421AEB09E00528988 /* CocoaFob.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DCA1C021AAC7B500F1BEAC /* CocoaFob.framework */; };
+		5050CAC621AEB0C200528988 /* CocoaFob.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50DCA1C021AAC7B500F1BEAC /* CocoaFob.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		507FDBD81D990F8A00FE07E7 /* URLQueryRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */; };
 		507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */; };
 		507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD71D990F8A00FE07E7 /* URLComponents.swift */; };
@@ -75,6 +78,19 @@
 			remoteInfo = Trial;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5050CAC521AEB0B700528988 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5050CAC621AEB0C200528988 /* CocoaFob.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		501FAA021D94232C00D8D68C /* TrialLicense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrialLicense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +156,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5050CAC321AEB08B00528988 /* Trial.framework in Frameworks */,
 				501FAA0C1D94232D00D8D68C /* TrialLicense.framework in Frameworks */,
+				5050CAC421AEB09E00528988 /* CocoaFob.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +394,7 @@
 				501FAA071D94232D00D8D68C /* Sources */,
 				501FAA081D94232D00D8D68C /* Frameworks */,
 				501FAA091D94232D00D8D68C /* Resources */,
+				5050CAC521AEB0B700528988 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -768,6 +787,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = TrialLicenseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicenseTests;
@@ -781,6 +804,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = TrialLicenseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicenseTests;
