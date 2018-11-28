@@ -46,10 +46,10 @@ extension TrialPeriod {
 
 extension TrialPeriod {
     
-    enum UserDefaultsKeys {
+    public enum UserDefaultsKeys {
         
-        static let startDate = "trial_starting"
-        static let endDate = "trial_ending"
+        public static let startDate = "trial_starting"
+        public static let endDate = "trial_ending"
     }
 }
 

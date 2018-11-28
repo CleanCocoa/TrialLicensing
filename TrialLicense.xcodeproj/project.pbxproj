@@ -42,6 +42,8 @@
 		501FAAC71D9512CF00D8D68C /* RegisterApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAC61D9512CF00D8D68C /* RegisterApplication.swift */; };
 		501FAAC91D95134900D8D68C /* RegisterApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */; };
 		501FAACB1D9519B600D8D68C /* AppLicensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAACA1D9519B600D8D68C /* AppLicensing.swift */; };
+		5050CAC021AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5050CABF21AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift */; };
+		5050CAC221AEA20900528988 /* UserDefaultsTrialPeriodReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5050CAC121AEA20900528988 /* UserDefaultsTrialPeriodReader.swift */; };
 		507FDBD81D990F8A00FE07E7 /* URLQueryRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */; };
 		507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */; };
 		507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507FDBD71D990F8A00FE07E7 /* URLComponents.swift */; };
@@ -115,6 +117,8 @@
 		501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApplicationTests.swift; sourceTree = "<group>"; };
 		501FAACA1D9519B600D8D68C /* AppLicensing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLicensing.swift; sourceTree = "<group>"; };
 		501FAACE1D95258500D8D68C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5050CABF21AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTrialPeriodReaderTests.swift; sourceTree = "<group>"; };
+		5050CAC121AEA20900528988 /* UserDefaultsTrialPeriodReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTrialPeriodReader.swift; sourceTree = "<group>"; };
 		507FDBD51D990F8A00FE07E7 /* URLQueryRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryRegistration.swift; sourceTree = "<group>"; };
 		507FDBD61D990F8A00FE07E7 /* URLQueryLicenseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryLicenseParser.swift; sourceTree = "<group>"; };
 		507FDBD71D990F8A00FE07E7 /* URLComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLComponents.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 			children = (
 				501FAA561D9423AA00D8D68C /* TrialPeriodTests.swift */,
 				501FAA571D9423AA00D8D68C /* TrialProviderTests.swift */,
+				5050CABF21AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift */,
 				501FAA591D9423AA00D8D68C /* TrialWriterTests.swift */,
 				501FAA391D94235900D8D68C /* Info.plist */,
 			);
@@ -300,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				501FAA4D1D9423A000D8D68C /* TrialWriter.swift */,
+				5050CAC121AEA20900528988 /* UserDefaultsTrialPeriodReader.swift */,
 			);
 			name = Infrastructure;
 			sourceTree = "<group>";
@@ -547,6 +553,7 @@
 				501FAA4F1D9423A000D8D68C /* Days.swift in Sources */,
 				501FAA501D9423A000D8D68C /* Trial.swift in Sources */,
 				501FAA4E1D9423A000D8D68C /* Clock.swift in Sources */,
+				5050CAC221AEA20900528988 /* UserDefaultsTrialPeriodReader.swift in Sources */,
 				501FAA521D9423A000D8D68C /* TrialProvider.swift in Sources */,
 				501FAA541D9423A000D8D68C /* TrialWriter.swift in Sources */,
 				501FAA511D9423A000D8D68C /* TrialPeriod.swift in Sources */,
@@ -560,6 +567,7 @@
 			files = (
 				501FAA5E1D9423AA00D8D68C /* TrialWriterTests.swift in Sources */,
 				501FAA5C1D9423AA00D8D68C /* TrialProviderTests.swift in Sources */,
+				5050CAC021AEA1E800528988 /* UserDefaultsTrialPeriodReaderTests.swift in Sources */,
 				501FAA5B1D9423AA00D8D68C /* TrialPeriodTests.swift in Sources */,
 				501FAA8E1D94267000D8D68C /* NullUserDefaults.swift in Sources */,
 			);

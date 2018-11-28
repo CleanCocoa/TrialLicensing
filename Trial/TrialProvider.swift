@@ -5,31 +5,21 @@
 import Foundation
 
 open class TrialProvider {
-    
-    public init() { }
-    
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+
+    let trialReader: ReadsTrialPeriod
+
+    public init(trialReader: ReadsTrialPeriod = UserDefaultsTrialPeriodReader()) {
+        self.trialReader = trialReader
+    }
 
     public var isConfigured: Bool { return hasValue(currentTrialPeriod) }
 
     open var currentTrialPeriod: TrialPeriod? {
-        
-        if let startDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.startDate) as? Date,
-            let endDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.endDate) as? Date {
-                
-            return TrialPeriod(startDate: startDate, endDate: endDate)
-        }
-        
-        return .none
+        return trialReader.currentTrialPeriod
     }
     
     open func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
-        
-        if let trialPeriod = currentTrialPeriod {
-            
-            return Trial(trialPeriod: trialPeriod, clock: clock)
-        }
-        
-        return .none
+        guard let trialPeriod = currentTrialPeriod else { return nil }
+        return Trial(trialPeriod: trialPeriod, clock: clock)
     }
 }
