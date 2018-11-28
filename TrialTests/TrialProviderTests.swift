@@ -8,106 +8,58 @@ import XCTest
 class TrialProviderTests: XCTestCase {
 
     var trialProvider: TrialProvider!
-    var userDefaultsDouble: TestUserDefaults!
-    
+    var trialReaderDouble: TrialPeriodReaderDouble!
+    var clockDouble: KnowsTimeAndDate!
+
     override func setUp() {
         super.setUp()
-        userDefaultsDouble = TestUserDefaults()
-        trialProvider = TrialProvider()
-        trialProvider.userDefaults = userDefaultsDouble
+        clockDouble = TestClock()
+        trialReaderDouble = TrialPeriodReaderDouble()
+        trialProvider = TrialProvider(trialPeriodReader: trialReaderDouble)
     }
 
     override func tearDown() {
-        userDefaultsDouble = nil
+        clockDouble = nil
+        trialReaderDouble = nil
         trialProvider = nil
         super.tearDown()
     }
-        
-    func provideTrialDefaults(_ startDate: Date, endDate: Date) {
-        userDefaultsDouble.testValues = [
-            TrialPeriod.UserDefaultsKeys.startDate : startDate,
-            TrialPeriod.UserDefaultsKeys.endDate : endDate
-        ]
-    }
-    
-    
+
+
     // MARK: -
     // MARK: Empty Defaults, no trial
-    
-    func testCurrentPeriod_WithEmptyDefaults_QueriesDefaultsForStartData() {
-        
-        _ = trialProvider.currentTrialPeriod
-        
-        let usedDefaultNames = userDefaultsDouble.didCallObjectForKeyWith
-        XCTAssert(hasValue(usedDefaultNames))
-        
-        if let usedDefaultNames = usedDefaultNames {
-            
-            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate))
-        }
+
+    func testCurrentPeriod_ReaderReturnsNil_ReturnsNil() {
+        trialReaderDouble.testTrialPeriod = nil
+
+        XCTAssertNil(trialProvider.currentTrialPeriod)
     }
-    
-    func testCurrentPeriod_WithEmptyDefaults_ReturnsNil() {
-        
-        let trialInfo = trialProvider.currentTrialPeriod
-        
-        XCTAssertFalse(hasValue(trialInfo))
-    }
-    
-    
-    // MARK: Existing Defaults, returns trial period
-    
-    func testCurrentPeriod_WithDefaultsValues_QueriesDefaultsForStartAndEndDate() {
-        
-        provideTrialDefaults(Date(), endDate: Date())
-        
-        _ = trialProvider.currentTrialPeriod
-        
-        let usedDefaultNames = userDefaultsDouble.didCallObjectForKeyWith
-        XCTAssert(hasValue(usedDefaultNames))
-        
-        if let usedDefaultNames = usedDefaultNames {
-            
-            XCTAssert(usedDefaultNames.contains(TrialPeriod.UserDefaultsKeys.startDate))
-        }
-    }
-    
-    func testCurrentPeriod_WithDefaultsValues_ReturnsTrialPeriodWithInfo() {
-        
-        let startDate = Date(timeIntervalSince1970: 0)
-        let endDate = Date(timeIntervalSince1970: 12345)
-        provideTrialDefaults(startDate, endDate: endDate)
-        
-        let trialPeriod = trialProvider.currentTrialPeriod
-        
-        XCTAssert(hasValue(trialPeriod))
-        if let trialPeriod = trialPeriod {
-            XCTAssertEqual(trialPeriod.startDate, startDate)
-            XCTAssertEqual(trialPeriod.endDate, endDate)
-        }
+
+    func testCurrentPeriod_ReaderReturnsTrialPeriod_ForwardsResult() {
+        let trialPeriod = TrialPeriod.init(startDate: Date(timeIntervalSince1970: 1234), endDate: Date(timeIntervalSince1970: 5678))
+        trialReaderDouble.testTrialPeriod = trialPeriod
+
+        XCTAssertEqual(trialProvider.currentTrialPeriod, trialPeriod)
     }
     
     
     // MARK: Trial wrapping
     
-    let clockDouble = TestClock()
-    
-    func testCurrentTrial_WithoutDefaults_ReturnsNil() {
-        
+    func testCurrentTrial_EmptyReader_ReturnsNil() {
+        trialReaderDouble.testTrialPeriod = nil
+
         XCTAssertFalse(hasValue(trialProvider.currentTrial(clock: clockDouble)))
     }
     
     func testCurrentTrial_WithTrialPeriod_ReturnsTrialWithClockAndPeriod() {
-        
-        let startDate = Date(timeIntervalSince1970: 456)
-        let endDate = Date(timeIntervalSince1970: 999)
-        provideTrialDefaults(startDate, endDate: endDate)
+        let trialPeriod = TrialPeriod(startDate: Date(timeIntervalSince1970: 456), endDate: Date(timeIntervalSince1970: 999))
+        trialReaderDouble.testTrialPeriod = trialPeriod
         
         let trial = trialProvider.currentTrial(clock: clockDouble)
         
         XCTAssert(hasValue(trial))
         if let trial = trial {
-            XCTAssertEqual(trial.trialPeriod, trialProvider.currentTrialPeriod!)
+            XCTAssertEqual(trial.trialPeriod, trialPeriod)
             XCTAssert(trial.clock === clockDouble)
         }
     }
@@ -115,27 +67,16 @@ class TrialProviderTests: XCTestCase {
     
     // MARK : -
 
-    class TestUserDefaults: NullUserDefaults {
-        
-        var testValues = [AnyHashable : Any]()
-        var didCallObjectForKeyWith: [String]?
-        override func object(forKey defaultName: String) -> Any? {
-            
-            if !hasValue(didCallObjectForKeyWith) {
-                didCallObjectForKeyWith = [String]()
-            }
-            
-            didCallObjectForKeyWith?.append(defaultName)
-            
-            return testValues[defaultName]
+    class TrialPeriodReaderDouble: ReadsTrialPeriod {
+        var testTrialPeriod: TrialPeriod? = nil
+        var currentTrialPeriod: TrialPeriod? {
+            return testTrialPeriod
         }
     }
     
     class TestClock: KnowsTimeAndDate {
-        
         var testDate: Date!
         func now() -> Date {
-            
             return testDate
         }
     }

@@ -100,7 +100,7 @@ public class AppLicensing {
 
     fileprivate func setupTrial(initialTrialDuration: Days) {
 
-        guard !trialProvider.isConfigured else { return }
+        guard !trialPeriodReader.isConfigured else { return }
 
         let trialPeriod = TrialPeriod(numberOfDays: initialTrialDuration,
                                       clock: self.clock)
@@ -202,6 +202,7 @@ public class AppLicensing {
     public let clock: KnowsTimeAndDate
     public let trialProvider: TrialProvider
     public let licenseInformationProvider: LicenseInformationProvider
+    internal let trialPeriodReader: UserDefaultsTrialPeriodReader
     fileprivate(set) var register: RegisterApplication!
     fileprivate(set) var trialRunner: TrialRunner!
 
@@ -221,7 +222,8 @@ public class AppLicensing {
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
         let licenseProvider = LicenseProvider()
-        self.trialProvider = TrialProvider()
+        self.trialPeriodReader = UserDefaultsTrialPeriodReader()
+        self.trialProvider = TrialProvider(trialPeriodReader: trialPeriodReader)
         self.licenseInformationProvider = LicenseInformationProvider(
             trialProvider: trialProvider,
             licenseProvider: licenseProvider,

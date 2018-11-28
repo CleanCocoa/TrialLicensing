@@ -4,18 +4,21 @@
 
 import Foundation
 
-open class TrialProvider {
+public protocol ProvidesTrial {
+    var currentTrialPeriod: TrialPeriod? { get }
+    func currentTrial(clock: KnowsTimeAndDate) -> Trial?
+}
 
-    let trialReader: ReadsTrialPeriod
+open class TrialProvider: ProvidesTrial {
 
-    public init(trialReader: ReadsTrialPeriod = UserDefaultsTrialPeriodReader()) {
-        self.trialReader = trialReader
+    let trialPeriodReader: ReadsTrialPeriod
+
+    public init(trialPeriodReader: ReadsTrialPeriod) {
+        self.trialPeriodReader = trialPeriodReader
     }
 
-    public var isConfigured: Bool { return hasValue(currentTrialPeriod) }
-
     open var currentTrialPeriod: TrialPeriod? {
-        return trialReader.currentTrialPeriod
+        return trialPeriodReader.currentTrialPeriod
     }
     
     open func currentTrial(clock: KnowsTimeAndDate) -> Trial? {

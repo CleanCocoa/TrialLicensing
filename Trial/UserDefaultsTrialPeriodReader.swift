@@ -22,6 +22,8 @@ open class UserDefaultsTrialPeriodReader: ReadsTrialPeriod {
 
     open lazy var userDefaults: UserDefaults = UserDefaults.standard
 
+    open var isConfigured: Bool { return hasValue(currentTrialPeriod) }
+    
     open var currentTrialPeriod: TrialPeriod? {
         guard let startDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.startDate) as? Date else { return nil }
         guard let endDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.endDate) as? Date else { return nil }
