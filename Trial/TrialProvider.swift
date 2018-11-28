@@ -9,6 +9,13 @@ public protocol ProvidesTrial {
     func currentTrial(clock: KnowsTimeAndDate) -> Trial?
 }
 
+extension ProvidesTrial {
+    public func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
+        guard let trialPeriod = currentTrialPeriod else { return nil }
+        return Trial(trialPeriod: trialPeriod, clock: clock)
+    }
+}
+
 open class TrialProvider: ProvidesTrial {
 
     let trialPeriodReader: ReadsTrialPeriod
@@ -19,10 +26,5 @@ open class TrialProvider: ProvidesTrial {
 
     open var currentTrialPeriod: TrialPeriod? {
         return trialPeriodReader.currentTrialPeriod
-    }
-    
-    open func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
-        guard let trialPeriod = currentTrialPeriod else { return nil }
-        return Trial(trialPeriod: trialPeriod, clock: clock)
     }
 }

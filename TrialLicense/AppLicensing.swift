@@ -200,9 +200,9 @@ public class AppLicensing {
     // MARK: -
 
     public let clock: KnowsTimeAndDate
-    public let trialProvider: TrialProvider
-    public let licenseInformationProvider: LicenseInformationProvider
     internal let trialPeriodReader: UserDefaultsTrialPeriodReader
+    public let trialProvider: ProvidesTrial
+    public let licenseInformationProvider: ProvidesLicenseInformation
     fileprivate(set) var register: RegisterApplication!
     fileprivate(set) var trialRunner: TrialRunner!
 
@@ -221,7 +221,7 @@ public class AppLicensing {
         self.invalidLicenseInformationBlock = invalidLicenseInformationBlock
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
-        let licenseProvider = LicenseProvider()
+        let licenseProvider = UserDefaultsLicenseProvider()
         self.trialPeriodReader = UserDefaultsTrialPeriodReader()
         self.trialProvider = TrialProvider(trialPeriodReader: trialPeriodReader)
         self.licenseInformationProvider = LicenseInformationProvider(
@@ -236,7 +236,7 @@ public class AppLicensing {
                 self?.licenseDidChange(licenseInformation: $0)
             })
 
-        let licenseWriter = LicenseWriter()
+        let licenseWriter = UserDefaultsLicenseWriter()
         self.register = RegisterApplication(
             licenseVerifier: licenseVerifier,
             licenseWriter: licenseWriter,

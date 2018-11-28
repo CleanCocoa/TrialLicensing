@@ -13,21 +13,24 @@ fileprivate extension License {
     }
 }
 
-open class LicenseInformationProvider {
+public protocol ProvidesLicenseInformation {
+    var isLicenseInvalid: Bool { get }
+    var currentLicenseInformation: LicenseInformation { get }
+}
+
+public protocol ProvidesLicense {
+    /// `Nil` when the info couldn't be found; a `License` from the source otherwise.
+    var currentLicense: License? { get }
+}
+
+class LicenseInformationProvider: ProvidesLicenseInformation {
     
-    let trialProvider: TrialProvider
-    let licenseProvider: LicenseProvider
+    let trialProvider: ProvidesTrial
+    let licenseProvider: ProvidesLicense
     let clock: KnowsTimeAndDate
     let licenseVerifier: LicenseVerifier
 
-    public convenience init(configuration: LicenseConfiguration) {
-
-        self.init(trialProvider: TrialProvider(),
-                  licenseProvider: LicenseProvider(),
-                  licenseVerifier: LicenseVerifier(configuration: configuration))
-    }
-
-    internal init(trialProvider: TrialProvider, licenseProvider: LicenseProvider, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
+    init(trialProvider: ProvidesTrial, licenseProvider: ProvidesLicense, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider
@@ -35,7 +38,7 @@ open class LicenseInformationProvider {
         self.clock = clock
     }
     
-    open var isLicenseInvalid: Bool {
+    var isLicenseInvalid: Bool {
         
         guard let license = self.license() else {
             return false
@@ -44,7 +47,7 @@ open class LicenseInformationProvider {
         return !license.isValid(licenseVerifier: licenseVerifier)
     }
     
-    open var currentLicenseInformation: LicenseInformation {
+    var currentLicenseInformation: LicenseInformation {
         
         if let license = self.license(),
             license.isValid(licenseVerifier: licenseVerifier) {

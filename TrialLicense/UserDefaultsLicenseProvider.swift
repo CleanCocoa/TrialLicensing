@@ -4,7 +4,7 @@
 
 import Foundation
 
-class LicenseProvider {
+class UserDefaultsLicenseProvider: ProvidesLicense {
     
     init() { }
     

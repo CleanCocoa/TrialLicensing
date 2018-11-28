@@ -2,13 +2,12 @@
 // 
 // See the file LICENSE for copying permission.
 
-import Cocoa
 import XCTest
 @testable import TrialLicense
 
-class LicenseWriterTests: XCTestCase {
+class UserDefaultsLicenseWriterTests: XCTestCase {
 
-    var writer: LicenseWriter!
+    var writer: UserDefaultsLicenseWriter!
     var userDefaultsDouble: TestUserDefaults!
 
     override func setUp() {
@@ -16,7 +15,7 @@ class LicenseWriterTests: XCTestCase {
 
         userDefaultsDouble = TestUserDefaults()
 
-        writer = LicenseWriter()
+        writer = UserDefaultsLicenseWriter()
         writer.userDefaults = userDefaultsDouble
     }
 

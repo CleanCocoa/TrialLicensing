@@ -8,9 +8,9 @@ import Trial
 class TrialRunner {
 
     let licenseChangeCallback: LicenseChangeCallback
-    let trialProvider: TrialProvider
+    let trialProvider: ProvidesTrial
 
-    init(trialProvider: TrialProvider, licenseChangeCallback: @escaping LicenseChangeCallback) {
+    init(trialProvider: ProvidesTrial, licenseChangeCallback: @escaping LicenseChangeCallback) {
 
         self.licenseChangeCallback = licenseChangeCallback
         self.trialProvider = trialProvider

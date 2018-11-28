@@ -13,12 +13,24 @@ public protocol HandlesRegistering: class {
     func unregister()
 }
 
+public protocol WritesLicense {
+    func store(license: License)
+    func store(licenseCode: String, forName name: String)
+    func removeLicense()
+}
+
+extension WritesLicense {
+    func store(license: License) {
+        self.store(licenseCode: license.licenseCode, forName: license.name)
+    }
+}
+
 class RegisterApplication: HandlesRegistering {
 
     let licenseVerifier: LicenseVerifier
-    let licenseWriter: LicenseWriter
-    let licenseInformationProvider: LicenseInformationProvider
-    let trialProvider: TrialProvider
+    let licenseWriter: WritesLicense
+    let licenseInformationProvider: ProvidesLicenseInformation
+    let trialProvider: ProvidesTrial
 
     let licenseChangeCallback: LicenseChangeCallback
 
@@ -26,9 +38,9 @@ class RegisterApplication: HandlesRegistering {
     let invalidLicenseCallback: InvalidLicenseCallback
 
     init(licenseVerifier: LicenseVerifier,
-         licenseWriter: LicenseWriter,
-         licenseInformationProvider: LicenseInformationProvider,
-         trialProvider: TrialProvider,
+         licenseWriter: WritesLicense,
+         licenseInformationProvider: ProvidesLicenseInformation,
+         trialProvider: ProvidesTrial,
          licenseChangeCallback: @escaping LicenseChangeCallback,
          invalidLicenseCallback: @escaping InvalidLicenseCallback) {
 

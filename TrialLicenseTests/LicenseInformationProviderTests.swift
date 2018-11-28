@@ -2,7 +2,6 @@
 // 
 // See the file LICENSE for copying permission.
 
-import Cocoa
 import XCTest
 @testable import TrialLicense
 import Trial
@@ -88,7 +87,7 @@ class LicenseInformationProviderTests: XCTestCase {
         
         switch licenseInfo {
         case let .onTrial(trialPeriod): XCTAssertEqual(trialPeriod, expectedPeriod)
-        default: XCTFail("expected to be OnTrial")
+        default: XCTFail("expected to be onTrial, got \(licenseInfo)")
         }
     }
     
@@ -131,10 +130,11 @@ class LicenseInformationProviderTests: XCTestCase {
         // Given
         verifierDouble.testValidity = false
         licenseProviderDouble.testLicense = irrelevantLicense
-        
-        let endDate = Date()
-        let expectedPeriod = TrialPeriod(startDate: Date(), endDate: endDate)
-        clockDouble.testDate = endDate.addingTimeInterval(-1000)
+
+        let startDate = Date(timeIntervalSince1970: 1000)
+        let endDate = Date(timeIntervalSince1970: 9999)
+        let expectedPeriod = TrialPeriod(startDate: startDate, endDate: endDate)
+        clockDouble.testDate = endDate.addingTimeInterval(-1000) // rewind before end date
         trialProviderDouble.testTrialPeriod = expectedPeriod
         
         // When
@@ -143,7 +143,7 @@ class LicenseInformationProviderTests: XCTestCase {
         // Then
         switch licenseInfo {
         case let .onTrial(trialPeriod): XCTAssertEqual(trialPeriod, expectedPeriod)
-        default: XCTFail("expected to be OnTrial")
+        default: XCTFail("expected to be onTrial, got \(licenseInfo)")
         }
     }
     
@@ -215,20 +215,18 @@ class LicenseInformationProviderTests: XCTestCase {
     
     // MARK: -
     
-    class TestTrialProvider: TrialProvider {
+    class TestTrialProvider: ProvidesTrial {
         
         var testTrialPeriod: TrialPeriod?
-        override var currentTrialPeriod: TrialPeriod? {
-            
+        var currentTrialPeriod: TrialPeriod? {
             return testTrialPeriod
         }
     }
     
-    class TestLicenseProvider: LicenseProvider {
+    class TestLicenseProvider: ProvidesLicense {
     
         var testLicense: License?
-        override var currentLicense: License? {
-            
+        var currentLicense: License? {
             return testLicense
         }
     }

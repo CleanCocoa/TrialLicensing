@@ -25,14 +25,14 @@
 		501FAA661D9424AE00D8D68C /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA641D9424AE00D8D68C /* Optional.swift */; };
 		501FAA711D94255500D8D68C /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA6B1D94255500D8D68C /* License.swift */; };
 		501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */; };
-		501FAA741D94255500D8D68C /* LicenseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA6E1D94255500D8D68C /* LicenseProvider.swift */; };
+		501FAA741D94255500D8D68C /* UserDefaultsLicenseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA6E1D94255500D8D68C /* UserDefaultsLicenseProvider.swift */; };
 		501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA6F1D94255500D8D68C /* LicenseVerifier.swift */; };
-		501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA701D94255500D8D68C /* LicenseWriter.swift */; };
+		501FAA761D94255500D8D68C /* UserDefaultsLicenseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA701D94255500D8D68C /* UserDefaultsLicenseWriter.swift */; };
 		501FAA7E1D94257A00D8D68C /* LicenseInformationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA781D94257A00D8D68C /* LicenseInformationProviderTests.swift */; };
 		501FAA7F1D94257A00D8D68C /* LicenseInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA791D94257A00D8D68C /* LicenseInformationTests.swift */; };
-		501FAA801D94257A00D8D68C /* LicenseProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7A1D94257A00D8D68C /* LicenseProviderTests.swift */; };
+		501FAA801D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7A1D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift */; };
 		501FAA811D94257A00D8D68C /* LicenseVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */; };
-		501FAA821D94257A00D8D68C /* LicenseWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7C1D94257A00D8D68C /* LicenseWriterTests.swift */; };
+		501FAA821D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA7C1D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift */; };
 		501FAA8D1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAA8E1D94267000D8D68C /* NullUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */; };
 		501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */; };
@@ -100,14 +100,14 @@
 		501FAA641D9424AE00D8D68C /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		501FAA6B1D94255500D8D68C /* License.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformationProvider.swift; sourceTree = "<group>"; };
-		501FAA6E1D94255500D8D68C /* LicenseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseProvider.swift; sourceTree = "<group>"; };
+		501FAA6E1D94255500D8D68C /* UserDefaultsLicenseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsLicenseProvider.swift; sourceTree = "<group>"; };
 		501FAA6F1D94255500D8D68C /* LicenseVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseVerifier.swift; sourceTree = "<group>"; };
-		501FAA701D94255500D8D68C /* LicenseWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseWriter.swift; sourceTree = "<group>"; };
+		501FAA701D94255500D8D68C /* UserDefaultsLicenseWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsLicenseWriter.swift; sourceTree = "<group>"; };
 		501FAA781D94257A00D8D68C /* LicenseInformationProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformationProviderTests.swift; sourceTree = "<group>"; };
 		501FAA791D94257A00D8D68C /* LicenseInformationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformationTests.swift; sourceTree = "<group>"; };
-		501FAA7A1D94257A00D8D68C /* LicenseProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseProviderTests.swift; sourceTree = "<group>"; };
+		501FAA7A1D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsLicenseProviderTests.swift; sourceTree = "<group>"; };
 		501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseVerifierTests.swift; sourceTree = "<group>"; };
-		501FAA7C1D94257A00D8D68C /* LicenseWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseWriterTests.swift; sourceTree = "<group>"; };
+		501FAA7C1D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsLicenseWriterTests.swift; sourceTree = "<group>"; };
 		501FAA8C1D94267000D8D68C /* NullUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserDefaults.swift; sourceTree = "<group>"; };
 		501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseConfiguration.swift; sourceTree = "<group>"; };
 		501FAABA1D950E8900D8D68C /* LicenseInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseInformation.swift; sourceTree = "<group>"; };
@@ -209,9 +209,9 @@
 				501FAAC81D95134900D8D68C /* RegisterApplicationTests.swift */,
 				501FAA781D94257A00D8D68C /* LicenseInformationProviderTests.swift */,
 				501FAA791D94257A00D8D68C /* LicenseInformationTests.swift */,
-				501FAA7A1D94257A00D8D68C /* LicenseProviderTests.swift */,
 				501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */,
-				501FAA7C1D94257A00D8D68C /* LicenseWriterTests.swift */,
+				501FAA7A1D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift */,
+				501FAA7C1D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift */,
 				501FAA121D94232D00D8D68C /* Info.plist */,
 			);
 			path = TrialLicenseTests;
@@ -264,7 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				501FAA6F1D94255500D8D68C /* LicenseVerifier.swift */,
-				501FAA701D94255500D8D68C /* LicenseWriter.swift */,
+				501FAA6E1D94255500D8D68C /* UserDefaultsLicenseProvider.swift */,
+				501FAA701D94255500D8D68C /* UserDefaultsLicenseWriter.swift */,
 			);
 			name = Infrastructure;
 			sourceTree = "<group>";
@@ -273,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				501FAA6D1D94255500D8D68C /* LicenseInformationProvider.swift */,
-				501FAA6E1D94255500D8D68C /* LicenseProvider.swift */,
 				501FAAC41D9511FD00D8D68C /* TrialRunner.swift */,
 				501FAAC61D9512CF00D8D68C /* RegisterApplication.swift */,
 			);
@@ -512,7 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				501FAAB71D9505DF00D8D68C /* LicenseConfiguration.swift in Sources */,
-				501FAA741D94255500D8D68C /* LicenseProvider.swift in Sources */,
+				501FAA741D94255500D8D68C /* UserDefaultsLicenseProvider.swift in Sources */,
 				501FAA751D94255500D8D68C /* LicenseVerifier.swift in Sources */,
 				501FAA651D9424AE00D8D68C /* Optional.swift in Sources */,
 				507FDBE11D99119300FE07E7 /* CollectionType+SafeSubscript.swift in Sources */,
@@ -522,7 +522,7 @@
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
 				507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */,
 				507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */,
-				501FAA761D94255500D8D68C /* LicenseWriter.swift in Sources */,
+				501FAA761D94255500D8D68C /* UserDefaultsLicenseWriter.swift in Sources */,
 				501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */,
 				507FDBD81D990F8A00FE07E7 /* URLQueryRegistration.swift in Sources */,
 				501FAA711D94255500D8D68C /* License.swift in Sources */,
@@ -534,10 +534,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				501FAA801D94257A00D8D68C /* LicenseProviderTests.swift in Sources */,
+				501FAA801D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift in Sources */,
 				501FAA811D94257A00D8D68C /* LicenseVerifierTests.swift in Sources */,
 				501FAAC91D95134900D8D68C /* RegisterApplicationTests.swift in Sources */,
-				501FAA821D94257A00D8D68C /* LicenseWriterTests.swift in Sources */,
+				501FAA821D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift in Sources */,
 				501FAA8D1D94267000D8D68C /* NullUserDefaults.swift in Sources */,
 				501FAA7F1D94257A00D8D68C /* LicenseInformationTests.swift in Sources */,
 				501FAA7E1D94257A00D8D68C /* LicenseInformationProviderTests.swift in Sources */,

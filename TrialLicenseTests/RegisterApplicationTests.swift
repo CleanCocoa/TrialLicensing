@@ -213,16 +213,15 @@ class RegisterApplicationTests: XCTestCase {
 
     // MARK: -
     
-    class TestWriter: LicenseWriter {
+    class TestWriter: WritesLicense {
         
         var didStoreWith: (licenseCode: String, name: String)?
-        override func store(licenseCode: String, forName name: String) {
-            
+        func store(licenseCode: String, forName name: String) {
             didStoreWith = (licenseCode, name)
         }
 
         var didRemove = false
-        override func removeLicense() {
+        func removeLicense() {
             didRemove = true
         }
     }
@@ -243,32 +242,30 @@ class RegisterApplicationTests: XCTestCase {
         }
     }
 
-    class TestTrialProvider: TrialProvider {
+    class TestTrialProvider: ProvidesTrial {
 
         var testCurrentTrialPeriod: TrialPeriod? = nil
-        override var currentTrialPeriod: TrialPeriod? {
+        var currentTrialPeriod: TrialPeriod? {
             return testCurrentTrialPeriod
         }
 
         var testCurrentTrial: Trial? = nil
         var didRequestCurrentTrial: KnowsTimeAndDate?
-        override func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
+        func currentTrial(clock: KnowsTimeAndDate) -> Trial? {
             didRequestCurrentTrial = clock
             return testCurrentTrial
         }
     }
 
-    class TestLicenseInformationProvider: LicenseInformationProvider {
+    class TestLicenseInformationProvider: ProvidesLicenseInformation {
 
-        convenience init() {
-            self.init(configuration: LicenseConfiguration.init(appName: "irrelevant", publicKey: "irrelevant"))
-        }
+        init() { }
 
         var testIsLicenseInvalid = false
-        override var isLicenseInvalid: Bool { return testIsLicenseInvalid }
+        var isLicenseInvalid: Bool { return testIsLicenseInvalid }
 
         var testCurrentLicenseInformation: LicenseInformation = .trialUp
-        override var currentLicenseInformation: LicenseInformation { return testCurrentLicenseInformation }
+        var currentLicenseInformation: LicenseInformation { return testCurrentLicenseInformation }
     }
 
     class LicenseChangeCallbackDouble {
