@@ -8,15 +8,22 @@ import XCTest
 
 class LicenseProviderTests: XCTestCase {
 
-    let licenseProvider = LicenseProvider()
-    
-    let userDefaultsDouble: TestUserDefaults = TestUserDefaults()
+    var licenseProvider: LicenseProvider!
+    var userDefaultsDouble: TestUserDefaults!
 
     override func setUp() {
-        
         super.setUp()
-        
+
+        userDefaultsDouble = TestUserDefaults()
+
+        licenseProvider = LicenseProvider()
         licenseProvider.userDefaults = userDefaultsDouble
+    }
+
+    override func tearDown() {
+        userDefaultsDouble = nil
+        licenseProvider = nil
+        super.tearDown()
     }
 
     func provideLicenseDefaults(_ name: String, licenseCode: String) {

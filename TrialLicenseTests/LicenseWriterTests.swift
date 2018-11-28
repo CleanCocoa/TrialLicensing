@@ -8,15 +8,22 @@ import XCTest
 
 class LicenseWriterTests: XCTestCase {
 
-    let writer = LicenseWriter()
-
-    let userDefaultsDouble: TestUserDefaults = TestUserDefaults()
+    var writer: LicenseWriter!
+    var userDefaultsDouble: TestUserDefaults!
 
     override func setUp() {
-        
         super.setUp()
-        
+
+        userDefaultsDouble = TestUserDefaults()
+
+        writer = LicenseWriter()
         writer.userDefaults = userDefaultsDouble
+    }
+
+    override func tearDown() {
+        writer = nil
+        userDefaultsDouble = nil
+        super.tearDown()
     }
     
     // MARK: Storing

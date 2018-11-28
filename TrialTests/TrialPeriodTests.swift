@@ -8,7 +8,17 @@ import XCTest
 
 class TrialPeriodTests: XCTestCase {
 
-    let clockDouble = TestClock()
+    var clockDouble: TestClock!
+
+    override func setUp() {
+        super.setUp()
+        clockDouble = TestClock()
+    }
+
+    override func tearDown() {
+        clockDouble = nil
+        super.tearDown()
+    }
 
     let irrelevantDate = Date(timeIntervalSinceNow: 987654321)
     

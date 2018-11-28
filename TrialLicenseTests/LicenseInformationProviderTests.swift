@@ -11,20 +11,33 @@ class LicenseInformationProviderTests: XCTestCase {
 
     var licenseInfoProvider: LicenseInformationProvider!
     
-    let trialProviderDouble = TestTrialProvider()
-    let licenseProviderDouble = TestLicenseProvider()
-    let clockDouble = TestClock()
-    let verifierDouble = TestVerifier()
+    var trialProviderDouble: TestTrialProvider!
+    var licenseProviderDouble: TestLicenseProvider!
+    var clockDouble: TestClock!
+    var verifierDouble: TestVerifier!
     
     override func setUp() {
-        
         super.setUp()
+
+        trialProviderDouble = TestTrialProvider()
+        licenseProviderDouble = TestLicenseProvider()
+        clockDouble = TestClock()
+        verifierDouble = TestVerifier()
         
         licenseInfoProvider = LicenseInformationProvider(
             trialProvider: trialProviderDouble,
             licenseProvider: licenseProviderDouble,
             licenseVerifier: verifierDouble,
             clock: clockDouble)
+    }
+
+    override func tearDown() {
+        trialProviderDouble = nil
+        licenseProviderDouble = nil
+        clockDouble = nil
+        verifierDouble = nil
+        licenseInfoProvider = nil
+        super.tearDown()
     }
     
     let irrelevantLicense = License(name: "", licenseCode: "")

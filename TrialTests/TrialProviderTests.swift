@@ -2,21 +2,25 @@
 // 
 // See the file LICENSE for copying permission.
 
-import Cocoa
 import XCTest
 @testable import Trial
 
 class TrialProviderTests: XCTestCase {
 
-    let trialProvider = TrialProvider()
-    
-    let userDefaultsDouble: TestUserDefaults = TestUserDefaults()
+    var trialProvider: TrialProvider!
+    var userDefaultsDouble: TestUserDefaults!
     
     override func setUp() {
-
         super.setUp()
-        
+        userDefaultsDouble = TestUserDefaults()
+        trialProvider = TrialProvider()
         trialProvider.userDefaults = userDefaultsDouble
+    }
+
+    override func tearDown() {
+        userDefaultsDouble = nil
+        trialProvider = nil
+        super.tearDown()
     }
         
     func provideTrialDefaults(_ startDate: Date, endDate: Date) {

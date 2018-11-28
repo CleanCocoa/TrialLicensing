@@ -36,13 +36,21 @@ fileprivate let publicKey: String = {
 
 class LicenseVerifierTests: XCTestCase {
 
-    let verifier: LicenseVerifier = {
-        let configuration = LicenseConfiguration(appName: "MyNewApp", publicKey: publicKey)
-        return LicenseVerifier(configuration: configuration)
-    }()
+    var verifier: LicenseVerifier!
 
     let validLicense = License(name: "John Appleseed", licenseCode: "GAWQE-FABU3-HNQXA-B7EGM-34X2E-DGMT4-4F44R-9PUQC-CUANX-FXMCZ-4536Y-QKX9D-PU2C3-QG2ZA-U88NJ-Q")
 
+    override func setUp() {
+        super.setUp()
+        let configuration = LicenseConfiguration(appName: "MyNewApp", publicKey: publicKey)
+        verifier = LicenseVerifier(configuration: configuration)
+    }
+
+    override func tearDown() {
+        verifier = nil
+        super.tearDown()
+    }
+    
     func testVerify_EmptyStrings_ReturnsFalse() {
         
         let result = verifier.isValid(licenseCode: "", forName: "")

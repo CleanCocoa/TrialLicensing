@@ -8,15 +8,20 @@ import XCTest
 
 class TrialWriterTests: XCTestCase {
 
-    let writer = TrialWriter()
-
-    let userDefaultsDouble: TestUserDefaults = TestUserDefaults()
+    var writer: TrialWriter!
+    var userDefaultsDouble: TestUserDefaults!
     
     override func setUp() {
-        
         super.setUp()
-        
+        userDefaultsDouble = TestUserDefaults()
+        writer = TrialWriter()
         writer.userDefaults = userDefaultsDouble
+    }
+
+    override func tearDown() {
+        userDefaultsDouble = nil
+        writer = nil
+        super.tearDown()
     }
 
     func testStoring_DelegatesToUserDefaults() {
