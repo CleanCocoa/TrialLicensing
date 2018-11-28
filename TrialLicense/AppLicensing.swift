@@ -199,9 +199,9 @@ public class AppLicensing {
 
     // MARK: -
 
-    let clock: KnowsTimeAndDate
-    let trialProvider: TrialProvider
-    let licenseInformationProvider: LicenseInformationProvider
+    public let clock: KnowsTimeAndDate
+    public let trialProvider: TrialProvider
+    public let licenseInformationProvider: LicenseInformationProvider
     fileprivate(set) var register: RegisterApplication!
     fileprivate(set) var trialRunner: TrialRunner!
 
