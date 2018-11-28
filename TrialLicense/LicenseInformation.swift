@@ -12,11 +12,11 @@ public enum LicenseInformation {
     case trialUp
 }
 
-typealias UserInfo = [AnyHashable : Any]
-
 extension LicenseInformation {
 
-    func userInfo() -> UserInfo {
+    public typealias UserInfo = [AnyHashable : Any]
+
+    public var userInfo: UserInfo {
 
         switch self {
         case let .onTrial(trialPeriod):
@@ -41,29 +41,29 @@ extension LicenseInformation {
         }
     }
 
-    static func fromUserInfo(userInfo: UserInfo) -> LicenseInformation? {
-
-        guard let registered = userInfo["registered"] as? Bool else {
-            return nil
-        }
+    public init?(userInfo: UserInfo) {
+        guard let registered = userInfo["registered"] as? Bool else { return nil }
 
         if let onTrial = userInfo["on_trial"] as? Bool,
             !registered {
 
-            guard onTrial else { return .trialUp }
+            if !onTrial {
+                self = .trialUp
+                return
+            }
 
             if let startDate = userInfo["trial_start_date"] as? Date,
                 let endDate = userInfo["trial_end_date"] as? Date {
 
-                return .onTrial(TrialPeriod(startDate: startDate, endDate: endDate))
+                self = .onTrial(TrialPeriod(startDate: startDate, endDate: endDate))
+                return
             }
         }
 
-        guard let name = userInfo["name"] as? String,
-            let licenseCode = userInfo["licenseCode"] as? String
-            else { return nil }
+        guard let name = userInfo["name"] as? String else { return nil }
+        guard let licenseCode = userInfo["licenseCode"] as? String else { return nil }
 
-        return .registered(License(name: name, licenseCode: licenseCode))
+        self = .registered(License(name: name, licenseCode: licenseCode))
     }
 }
 
