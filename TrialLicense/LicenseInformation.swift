@@ -65,6 +65,12 @@ extension LicenseInformation {
 
         self = .registered(License(name: name, licenseCode: licenseCode))
     }
+
+    /// Uses `userInfo` of `notification` to try to initialize a `LicenseInformation` object.
+    public init?(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return nil }
+        self.init(userInfo: userInfo)
+    }
 }
 
 extension LicenseInformation: Equatable { }
