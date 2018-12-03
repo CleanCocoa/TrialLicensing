@@ -22,7 +22,7 @@ public class AppLicensing {
     }
 
     public static var isLicenseInvalid: Bool? {
-        return sharedInstance?.licenseInformationProvider.isLicenseInvalid
+        return sharedInstance?.isLicenseInvalid
     }
 
     public static var registerApplication: HandlesRegistering? {
@@ -248,6 +248,10 @@ public class AppLicensing {
             invalidLicenseCallback: { [weak self] in
                 self?.didEnterInvalidLicense(name: $0, licenseCode: $1)
             })
+    }
+
+    public var isLicenseInvalid: Bool {
+        return self.licenseInformationProvider.isLicenseInvalid
     }
 
     public var currentLicenseInformation: LicenseInformation {
