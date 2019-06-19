@@ -6,9 +6,11 @@ import Foundation
 
 class UserDefaultsLicenseProvider: ProvidesLicense {
     
-    init() { }
-    
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+    public let userDefaults: UserDefaults
+
+    public init(userDefaults: UserDefaults) {
+        self.userDefaults = userDefaults
+    }
     
     var currentLicense: License? {
         

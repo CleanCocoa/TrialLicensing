@@ -14,8 +14,7 @@ class TrialWriterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         userDefaultsDouble = TestUserDefaults()
-        writer = TrialWriter()
-        writer.userDefaults = userDefaultsDouble
+        writer = TrialWriter(userDefaults: userDefaultsDouble)
     }
 
     override func tearDown() {

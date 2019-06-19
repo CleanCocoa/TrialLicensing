@@ -45,6 +45,8 @@ public class AppLicensing {
     ///   used to register are invalid.
     /// - parameter clock: Testing seam so you can see what happens if the
     ///   trial is up with manual or integration tests.
+    /// - parameter userDefaults: The UserDefaults instance you want to store the
+    ///   trial info in. Default is `standard`.
     /// - parameter fireInitialState: Pass `true` to have the end of the
     ///   setup routine immediately call `licenseChangeBlock`.
     ///
@@ -57,6 +59,7 @@ public class AppLicensing {
         licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
         invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
         clock: KnowsTimeAndDate = Clock(),
+        userDefaults: UserDefaults = UserDefaults.standard,
         fireInitialState: Bool = false) {
 
         guard !hasValue(AppLicensing.sharedInstance)
@@ -69,7 +72,8 @@ public class AppLicensing {
                 initialTrialDuration: initialTrialDuration,
                 licenseChangeBlock: licenseChangeBlock,
                 invalidLicenseInformationBlock: invalidLicenseInformationBlock,
-                clock: clock)
+                clock: clock,
+                userDefaults: userDefaults)
 
             appLicensing.setupTrial(initialTrialDuration: initialTrialDuration)
             appLicensing.configureTrialRunner()
@@ -104,7 +108,7 @@ public class AppLicensing {
 
         let trialPeriod = TrialPeriod(numberOfDays: initialTrialDuration,
                                       clock: self.clock)
-        TrialWriter().store(trialPeriod: trialPeriod)
+        TrialWriter(userDefaults: userDefaults).store(trialPeriod: trialPeriod)
     }
 
     fileprivate func configureTrialRunner() {
@@ -200,6 +204,7 @@ public class AppLicensing {
     // MARK: -
 
     public let clock: KnowsTimeAndDate
+    public let userDefaults: UserDefaults
     internal let trialPeriodReader: UserDefaultsTrialPeriodReader
     public let trialProvider: ProvidesTrial
     public let licenseInformationProvider: ProvidesLicenseInformation
@@ -214,15 +219,17 @@ public class AppLicensing {
         initialTrialDuration: Days,
         licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
         invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
-        clock: KnowsTimeAndDate = Clock()) {
+        clock: KnowsTimeAndDate = Clock(),
+        userDefaults: UserDefaults = UserDefaults.standard) {
 
         self.clock = clock
+        self.userDefaults = userDefaults
         self.licenseChangeBlock = licenseChangeBlock
         self.invalidLicenseInformationBlock = invalidLicenseInformationBlock
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
-        let licenseProvider = UserDefaultsLicenseProvider()
-        self.trialPeriodReader = UserDefaultsTrialPeriodReader()
+        let licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaults)
+        self.trialPeriodReader = UserDefaultsTrialPeriodReader(userDefaults: userDefaults)
         self.trialProvider = TrialProvider(trialPeriodReader: trialPeriodReader)
         self.licenseInformationProvider = LicenseInformationProvider(
             trialProvider: trialProvider,
@@ -236,7 +243,7 @@ public class AppLicensing {
                 self?.licenseDidChange(licenseInformation: $0)
             })
 
-        let licenseWriter = UserDefaultsLicenseWriter()
+        let licenseWriter = UserDefaultsLicenseWriter(userDefaults: userDefaults)
         self.register = RegisterApplication(
             licenseVerifier: licenseVerifier,
             licenseWriter: licenseWriter,

@@ -6,9 +6,11 @@ import Foundation
 
 class UserDefaultsLicenseWriter: WritesLicense {
     
-    init() { }
+    public let userDefaults: UserDefaults
 
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+    public init(userDefaults: UserDefaults) {
+        self.userDefaults = userDefaults
+    }
 
     func store(licenseCode: String, forName name: String) {
         

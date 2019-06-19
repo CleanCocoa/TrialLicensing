@@ -5,10 +5,12 @@
 import Foundation
 
 public class TrialWriter {
-    
-    public init() { }
-    
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+
+    public let userDefaults: UserDefaults
+
+    public init(userDefaults: UserDefaults) {
+        self.userDefaults = userDefaults
+    }
     
     public func store(trialPeriod: TrialPeriod) {
         

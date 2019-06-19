@@ -13,14 +13,15 @@ open class UserDefaultsTrialPeriodReader: ReadsTrialPeriod {
 
     public let startDateKey: String
     public let endDateKey: String
+    public let userDefaults: UserDefaults
 
     public init(startDateKey: String = TrialPeriod.UserDefaultsKeys.startDate,
-                endDateKey: String = TrialPeriod.UserDefaultsKeys.endDate) {
+                endDateKey: String = TrialPeriod.UserDefaultsKeys.endDate,
+                userDefaults: UserDefaults) {
         self.startDateKey = startDateKey
         self.endDateKey = endDateKey
+        self.userDefaults = userDefaults
     }
-
-    open lazy var userDefaults: UserDefaults = UserDefaults.standard
 
     open var isConfigured: Bool { return hasValue(currentTrialPeriod) }
     

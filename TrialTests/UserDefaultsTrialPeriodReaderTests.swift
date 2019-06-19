@@ -13,8 +13,7 @@ class UserDefaultsTrialPeriodReaderTests: XCTestCase {
     override func setUp() {
         super.setUp()
         userDefaultsDouble = TestUserDefaults()
-        reader = UserDefaultsTrialPeriodReader()
-        reader.userDefaults = userDefaultsDouble
+        reader = UserDefaultsTrialPeriodReader(userDefaults: userDefaultsDouble)
     }
 
     override func tearDown() {

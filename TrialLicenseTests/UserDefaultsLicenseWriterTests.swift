@@ -15,8 +15,7 @@ class UserDefaultsLicenseWriterTests: XCTestCase {
 
         userDefaultsDouble = TestUserDefaults()
 
-        writer = UserDefaultsLicenseWriter()
-        writer.userDefaults = userDefaultsDouble
+        writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble)
     }
 
     override func tearDown() {
