@@ -62,22 +62,21 @@ class RegisterApplicationTests: XCTestCase {
     var irrelevantLicenseCode: String { return "irrelevant" }
     var irrelevantLicense: License { return License(name: "irrelevant", licenseCode: "irrelevant") }
     var irrelevantTrialPeriod: TrialPeriod { return TrialPeriod(startDate: Date(timeIntervalSince1970: 1234), endDate: Date(timeIntervalSince1970: 9999)) }
-    var irrelevantPayload: RegistrationPayload { return [.name : irrelevantName, .licenseCode: irrelevantLicenseCode]}
+    var irrelevantPayload: RegistrationPayload { return RegistrationPayload(licenseCode: irrelevantLicenseCode) }
 
 
     // MARK: - Register
 
     func testRegister_VerifiesWithStrategy() {
-        
-        let name = "a name"
-        let licenseCode = "123-456"
-        
-        service.register(payload: [.name : name, .licenseCode: licenseCode])
+
+        let payload = RegistrationPayload(name: "a name", licenseCode: "123-456")
+
+        service.register(payload: payload)
 
         XCTAssertNotNil(registrationStrategyDouble.didTestValidity)
         if let values = registrationStrategyDouble.didTestValidity {
 
-            XCTAssertEqual(values.payload, [.name : name, .licenseCode: licenseCode])
+            XCTAssertEqual(values.payload, payload)
             XCTAssert(values.licenseVerifier === verifierDouble)
             XCTAssertEqual(values.configuration, configuration)
         }
@@ -103,46 +102,43 @@ class RegisterApplicationTests: XCTestCase {
 
     func testRegister_InvalidLicense_TriggersInvalidLicenseCallback() {
 
-        let name = "the name"
-        let licenseCode = "the code"
+        let payload = RegistrationPayload(name: "the name", licenseCode: "the code")
         registrationStrategyDouble.testIsValid = false
 
-        service.register(payload: [.name : name, .licenseCode : licenseCode])
+        service.register(payload: payload)
 
-        XCTAssertEqual(invalidLicenseCallback.didReceivePayload, [.name : name, .licenseCode : licenseCode])
+        XCTAssertEqual(invalidLicenseCallback.didReceivePayload, payload)
     }
 
     func testRegister_ValidLicense_DelegatesToStore() {
-        
-        let name = "It's Me"
-        let licenseCode = "0900-ACME"
+
+        let payload = RegistrationPayload(name: "It's Me", licenseCode: "0900-ACME")
         registrationStrategyDouble.testIsValid = true
 
-        service.register(payload: [.name : name, .licenseCode : licenseCode])
+        service.register(payload: payload)
 
         XCTAssertNotNil(writerDouble.didStoreWith)
         if let values = writerDouble.didStoreWith {
             
-            XCTAssertEqual(values.name, name)
-            XCTAssertEqual(values.licenseCode, licenseCode)
+            XCTAssertEqual(values.name, payload.name)
+            XCTAssertEqual(values.licenseCode, payload.licenseCode)
         }
     }
 
     func testRegister_ValidLicense_BroadcastsChange() {
-        
-        let name = "Hello again"
-        let licenseCode = "fr13nd-001"
+
+        let payload = RegistrationPayload(name: "Hello again", licenseCode: "fr13nd-001")
         registrationStrategyDouble.testIsValid = true
 
-        service.register(payload: [.name : name, .licenseCode : licenseCode])
+        service.register(payload: payload)
 
         XCTAssertNotNil(licenseChangeCallback.didReceiveWith)
         if let licenseInfo = licenseChangeCallback.didReceiveWith {
             
             switch licenseInfo {
             case let .registered(license):
-                XCTAssertEqual(license.name, name)
-                XCTAssertEqual(license.licenseCode, licenseCode)
+                XCTAssertEqual(license.name, payload.name)
+                XCTAssertEqual(license.licenseCode, payload.licenseCode)
             default: XCTFail("should be registered")
             }
         }

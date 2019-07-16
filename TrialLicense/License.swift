@@ -10,9 +10,10 @@ public struct License {
     public let licenseCode: String
 
     public var payload: RegistrationPayload {
-        var result: RegistrationPayload = [.licenseCode : self.licenseCode]
-        result[.name] = self.name
-        return result
+        if let name = self.name {
+            return RegistrationPayload(name: name, licenseCode: self.licenseCode)
+        }
+        return RegistrationPayload(licenseCode: self.licenseCode)
     }
     
     public init(name: String?, licenseCode: String) {

@@ -39,7 +39,7 @@ fileprivate let appName = "MyNewApp"
 fileprivate func personalizedRegistrationName(licenseeName: String) -> String {
     return LicensingScheme.personalizedLicense.registrationName(
         appName: appName,
-        payload: [.name : licenseeName])
+        payload: RegistrationPayload(name: licenseeName, licenseCode: "irrelevant"))
 }
 
 class LicenseVerifierTests: XCTestCase {
@@ -92,7 +92,7 @@ class LicenseVerifierTests: XCTestCase {
 
         let registrationNameForWrongApp = LicensingScheme.personalizedLicense.registrationName(
             appName: "totally-wrong-app-name",
-            payload: [.name : validPersonalizedLicense.name!])
+            payload: RegistrationPayload(name: validPersonalizedLicense.name!, licenseCode: "irrelevant"))
 
         let result = verifier.isValid(licenseCode: validPersonalizedLicense.licenseCode,
                                       registrationName: registrationNameForWrongApp)

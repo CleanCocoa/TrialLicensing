@@ -9,7 +9,7 @@ struct PersonalizedLicenseRegistrationStrategy: RegistrationStrategy {
                  licenseVerifier: LicenseCodeVerification)
         -> Bool
     {
-        let licenseCode = payload[.licenseCode] ?? ""
+        let licenseCode = payload.licenseCode
         let registrationName = LicensingScheme.personalizedLicense.registrationName(
             appName: configuration.appName,
             payload: payload)

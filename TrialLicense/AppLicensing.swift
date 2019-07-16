@@ -45,7 +45,7 @@ public class AppLicensing {
             initialTrialDuration: initialTrialDuration,
             licenseChangeBlock: licenseChangeBlock,
             invalidLicenseInformationBlock: { (payload) in
-                invalidLicenseInformationBlock(payload[.name] ?? "", payload[.licenseCode] ?? "")
+                invalidLicenseInformationBlock(payload.name ?? "", payload.licenseCode)
             },
             licensingScheme: .personalizedLicense,
             clock: clock,

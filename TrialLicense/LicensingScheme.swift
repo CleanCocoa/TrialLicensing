@@ -11,7 +11,7 @@ public enum LicensingScheme {
     func registrationName(appName: String, payload: RegistrationPayload) -> String {
         switch self {
         case .personalizedLicense:
-            let licenseeName = payload[.name] ?? ""
+            let licenseeName = payload.name ?? ""
             return "\(appName),\(licenseeName)"
         }
     }

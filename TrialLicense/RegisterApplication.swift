@@ -5,14 +5,6 @@
 import Foundation
 import Trial
 
-public typealias RegistrationPayload = [RegistrationKey : String]
-
-/// Allowed keys for `RegistrationPayload`s.
-public enum RegistrationKey: String {
-    case name
-    case licenseCode
-}
-
 /// Implemented by `RegisterApplication`; use this for delegates
 /// or view controller callbacks.
 public protocol HandlesRegistering: class {
@@ -77,11 +69,7 @@ class RegisterApplication: HandlesRegistering {
             return
         }
 
-        guard let licenseCode = payload[.licenseCode] else {
-            preconditionFailure("Internal inconsistency: Valid license reported without licenseCode in payload")
-        }
-
-        let license = License(name: payload[.name], licenseCode: licenseCode)
+        let license = License(name: payload.name, licenseCode: payload.licenseCode)
         let licenseInformation = LicenseInformation.registered(license)
 
         licenseWriter.store(license: license)

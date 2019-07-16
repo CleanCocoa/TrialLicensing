@@ -13,14 +13,16 @@ class LicensingSchemeTests: XCTestCase {
         let name = "person"
         let scheme = LicensingScheme.personalizedLicense
 
-        XCTAssertEqual(scheme.registrationName(appName: appName, payload: [:]),
-                       "\(appName),")
-        XCTAssertEqual(scheme.registrationName(appName: appName, payload: [.name : name]),
-                       "\(appName),\(name)")
-        XCTAssertEqual(scheme.registrationName(appName: appName, payload: [.licenseCode : "irrelevant"]),
-                       "\(appName),")
-        XCTAssertEqual(scheme.registrationName(appName: appName, payload: [.name : name, .licenseCode: "irrelevant"]),
-                       "\(appName),\(name)")
+        XCTAssertEqual(
+            "\(appName),\(name)",
+            scheme.registrationName(
+                appName: appName,
+                payload: RegistrationPayload(name: name, licenseCode: "irrelevant")))
+        XCTAssertEqual(
+            "\(appName),",
+            scheme.registrationName(
+                appName: appName,
+                payload: RegistrationPayload(licenseCode: "irrelevant")))
     }
 
 }

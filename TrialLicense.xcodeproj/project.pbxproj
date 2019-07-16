@@ -57,6 +57,7 @@
 		50E54E5E22DE112C00001B27 /* LicensingScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E5D22DE112C00001B27 /* LicensingScheme.swift */; };
 		50E54E6022DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E5F22DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift */; };
 		50E54E6222DE1E0700001B27 /* LicensingSchemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6122DE1E0700001B27 /* LicensingSchemeTests.swift */; };
+		50E54E6422DE1F3E00001B27 /* RegistrationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6322DE1F3E00001B27 /* RegistrationPayload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		50E54E5D22DE112C00001B27 /* LicensingScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingScheme.swift; sourceTree = "<group>"; };
 		50E54E5F22DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedLicenseRegistrationStrategyTests.swift; sourceTree = "<group>"; };
 		50E54E6122DE1E0700001B27 /* LicensingSchemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingSchemeTests.swift; sourceTree = "<group>"; };
+		50E54E6322DE1F3E00001B27 /* RegistrationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPayload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 			children = (
 				501FAAB61D9505DF00D8D68C /* LicenseConfiguration.swift */,
 				501FAA6B1D94255500D8D68C /* License.swift */,
+				50E54E6322DE1F3E00001B27 /* RegistrationPayload.swift */,
 				501FAABA1D950E8900D8D68C /* LicenseInformation.swift */,
 				50E54E5D22DE112C00001B27 /* LicensingScheme.swift */,
 			);
@@ -555,6 +558,7 @@
 				501FAA731D94255500D8D68C /* LicenseInformationProvider.swift in Sources */,
 				507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */,
 				507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */,
+				50E54E6422DE1F3E00001B27 /* RegistrationPayload.swift in Sources */,
 				501FAA761D94255500D8D68C /* UserDefaultsLicenseWriter.swift in Sources */,
 				501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */,
 				50E54E5C22DE110200001B27 /* PersonalizedLicenseRegistrationStrategy.swift in Sources */,

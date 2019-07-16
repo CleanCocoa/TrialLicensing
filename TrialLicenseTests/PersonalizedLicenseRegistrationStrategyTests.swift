@@ -28,15 +28,16 @@ class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
         let appName = "AmazingAppName2000"
         let name = "a person"
         let licenseCode = "supposed to be a license code"
+        let payload = RegistrationPayload(name: name, licenseCode: licenseCode)
 
         _ = PersonalizedLicenseRegistrationStrategy().isValid(
-            payload: [.name : name, .licenseCode : licenseCode],
+            payload: payload,
             configuration: LicenseConfiguration(appName: appName, publicKey: "irrelevant"),
             licenseVerifier: verifierDouble)
 
         XCTAssertNotNil(verifierDouble.didCallIsValidWith)
         if let values = verifierDouble.didCallIsValidWith {
-            let expectedRegistrationName = LicensingScheme.personalizedLicense.registrationName(appName: appName, payload: [.name : name])
+            let expectedRegistrationName = LicensingScheme.personalizedLicense.registrationName(appName: appName, payload: payload)
             XCTAssertEqual(values.registrationName, expectedRegistrationName)
             XCTAssertEqual(values.licenseCode, licenseCode)
         }
@@ -44,7 +45,7 @@ class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
 
     func testIsValid_ReturnsVerifierResult() {
 
-        let irrelevantPayload: RegistrationPayload = [.name : "irrelevant", .licenseCode : "irrelevant"]
+        let irrelevantPayload = RegistrationPayload(name: "irrelevant", licenseCode: "irrelevant")
         let irrelevantConfiguration = LicenseConfiguration(appName: "irrelevant", publicKey: "irrelevant")
 
         verifierDouble.testValidity = true
