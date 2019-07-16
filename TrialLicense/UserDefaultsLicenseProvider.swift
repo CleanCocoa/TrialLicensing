@@ -13,13 +13,8 @@ class UserDefaultsLicenseProvider: ProvidesLicense {
     }
     
     var currentLicense: License? {
-        
-        if let name = userDefaults.string(forKey: "\(License.UserDefaultsKeys.name)"),
-            let licenseCode = userDefaults.string(forKey: "\(License.UserDefaultsKeys.licenseCode)") {
-                
-                return License(name: name, licenseCode: licenseCode)
-        }
-        
-        return .none
+        guard let licenseCode = userDefaults.string(forKey: "\(License.UserDefaultsKeys.licenseCode)") else { return nil }
+        let name = userDefaults.string(forKey: "\(License.UserDefaultsKeys.name)")
+        return License(name: name, licenseCode: licenseCode)
     }
 }

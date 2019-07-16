@@ -24,18 +24,16 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
         super.tearDown()
     }
 
-    func provideLicenseDefaults(_ name: String, licenseCode: String) {
-        userDefaultsDouble.testValues = [
-            License.UserDefaultsKeys.name : name,
-            License.UserDefaultsKeys.licenseCode : licenseCode
-        ]
+    func provideLicenseDefaults(name: String?, licenseCode: String?) {
+        userDefaultsDouble.testValues[License.UserDefaultsKeys.name] = name
+        userDefaultsDouble.testValues[License.UserDefaultsKeys.licenseCode] = licenseCode
     }
     
     
     // MARK: -
     // MARK: Empty Defaults, no License
-    
-    func testObtainingCurrentLicense_WithEmptyDefaults_QueriesDefaultsForName() {
+
+    func testObtainingCurrentLicense_WithEmptyDefaults_QueriesDefaultsForLicenseCode() {
         
         _ = licenseProvider.currentLicense
         
@@ -43,8 +41,8 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
         XCTAssert(hasValue(usedDefaultNames))
         
         if let usedDefaultNames = usedDefaultNames {
-            
-            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name))
+            XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.licenseCode))
+            XCTAssertFalse(usedDefaultNames.contains(License.UserDefaultsKeys.name))
         }
     }
 
@@ -55,10 +53,10 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
     
     
     // MARK: Existing Defaults, Registered
-    
-    func testObtainingCurrentLicense_WithDefaultsValues_QueriesDefaultsForNameAndKey() {
+
+    func testObtainingCurrentLicense_QueriesDefaultsForNameAndKey() {
         
-        provideLicenseDefaults("irrelevant name", licenseCode: "irrelevant key")
+        provideLicenseDefaults(name: "irrelevant name", licenseCode: "irrelevant key")
         
         _ = licenseProvider.currentLicense
         
@@ -66,23 +64,42 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
         XCTAssert(hasValue(usedDefaultNames))
         
         if let usedDefaultNames = usedDefaultNames {
-            
             XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.name))
             XCTAssert(usedDefaultNames.contains(License.UserDefaultsKeys.licenseCode))
         }
     }
 
-    func testObtainingCurrentLicense_WithDefaultsValues_ReturnsLicenseWithInfo() {
+    func testObtainingCurrentLicense_WithLicenseCodeOnly_ReturnsLicenseWithInfo() {
+
+        let key = "a license key"
+        provideLicenseDefaults(name: nil, licenseCode: key)
+
+        let licenseInfo = licenseProvider.currentLicense
+
+        XCTAssert(hasValue(licenseInfo))
+        if let licenseInfo = licenseInfo {
+            XCTAssertNil(licenseInfo.name, name)
+            XCTAssertEqual(licenseInfo.licenseCode, key)
+        }
+    }
+
+    func testObtainingCurrentLicense_WithNameOnly_ReturnsNil() {
+
+        provideLicenseDefaults(name: "a name", licenseCode: nil)
+
+        XCTAssertNil(licenseProvider.currentLicense)
+    }
+
+    func testObtainingCurrentLicense_WithNameAndLicenseCode_ReturnsLicenseWithInfo() {
 
         let name = "a name"
         let key = "a license key"
-        provideLicenseDefaults(name, licenseCode: key)
+        provideLicenseDefaults(name: name, licenseCode: key)
         
         let licenseInfo = licenseProvider.currentLicense
         
         XCTAssert(hasValue(licenseInfo))
         if let licenseInfo = licenseInfo {
-            
             XCTAssertEqual(licenseInfo.name, name)
             XCTAssertEqual(licenseInfo.licenseCode, key)
         }
