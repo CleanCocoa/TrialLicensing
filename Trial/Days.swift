@@ -5,42 +5,43 @@
 import Foundation
 
 public struct Days {
-    
+
     public static func timeInterval(amount: Double) -> TimeInterval {
         return amount * 60 * 60 * 24
     }
-    
+
     public static func amount(timeInterval: TimeInterval) -> Double {
         return timeInterval / 60 / 60 / 24
     }
-    
+
     public let amount: Double
-    
+
     /// Rounded to the next integer.
     public var userFacingAmount: Int {
-        
+
         return Int(ceil(amount))
     }
-    
+
     public init(timeInterval: TimeInterval) {
         amount = fabs(Days.amount(timeInterval: timeInterval))
     }
-    
+
     public init(_ anAmount: Double) {
         amount = anAmount
     }
-    
+
     public var timeInterval: TimeInterval {
         return Days.timeInterval(amount: amount)
     }
-    
+
+    /// Returns true for negative values, like `Days(-5)` meaning "5 days ago".
     public var isPast: Bool {
         return amount < 0
     }
 }
 
 extension Days: CustomStringConvertible {
-    
+
     public var description: String {
         return "\(amount)"
     }
@@ -49,6 +50,6 @@ extension Days: CustomStringConvertible {
 extension Days: Equatable { }
 
 public func ==(lhs: Days, rhs: Days) -> Bool {
-    
+
     return lhs.amount == rhs.amount
 }
