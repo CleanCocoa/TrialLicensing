@@ -6,7 +6,7 @@ import Cocoa
 import XCTest
 @testable import TrialLicense
 
-class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
+class GenericRegistrationStrategyTests: XCTestCase {
 
     var verifierDouble: TestVerifier!
 
@@ -29,14 +29,14 @@ class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
         let licenseCode = "supposed to be a license code"
         let payload = RegistrationPayload(licenseCode: licenseCode)
 
-        _ = PersonalizedLicenseRegistrationStrategy().isValid(
+        _ = GenericRegistrationStrategy().isValid(
             payload: payload,
             configuration: LicenseConfiguration(appName: appName, publicKey: "irrelevant"),
             licenseVerifier: verifierDouble)
 
         XCTAssertNotNil(verifierDouble.didCallIsValidWith)
         if let values = verifierDouble.didCallIsValidWith {
-            let expectedRegistrationName = LicensingScheme.personalizedLicense.registrationName(appName: appName, payload: payload)
+            let expectedRegistrationName = LicensingScheme.generic.registrationName(appName: appName, payload: payload)
             XCTAssertEqual(values.registrationName, expectedRegistrationName)
             XCTAssertEqual(values.licenseCode, licenseCode)
         }
@@ -44,19 +44,18 @@ class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
 
     func testIsValid_WithName_PassesDataToVerifier() {
 
-        let appName = "AmazingAppName2000"
-        let name = "a person"
-        let licenseCode = "supposed to be a license code"
-        let payload = RegistrationPayload(name: name, licenseCode: licenseCode)
+        let appName = "TheAppHere"
+        let licenseCode = "code to unlock"
+        let payload = RegistrationPayload(name: "irrelevant", licenseCode: licenseCode)
 
-        _ = PersonalizedLicenseRegistrationStrategy().isValid(
+        _ = GenericRegistrationStrategy().isValid(
             payload: payload,
             configuration: LicenseConfiguration(appName: appName, publicKey: "irrelevant"),
             licenseVerifier: verifierDouble)
 
         XCTAssertNotNil(verifierDouble.didCallIsValidWith)
         if let values = verifierDouble.didCallIsValidWith {
-            let expectedRegistrationName = LicensingScheme.personalizedLicense.registrationName(appName: appName, payload: payload)
+            let expectedRegistrationName = LicensingScheme.generic.registrationName(appName: appName, payload: payload)
             XCTAssertEqual(values.registrationName, expectedRegistrationName)
             XCTAssertEqual(values.licenseCode, licenseCode)
         }
@@ -68,13 +67,13 @@ class PersonalizedLicenseRegistrationStrategyTests: XCTestCase {
         let irrelevantConfiguration = LicenseConfiguration(appName: "irrelevant", publicKey: "irrelevant")
 
         verifierDouble.testValidity = true
-        XCTAssertTrue(PersonalizedLicenseRegistrationStrategy().isValid(
+        XCTAssertTrue(GenericRegistrationStrategy().isValid(
             payload: irrelevantPayload,
             configuration: irrelevantConfiguration,
             licenseVerifier: verifierDouble))
 
         verifierDouble.testValidity = false
-        XCTAssertFalse(PersonalizedLicenseRegistrationStrategy().isValid(
+        XCTAssertFalse(GenericRegistrationStrategy().isValid(
             payload: irrelevantPayload,
             configuration: irrelevantConfiguration,
             licenseVerifier: verifierDouble))

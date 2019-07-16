@@ -58,6 +58,8 @@
 		50E54E6022DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E5F22DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift */; };
 		50E54E6222DE1E0700001B27 /* LicensingSchemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6122DE1E0700001B27 /* LicensingSchemeTests.swift */; };
 		50E54E6422DE1F3E00001B27 /* RegistrationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6322DE1F3E00001B27 /* RegistrationPayload.swift */; };
+		50E54E6622DE218500001B27 /* GenericRegistrationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6522DE218500001B27 /* GenericRegistrationStrategy.swift */; };
+		50E54E6822DE21E400001B27 /* GenericRegistrationStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E54E6722DE21E400001B27 /* GenericRegistrationStrategyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,8 @@
 		50E54E5F22DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedLicenseRegistrationStrategyTests.swift; sourceTree = "<group>"; };
 		50E54E6122DE1E0700001B27 /* LicensingSchemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingSchemeTests.swift; sourceTree = "<group>"; };
 		50E54E6322DE1F3E00001B27 /* RegistrationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPayload.swift; sourceTree = "<group>"; };
+		50E54E6522DE218500001B27 /* GenericRegistrationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRegistrationStrategy.swift; sourceTree = "<group>"; };
+		50E54E6722DE21E400001B27 /* GenericRegistrationStrategyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRegistrationStrategyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +244,7 @@
 				50E54E6122DE1E0700001B27 /* LicensingSchemeTests.swift */,
 				501FAA7B1D94257A00D8D68C /* LicenseVerifierTests.swift */,
 				50E54E5F22DE1BF200001B27 /* PersonalizedLicenseRegistrationStrategyTests.swift */,
+				50E54E6722DE21E400001B27 /* GenericRegistrationStrategyTests.swift */,
 				501FAA7A1D94257A00D8D68C /* UserDefaultsLicenseProviderTests.swift */,
 				501FAA7C1D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift */,
 				501FAA121D94232D00D8D68C /* Info.plist */,
@@ -309,6 +314,7 @@
 				501FAAC41D9511FD00D8D68C /* TrialRunner.swift */,
 				501FAAC61D9512CF00D8D68C /* RegisterApplication.swift */,
 				50E54E5B22DE110200001B27 /* PersonalizedLicenseRegistrationStrategy.swift */,
+				50E54E6522DE218500001B27 /* GenericRegistrationStrategy.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 				507FDBDA1D990F8A00FE07E7 /* URLComponents.swift in Sources */,
 				507FDBD91D990F8A00FE07E7 /* URLQueryLicenseParser.swift in Sources */,
 				50E54E6422DE1F3E00001B27 /* RegistrationPayload.swift in Sources */,
+				50E54E6622DE218500001B27 /* GenericRegistrationStrategy.swift in Sources */,
 				501FAA761D94255500D8D68C /* UserDefaultsLicenseWriter.swift in Sources */,
 				501FAAC51D9511FD00D8D68C /* TrialRunner.swift in Sources */,
 				50E54E5C22DE110200001B27 /* PersonalizedLicenseRegistrationStrategy.swift in Sources */,
@@ -577,6 +584,7 @@
 				501FAA811D94257A00D8D68C /* LicenseVerifierTests.swift in Sources */,
 				501FAAC91D95134900D8D68C /* RegisterApplicationTests.swift in Sources */,
 				501FAA821D94257A00D8D68C /* UserDefaultsLicenseWriterTests.swift in Sources */,
+				50E54E6822DE21E400001B27 /* GenericRegistrationStrategyTests.swift in Sources */,
 				50E54E6222DE1E0700001B27 /* LicensingSchemeTests.swift in Sources */,
 				501FAA8D1D94267000D8D68C /* NullUserDefaults.swift in Sources */,
 				501FAA7F1D94257A00D8D68C /* LicenseInformationTests.swift in Sources */,

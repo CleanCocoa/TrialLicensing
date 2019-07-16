@@ -25,4 +25,20 @@ class LicensingSchemeTests: XCTestCase {
                 payload: RegistrationPayload(licenseCode: "irrelevant")))
     }
 
+    func testGenericRegistrationName() {
+        let appName = "foobar"
+        let scheme = LicensingScheme.generic
+
+        XCTAssertEqual(
+            "\(appName)",
+            scheme.registrationName(
+                appName: appName,
+                payload: RegistrationPayload(name: "irrelevant", licenseCode: "irrelevant")))
+        XCTAssertEqual(
+            "\(appName)",
+            scheme.registrationName(
+                appName: appName,
+                payload: RegistrationPayload(licenseCode: "irrelevant")))
+    }
+
 }
