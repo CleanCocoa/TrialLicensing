@@ -127,11 +127,12 @@ class LicenseInformationTests: XCTestCase {
     
     // MARK: Registered user info
     
-    let license = License(name: "a name", licenseCode: "a license code")
+    let licenseWithName = License(name: "a name", licenseCode: "a license code")
+    let licenseWithoutName = License(name: nil, licenseCode: "another license code")
     
-    func testToUserInfo_Registered_SetsRegisteredToTrue() {
+    func testToUserInfo_RegisteredWithName_SetsRegisteredToTrue() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         let registered = licenseInfo.userInfo["registered"] as? Bool
         XCTAssert(hasValue(registered))
@@ -140,9 +141,9 @@ class LicenseInformationTests: XCTestCase {
         }
     }
     
-    func testToUserInfo_Registered_SetsOnTrialToFalse() {
+    func testToUserInfo_RegisteredWithName_SetsOnTrialToFalse() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         let registered = licenseInfo.userInfo["on_trial"] as? Bool
         XCTAssert(hasValue(registered))
@@ -151,43 +152,97 @@ class LicenseInformationTests: XCTestCase {
         }
     }
     
-    func testToUserInfo_Registered_SetsNameKeyToLicense() {
+    func testToUserInfo_RegisteredWithName_SetsNameKeyToLicense() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         let name = licenseInfo.userInfo["name"] as? String
         XCTAssert(hasValue(name))
         if let name = name {
-            XCTAssertEqual(name, license.name)
+            XCTAssertEqual(name, licenseWithName.name)
         }
     }
     
-    func testToUserInfo_Registered_SetsLicenseCodeKeyToLicense() {
+    func testToUserInfo_RegisteredWithName_SetsLicenseCodeKeyToLicense() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         let licenseCode = licenseInfo.userInfo["licenseCode"] as? String
         XCTAssert(hasValue(licenseCode))
         if let licenseCode = licenseCode {
-            XCTAssertEqual(licenseCode, license.licenseCode)
+            XCTAssertEqual(licenseCode, licenseWithName.licenseCode)
         }
     }
     
-    func testToUserInfo_Registered_HasNoStartDateKey() {
+    func testToUserInfo_RegisteredWithName_HasNoStartDateKey() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         XCTAssertFalse(hasValue(licenseInfo.userInfo["trial_start_date"]))
     }
     
-    func testToUserInfo_Registered_HasNoEndDateKey() {
+    func testToUserInfo_RegisteredWithName_HasNoEndDateKey() {
         
-        let licenseInfo = LicenseInformation.registered(license)
+        let licenseInfo = LicenseInformation.registered(licenseWithName)
         
         XCTAssertFalse(hasValue(licenseInfo.userInfo["trial_end_date"]))
     }
-    
-    
+
+    func testToUserInfo_RegisteredWithoutName_SetsRegisteredToTrue() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        let registered = licenseInfo.userInfo["registered"] as? Bool
+        XCTAssert(hasValue(registered))
+        if let registered = registered {
+            XCTAssert(registered)
+        }
+    }
+
+    func testToUserInfo_RegisteredWithoutName_SetsOnTrialToFalse() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        let registered = licenseInfo.userInfo["on_trial"] as? Bool
+        XCTAssert(hasValue(registered))
+        if let registered = registered {
+            XCTAssert(registered == false)
+        }
+    }
+
+    func testToUserInfo_RegisteredWithoutName_HasNoNameKey() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        XCTAssertFalse(hasValue(licenseInfo.userInfo["name"] as? String))
+    }
+
+    func testToUserInfo_RegisteredWithoutName_SetsLicenseCodeKeyToLicense() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        let licenseCode = licenseInfo.userInfo["licenseCode"] as? String
+        XCTAssert(hasValue(licenseCode))
+        if let licenseCode = licenseCode {
+            XCTAssertEqual(licenseCode, licenseWithoutName.licenseCode)
+        }
+    }
+
+    func testToUserInfo_RegisteredWithoutName_HasNoStartDateKey() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        XCTAssertFalse(hasValue(licenseInfo.userInfo["trial_start_date"]))
+    }
+
+    func testToUserInfo_RegisteredWithoutName_HasNoEndDateKey() {
+
+        let licenseInfo = LicenseInformation.registered(licenseWithoutName)
+
+        XCTAssertFalse(hasValue(licenseInfo.userInfo["trial_end_date"]))
+    }
+
+
     // MARK: -
 
     typealias UserInfo = LicenseInformation.UserInfo
@@ -346,13 +401,20 @@ class LicenseInformationTests: XCTestCase {
         XCTAssertFalse(hasValue(result))
     }
     
-    func testFromUserInfo_RegisteredUserInfo_WithLicenseCodeOnly_ReturnsNil() {
-        
-        let userInfo: UserInfo = ["registered" : true, "licenseCode" : "a license code"]
+    func testFromUserInfo_RegisteredUserInfo_WithLicenseCodeOnly_ReturnsLicense() {
+
+        let licenseCode = "the license code"
+        let userInfo: UserInfo = ["registered" : true, "licenseCode" : licenseCode]
         
         let result = LicenseInformation(userInfo: userInfo)
         
-        XCTAssertFalse(hasValue(result))
+        switch result {
+        case let .some(.registered(license)):
+            XCTAssertNil(license.name)
+            XCTAssertEqual(license.licenseCode, licenseCode)
+        default:
+            XCTFail("expected Registered")
+        }
     }
     
     func testFromUserInfo_RegisteredUserInfo_WithpersonalizedLicense_ReturnsRegistered() {

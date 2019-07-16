@@ -61,8 +61,8 @@ extension LicenseInformation {
             }
         }
 
-        guard let name = userInfo["name"] as? String else { return nil }
         guard let licenseCode = userInfo["licenseCode"] as? String else { return nil }
+        let name = userInfo["name"] as? String
 
         self = .registered(License(name: name, licenseCode: licenseCode))
     }
