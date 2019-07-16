@@ -21,7 +21,7 @@ public class URLQueryRegistration {
 
     fileprivate func register(license: License) {
 
-        AppLicensing.register(name: license.name, licenseCode: license.licenseCode)
+        AppLicensing.register(payload: license.payload)
     }
 
     static var expectedHost: String { return TrialLicense.URLComponents.host }
@@ -40,7 +40,7 @@ public class URLQueryRegistration {
         
         guard let host = url.host,
             let query = url.query,
-            host == URLComponents.host
+            host == TrialLicense.URLComponents.host
             else { return nil }
             
         return query

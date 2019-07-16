@@ -355,7 +355,7 @@ class LicenseInformationTests: XCTestCase {
         XCTAssertFalse(hasValue(result))
     }
     
-    func testFromUserInfo_RegisteredUserInfo_WithNameAndLicenseCode_ReturnsRegistered() {
+    func testFromUserInfo_RegisteredUserInfo_WithpersonalizedLicense_ReturnsRegistered() {
         
         let name = "the name"
         let licenseCode = "the license code"
@@ -372,7 +372,7 @@ class LicenseInformationTests: XCTestCase {
         }
     }
     
-    func testFromUserInfo_RegisteredUserInfo_WithNameAndLicenseCodeAndAdditionalData_ReturnsRegistered() {
+    func testFromUserInfo_RegisteredUserInfo_WithpersonalizedLicenseAndAdditionalData_ReturnsRegistered() {
         
         let name = "the name"
         let licenseCode = "the license code"

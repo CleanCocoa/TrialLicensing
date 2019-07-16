@@ -12,7 +12,7 @@ class UserDefaultsLicenseWriter: WritesLicense {
         self.userDefaults = userDefaults
     }
 
-    func store(licenseCode: String, forName name: String) {
+    func store(licenseCode: String, forName name: String?) {
         
         userDefaults.setValue(name, forKey: License.UserDefaultsKeys.name)
         userDefaults.setValue(licenseCode, forKey: License.UserDefaultsKeys.licenseCode)

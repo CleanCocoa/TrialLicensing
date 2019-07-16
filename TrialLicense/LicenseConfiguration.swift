@@ -6,7 +6,7 @@ import Foundation
 
 /// Configuration for the app's license generator and verifier
 /// using CocoaFob.
-public struct LicenseConfiguration {
+public struct LicenseConfiguration: Equatable {
 
     let appName: String
     let publicKey: String

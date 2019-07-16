@@ -17,6 +17,7 @@ public class AppLicensing {
 
     public static private(set) var sharedInstance: AppLicensing?
 
+    /// - returns: `nil` if the `AppLicensing` module wasn't set up prior to accessing the value, or the up-to date information otherwise.
     public static var currentLicenseInformation: LicenseInformation? {
         return sharedInstance?.currentLicenseInformation
     }
@@ -27,6 +28,29 @@ public class AppLicensing {
 
     public static var registerApplication: HandlesRegistering? {
         return sharedInstance?.register
+    }
+
+    @available(*, deprecated, message: "Use invalidLicenseInformationBlock of type (RegistrationPayload) -> Void")
+    public static func startUp(
+        configuration: LicenseConfiguration,
+        initialTrialDuration: Days,
+        licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
+        invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
+        clock: KnowsTimeAndDate = Clock(),
+        userDefaults: UserDefaults = UserDefaults.standard,
+        fireInitialState: Bool = false) {
+
+        startUp(
+            configuration: configuration,
+            initialTrialDuration: initialTrialDuration,
+            licenseChangeBlock: licenseChangeBlock,
+            invalidLicenseInformationBlock: { (payload) in
+                invalidLicenseInformationBlock(payload[.name] ?? "", payload[.licenseCode] ?? "")
+            },
+            licensingScheme: .personalizedLicense,
+            clock: clock,
+            userDefaults: userDefaults,
+            fireInitialState: fireInitialState)
     }
 
     /// Performs initial licensing setup:
@@ -43,6 +67,8 @@ public class AppLicensing {
     /// - parameter licenseChangeBlock: Invoked on license state changes.
     /// - parameter invalidLicenseInformationBlock: Invoked when license details
     ///   used to register are invalid.
+    /// - parameter registrationStrategy: Which parameters to use to verify licenses.
+    ///   Default is `.personalizedLicense`.
     /// - parameter clock: Testing seam so you can see what happens if the
     ///   trial is up with manual or integration tests.
     /// - parameter userDefaults: The UserDefaults instance you want to store the
@@ -57,7 +83,8 @@ public class AppLicensing {
         configuration: LicenseConfiguration,
         initialTrialDuration: Days,
         licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
-        invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
+        invalidLicenseInformationBlock: @escaping ((_ payload: RegistrationPayload) -> Void),
+        licensingScheme: LicensingScheme = .personalizedLicense,
         clock: KnowsTimeAndDate = Clock(),
         userDefaults: UserDefaults = UserDefaults.standard,
         fireInitialState: Bool = false) {
@@ -72,6 +99,7 @@ public class AppLicensing {
                 initialTrialDuration: initialTrialDuration,
                 licenseChangeBlock: licenseChangeBlock,
                 invalidLicenseInformationBlock: invalidLicenseInformationBlock,
+                licensingScheme: licensingScheme,
                 clock: clock,
                 userDefaults: userDefaults)
 
@@ -136,21 +164,24 @@ public class AppLicensing {
 
     // MARK: App license cycle convenience methods
 
-    /// Shortcut to use the registration handler to
-    /// try to validate a license and change the state
+    /// Try to validate a license from `payload` and change the state
     /// of the app; will fire a change event if things go well.
     ///
     /// See the callbacks or `AppLicensingDelegate` methods.
     ///
     /// - important: Set up licensing with `setUp` first or the app will crash here.
-    /// - parameter name: Licensee name; surrounding whitespace will be removed.
-    /// - parameter licenseCode: Licence code; surrounding whitespace will be removed.
-    public static func register(name: String, licenseCode: String) {
+    /// - parameter payload: Parts of the
+    ///
+    /// See also for convenience:
+    /// - `register(name:licenseCode:)`
+    /// - `register(licenseCode:)`
+    public static func register(payload: RegistrationPayload) {
 
-        guard let registerApplication = registerApplication
-            else { preconditionFailure("Call setUp first") }
+        guard let registerApplication = registerApplication else {
+            preconditionFailure("Call setUp first")
+        }
 
-        registerApplication.register(name: name, licenseCode: licenseCode)
+        registerApplication.register(payload: payload)
     }
 
     /// Registers a license owner from an incoming URL Scheme query.
@@ -210,15 +241,17 @@ public class AppLicensing {
     public let licenseInformationProvider: ProvidesLicenseInformation
     fileprivate(set) var register: RegisterApplication!
     fileprivate(set) var trialRunner: TrialRunner!
+    let licensingScheme: LicensingScheme
 
     fileprivate(set) var licenseChangeBlock: (LicenseInformation) -> Void
-    fileprivate(set) var invalidLicenseInformationBlock: (String, String) -> Void
+    fileprivate(set) var invalidLicenseInformationBlock: (_ payload: RegistrationPayload) -> Void
 
     init(
         configuration: LicenseConfiguration,
         initialTrialDuration: Days,
         licenseChangeBlock: @escaping ((LicenseInformation) -> Void),
-        invalidLicenseInformationBlock: @escaping ((String, String) -> Void),
+        invalidLicenseInformationBlock: @escaping ((_ payload: RegistrationPayload) -> Void),
+        licensingScheme: LicensingScheme,
         clock: KnowsTimeAndDate = Clock(),
         userDefaults: UserDefaults = UserDefaults.standard) {
 
@@ -226,6 +259,7 @@ public class AppLicensing {
         self.userDefaults = userDefaults
         self.licenseChangeBlock = licenseChangeBlock
         self.invalidLicenseInformationBlock = invalidLicenseInformationBlock
+        self.licensingScheme = licensingScheme
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
         let licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaults)
@@ -235,6 +269,8 @@ public class AppLicensing {
             trialProvider: trialProvider,
             licenseProvider: licenseProvider,
             licenseVerifier: licenseVerifier,
+            registrationStrategy: licensingScheme.registrationStrategy,
+            configuration: configuration,
             clock: clock)
 
         self.trialRunner = TrialRunner(
@@ -249,11 +285,13 @@ public class AppLicensing {
             licenseWriter: licenseWriter,
             licenseInformationProvider: licenseInformationProvider,
             trialProvider: trialProvider,
+            registrationStrategy: licensingScheme.registrationStrategy,
+            configuration: configuration,
             licenseChangeCallback: { [weak self] in
                 self?.licenseDidChange(licenseInformation: $0)
             },
             invalidLicenseCallback: { [weak self] in
-                self?.didEnterInvalidLicense(name: $0, licenseCode: $1)
+                self?.didEnterInvalidLicense(payload: $0)
             })
     }
 
@@ -283,11 +321,11 @@ public class AppLicensing {
         }
     }
 
-    fileprivate func didEnterInvalidLicense(name: String, licenseCode: String) {
+    fileprivate func didEnterInvalidLicense(payload: RegistrationPayload) {
 
         DispatchQueue.main.async {
             
-            self.invalidLicenseInformationBlock(name, licenseCode)
+            self.invalidLicenseInformationBlock(payload)
         }
     }
 }

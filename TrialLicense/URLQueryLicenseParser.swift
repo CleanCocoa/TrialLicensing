@@ -20,10 +20,10 @@ public class URLQueryLicenseParser {
             .first
 
         guard let encodedName = nameQueryItem?.value,
-            let name = decode(string: encodedName),
             let licenseCode = licenseCodeQueryItem?.value
-            else { return .none }
+            else { return nil }
 
+        let name = decode(string: encodedName)
         return License(name: name, licenseCode: licenseCode)
     }
 
@@ -32,10 +32,10 @@ public class URLQueryLicenseParser {
         
         let queryDictionary = dictionary(fromQuery: query)
         
-        guard let name = decode(string: queryDictionary[URLComponents.licensee]),
-            let licenseCode = queryDictionary[URLComponents.licenseCode]
-            else { return .none }
-                
+        guard let licenseCode = queryDictionary[URLComponents.licenseCode]
+            else { return nil }
+
+        let name = decode(string: queryDictionary[URLComponents.licensee])
         return License(name: name, licenseCode: licenseCode)
     }
     

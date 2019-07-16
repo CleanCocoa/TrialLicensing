@@ -13,20 +13,26 @@ class LicenseInformationProviderTests: XCTestCase {
     var trialProviderDouble: TestTrialProvider!
     var licenseProviderDouble: TestLicenseProvider!
     var clockDouble: TestClock!
-    var verifierDouble: TestVerifier!
-    
+    var registrationStrategyDouble: TestRegistrationStrategy!
+
+    var configuration: LicenseConfiguration {
+        return LicenseConfiguration(appName: "NameOfTheApp", publicKey: "the-irrelevant-key")
+    }
+
     override func setUp() {
         super.setUp()
 
         trialProviderDouble = TestTrialProvider()
         licenseProviderDouble = TestLicenseProvider()
         clockDouble = TestClock()
-        verifierDouble = TestVerifier()
+        registrationStrategyDouble = TestRegistrationStrategy()
         
         licenseInfoProvider = LicenseInformationProvider(
             trialProvider: trialProviderDouble,
             licenseProvider: licenseProviderDouble,
-            licenseVerifier: verifierDouble,
+            licenseVerifier: NullVerifier(),
+            registrationStrategy: registrationStrategyDouble,
+            configuration: configuration,
             clock: clockDouble)
     }
 
@@ -34,8 +40,8 @@ class LicenseInformationProviderTests: XCTestCase {
         trialProviderDouble = nil
         licenseProviderDouble = nil
         clockDouble = nil
-        verifierDouble = nil
         licenseInfoProvider = nil
+        registrationStrategyDouble = nil
         super.tearDown()
     }
     
@@ -48,7 +54,7 @@ class LicenseInformationProviderTests: XCTestCase {
     
     func testLicenceInvalidity_ValidLicense_ReturnsFalse() {
         
-        verifierDouble.testValidity = true
+        registrationStrategyDouble.testIsValid = true
         licenseProviderDouble.testLicense = irrelevantLicense
         
         XCTAssertFalse(licenseInfoProvider.isLicenseInvalid)
@@ -56,7 +62,7 @@ class LicenseInformationProviderTests: XCTestCase {
     
     func testLicenceInvalidity_InvalidLicense_ReturnsFalse() {
         
-        verifierDouble.testValidity = false
+        registrationStrategyDouble.testIsValid = false
         licenseProviderDouble.testLicense = irrelevantLicense
         
         XCTAssert(licenseInfoProvider.isLicenseInvalid)
@@ -111,7 +117,7 @@ class LicenseInformationProviderTests: XCTestCase {
 
     func testCurrentInfo_WithInvalidLicense_NoTrial_ReturnsTrialUp() {
         
-        verifierDouble.testValidity = false
+        registrationStrategyDouble.testIsValid = false
         licenseProviderDouble.testLicense = irrelevantLicense
         
         let licenseInfo = licenseInfoProvider.currentLicenseInformation
@@ -128,7 +134,7 @@ class LicenseInformationProviderTests: XCTestCase {
     func testCurrentInfo_WithInvalidLicense_OnTrial_ReturnsTrial() {
         
         // Given
-        verifierDouble.testValidity = false
+        registrationStrategyDouble.testIsValid = false
         licenseProviderDouble.testLicense = irrelevantLicense
 
         let startDate = Date(timeIntervalSince1970: 1000)
@@ -149,7 +155,7 @@ class LicenseInformationProviderTests: XCTestCase {
     
     func testCurrentInfo_WithValidLicense_NoTrial_ReturnsRegisteredWithInfo() {
         
-        verifierDouble.testValidity = true
+        registrationStrategyDouble.testIsValid = true
         let name = "a name"
         let licenseCode = "a license code"
         let license = License(name: name, licenseCode: licenseCode)
@@ -166,7 +172,7 @@ class LicenseInformationProviderTests: XCTestCase {
     func testCurrentInfo_WithValidLicense_OnTrial_ReturnsRegistered() {
         
         // Given
-        verifierDouble.testValidity = true
+        registrationStrategyDouble.testIsValid = true
         
         let endDate = Date()
         let expectedPeriod = TrialPeriod(startDate: Date(), endDate: endDate)
@@ -191,7 +197,7 @@ class LicenseInformationProviderTests: XCTestCase {
     func testCurrentInfo_WithValidLicense_PassedTrial_ReturnsRegistered() {
         
         // Given
-        verifierDouble.testValidity = true
+        registrationStrategyDouble.testIsValid = true
         let endDate = Date()
         let expectedPeriod = TrialPeriod(startDate: Date(), endDate: endDate)
         clockDouble.testDate = endDate.addingTimeInterval(+9999)
@@ -239,20 +245,23 @@ class LicenseInformationProviderTests: XCTestCase {
             return testDate
         }
     }
-    
-    class TestVerifier: LicenseVerifier {
-        
+
+    class TestRegistrationStrategy: RegistrationStrategy {
+
+        var testIsValid = false
+        func isValid(payload: RegistrationPayload, configuration: LicenseConfiguration, licenseVerifier: LicenseCodeVerification) -> Bool {
+            return testIsValid
+        }
+    }
+
+    class NullVerifier: LicenseVerifier {
+
         init() {
             super.init(configuration: LicenseConfiguration(appName: "irrelevant app name", publicKey: "irrelevant key"))
         }
-        
-        var testValidity = false
-        var didCallIsValidWith: (licenseCode: String, name: String)?
-        override func isValid(licenseCode: String, forName name: String) -> Bool {
-            
-            didCallIsValidWith = (licenseCode, name)
-            
-            return testValidity
+
+        override func isValid(licenseCode: String, registrationName: String) -> Bool {
+            return false
         }
     }
 }

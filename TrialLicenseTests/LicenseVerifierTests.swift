@@ -34,15 +34,21 @@ fileprivate let publicKey: String = {
     return publicKey
 }()
 
+fileprivate let appName = "MyNewApp"
+
+fileprivate func personalizedRegistrationName(licenseeName: String) -> String {
+    return LicensingScheme.personalizedLicense.registrationName(
+        appName: appName,
+        payload: [.name : licenseeName])
+}
+
 class LicenseVerifierTests: XCTestCase {
 
     var verifier: LicenseVerifier!
 
-    let validLicense = License(name: "John Appleseed", licenseCode: "GAWQE-FABU3-HNQXA-B7EGM-34X2E-DGMT4-4F44R-9PUQC-CUANX-FXMCZ-4536Y-QKX9D-PU2C3-QG2ZA-U88NJ-Q")
-
     override func setUp() {
         super.setUp()
-        let configuration = LicenseConfiguration(appName: "MyNewApp", publicKey: publicKey)
+        let configuration = LicenseConfiguration(appName: appName, publicKey: publicKey)
         verifier = LicenseVerifier(configuration: configuration)
     }
 
@@ -53,31 +59,43 @@ class LicenseVerifierTests: XCTestCase {
     
     func testVerify_EmptyStrings_ReturnsFalse() {
         
-        let result = verifier.isValid(licenseCode: "", forName: "")
+        let result = verifier.isValid(licenseCode: "", registrationName: "")
+        
+        XCTAssertFalse(result)
+    }
+
+    // MARK: Personalized license
+
+    var validPersonalizedLicense: License {
+        return License(
+            name: "John Appleseed",
+            licenseCode: "GAWQE-FABU3-HNQXA-B7EGM-34X2E-DGMT4-4F44R-9PUQC-CUANX-FXMCZ-4536Y-QKX9D-PU2C3-QG2ZA-U88NJ-Q")
+    }
+
+    func testVerifyPersonalizedLicense_ValidCodeWrongName_ReturnsFalse() {
+        
+        let result = verifier.isValid(licenseCode: validPersonalizedLicense.licenseCode,
+                                      registrationName: personalizedRegistrationName(licenseeName: "Jon Snow"))
         
         XCTAssertFalse(result)
     }
     
-    func testVerify_ValidCodeWrongName_ReturnsFalse() {
+    func testVerifyPersonalizedLicense_ValidLicense_ReturnsTrue() {
         
-        let result = verifier.isValid(licenseCode: validLicense.licenseCode, forName: "Jon Snow")
-        
-        XCTAssertFalse(result)
-    }
-    
-    func testVerify_ValidLicense_ReturnsTrue() {
-        
-        let result = verifier.isValid(licenseCode: validLicense.licenseCode, forName: validLicense.name)
+        let result = verifier.isValid(licenseCode: validPersonalizedLicense.licenseCode,
+                                      registrationName: personalizedRegistrationName(licenseeName: validPersonalizedLicense.name!))
         
         XCTAssert(result)
     }
     
-    func testVerify_ValidLicenseWrongAppName_ReturnsFalse() {
+    func testVerifyPersonalizedLicense_ValidLicenseWrongAppName_ReturnsFalse() {
 
-        let configuration = LicenseConfiguration(appName: "TotallyWrongAppName", publicKey: publicKey)
-        let verifier = LicenseVerifier(configuration: configuration)
-        
-        let result = verifier.isValid(licenseCode: validLicense.licenseCode, forName: validLicense.name)
+        let registrationNameForWrongApp = LicensingScheme.personalizedLicense.registrationName(
+            appName: "totally-wrong-app-name",
+            payload: [.name : validPersonalizedLicense.name!])
+
+        let result = verifier.isValid(licenseCode: validPersonalizedLicense.licenseCode,
+                                      registrationName: registrationNameForWrongApp)
         
         XCTAssertFalse(result)
     }

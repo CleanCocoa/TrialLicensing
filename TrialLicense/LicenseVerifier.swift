@@ -5,34 +5,36 @@
 import Foundation
 import CocoaFob
 
+public protocol LicenseCodeVerification: class {
+    func isValid(licenseCode: String, registrationName: String) -> Bool
+}
+
 /// Verifies license information based on the registration
-/// scheme `APPNAME,LICENSEE_NAME` which ties licenses to
-/// both application and user.
-class LicenseVerifier {
+/// scheme. This is either
+/// - `APPNAME,LICENSEE_NAME`, which ties licenses to both application and user, or
+/// - `APPNAME` only.
+class LicenseVerifier: LicenseCodeVerification {
 
     let configuration: LicenseConfiguration
-    fileprivate var appName: String { return configuration.appName }
     fileprivate var publicKey: String { return configuration.publicKey }
 
     init(configuration: LicenseConfiguration) {
         
         self.configuration = configuration
     }
-    
-    func isValid(licenseCode: String, forName name: String) -> Bool {
-        
-        // Same format as on FastSpring
-        let registrationName = "\(appName),\(name)"
-        let publicKey = self.publicKey
-        
-        guard let verifier = verifier(publicKey: publicKey) else {
+
+    /// - parameter licenseCode: License key to verify.
+    /// - parameter registrationName: Format as used on FastSpring, e.g. "appName,userName".
+    func isValid(licenseCode: String, registrationName: String) -> Bool {
+
+        guard let verifier = verifier(publicKey: self.publicKey) else {
             assertionFailure("CocoaFob.LicenseVerifier cannot be constructed")
             return false
         }
-        
+
         return verifier.verify(licenseCode, forName: registrationName)
     }
-    
+
     fileprivate func verifier(publicKey: String) -> CocoaFob.LicenseVerifier? {
 
         return CocoaFob.LicenseVerifier(publicKeyPEM: publicKey)

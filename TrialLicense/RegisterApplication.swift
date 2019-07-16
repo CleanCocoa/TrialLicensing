@@ -5,17 +5,29 @@
 import Foundation
 import Trial
 
+public typealias RegistrationPayload = [RegistrationKey : String]
+
+/// Allowed keys for `RegistrationPayload`s.
+public enum RegistrationKey: String {
+    case name
+    case licenseCode
+}
+
 /// Implemented by `RegisterApplication`; use this for delegates
 /// or view controller callbacks.
 public protocol HandlesRegistering: class {
 
-    func register(name: String, licenseCode: String)
+    func register(payload: RegistrationPayload)
     func unregister()
+}
+
+protocol RegistrationStrategy {
+    func isValid(payload: RegistrationPayload, configuration: LicenseConfiguration, licenseVerifier: LicenseCodeVerification) -> Bool
 }
 
 public protocol WritesLicense {
     func store(license: License)
-    func store(licenseCode: String, forName name: String)
+    func store(licenseCode: String, forName name: String?)
     func removeLicense()
 }
 
@@ -31,16 +43,20 @@ class RegisterApplication: HandlesRegistering {
     let licenseWriter: WritesLicense
     let licenseInformationProvider: ProvidesLicenseInformation
     let trialProvider: ProvidesTrial
+    let registrationStrategy: RegistrationStrategy
+    let configuration: LicenseConfiguration
 
     let licenseChangeCallback: LicenseChangeCallback
 
-    typealias InvalidLicenseCallback = (_ name: String, _ licenseCode: String) -> Void
+    typealias InvalidLicenseCallback = (_ payload: RegistrationPayload) -> Void
     let invalidLicenseCallback: InvalidLicenseCallback
 
     init(licenseVerifier: LicenseVerifier,
          licenseWriter: WritesLicense,
          licenseInformationProvider: ProvidesLicenseInformation,
          trialProvider: ProvidesTrial,
+         registrationStrategy: RegistrationStrategy,
+         configuration: LicenseConfiguration,
          licenseChangeCallback: @escaping LicenseChangeCallback,
          invalidLicenseCallback: @escaping InvalidLicenseCallback) {
 
@@ -48,23 +64,35 @@ class RegisterApplication: HandlesRegistering {
         self.licenseWriter = licenseWriter
         self.licenseInformationProvider = licenseInformationProvider
         self.trialProvider = trialProvider
+        self.registrationStrategy = registrationStrategy
+        self.configuration = configuration
         self.licenseChangeCallback = licenseChangeCallback
         self.invalidLicenseCallback = invalidLicenseCallback
     }
 
-    func register(name: String, licenseCode: String) {
+    func register(payload: RegistrationPayload) {
 
-        guard licenseVerifier.isValid(licenseCode: licenseCode, forName: name) else {
-
-            invalidLicenseCallback(name, licenseCode)
+        guard payloadIsValid(payload) else {
+            invalidLicenseCallback(payload)
             return
         }
 
-        let license = License(name: name, licenseCode: licenseCode)
+        guard let licenseCode = payload[.licenseCode] else {
+            preconditionFailure("Internal inconsistency: Valid license reported without licenseCode in payload")
+        }
+
+        let license = License(name: payload[.name], licenseCode: licenseCode)
         let licenseInformation = LicenseInformation.registered(license)
 
         licenseWriter.store(license: license)
         licenseChangeCallback(licenseInformation)
+    }
+
+    private func payloadIsValid(_ payload: RegistrationPayload) -> Bool {
+        return self.registrationStrategy.isValid(
+            payload: payload,
+            configuration: self.configuration,
+            licenseVerifier: self.licenseVerifier)
     }
 
     func unregister() {

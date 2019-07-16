@@ -6,10 +6,16 @@ import Foundation
 
 public struct License {
     
-    public let name: String
+    public let name: String?
     public let licenseCode: String
+
+    public var payload: RegistrationPayload {
+        var result: RegistrationPayload = [.licenseCode : self.licenseCode]
+        result[.name] = self.name
+        return result
+    }
     
-    public init(name: String, licenseCode: String) {
+    public init(name: String?, licenseCode: String) {
         
         self.name = name
         self.licenseCode = licenseCode

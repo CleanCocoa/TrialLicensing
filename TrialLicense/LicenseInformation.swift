@@ -27,12 +27,13 @@ extension LicenseInformation {
                 "trial_end_date" : trialPeriod.endDate,
             ]
         case let .registered(license):
-            return [
+            var result: UserInfo = [
                 "registered" : true,
                 "on_trial" : false,
-                "name" : license.name,
-                "licenseCode"  : license.licenseCode
+                "licenseCode" : license.licenseCode
             ]
+            result["name"] = license.name
+            return result
         case .trialUp:
             return [
                 "registered" : false,

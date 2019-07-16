@@ -5,14 +5,6 @@
 import Foundation
 import Trial
 
-fileprivate extension License {
-    
-    func isValid(licenseVerifier: LicenseVerifier) -> Bool {
-        
-        return licenseVerifier.isValid(licenseCode: licenseCode, forName: name)
-    }
-}
-
 public protocol ProvidesLicenseInformation {
     var isLicenseInvalid: Bool { get }
     var currentLicenseInformation: LicenseInformation { get }
@@ -27,14 +19,23 @@ class LicenseInformationProvider: ProvidesLicenseInformation {
     
     let trialProvider: ProvidesTrial
     let licenseProvider: ProvidesLicense
-    let clock: KnowsTimeAndDate
     let licenseVerifier: LicenseVerifier
+    let registrationStrategy: RegistrationStrategy
+    let configuration: LicenseConfiguration
+    let clock: KnowsTimeAndDate
 
-    init(trialProvider: ProvidesTrial, licenseProvider: ProvidesLicense, licenseVerifier: LicenseVerifier, clock: KnowsTimeAndDate = Clock()) {
+    init(trialProvider: ProvidesTrial,
+         licenseProvider: ProvidesLicense,
+         licenseVerifier: LicenseVerifier,
+         registrationStrategy: RegistrationStrategy,
+         configuration: LicenseConfiguration,
+         clock: KnowsTimeAndDate = Clock()) {
         
         self.trialProvider = trialProvider
         self.licenseProvider = licenseProvider
         self.licenseVerifier = licenseVerifier
+        self.registrationStrategy = registrationStrategy
+        self.configuration = configuration
         self.clock = clock
     }
     
@@ -43,14 +44,14 @@ class LicenseInformationProvider: ProvidesLicenseInformation {
         guard let license = self.license() else {
             return false
         }
-        
-        return !license.isValid(licenseVerifier: licenseVerifier)
+
+        return !self.isLicenseValid(license)
     }
-    
+
     var currentLicenseInformation: LicenseInformation {
         
         if let license = self.license(),
-            license.isValid(licenseVerifier: licenseVerifier) {
+            isLicenseValid(license) {
             
             return .registered(license)
         }
@@ -72,5 +73,12 @@ class LicenseInformationProvider: ProvidesLicenseInformation {
     private func trial() -> Trial? {
         
         return trialProvider.currentTrial(clock: clock)
+    }
+
+    private func isLicenseValid(_ license: License) -> Bool {
+        return registrationStrategy.isValid(
+            payload: license.payload,
+            configuration: self.configuration,
+            licenseVerifier: self.licenseVerifier)
     }
 }
