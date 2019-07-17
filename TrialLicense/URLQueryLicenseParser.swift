@@ -19,11 +19,8 @@ public class URLQueryLicenseParser {
             .filter { $0.name == TrialLicense.URLComponents.licenseCode }
             .first
 
-        guard let encodedName = nameQueryItem?.value,
-            let licenseCode = licenseCodeQueryItem?.value
-            else { return nil }
-
-        let name = decode(string: encodedName)
+        guard let licenseCode = licenseCodeQueryItem?.value else { return nil }
+        let name = nameQueryItem?.value.flatMap(decode(string:))
         return License(name: name, licenseCode: licenseCode)
     }
 
