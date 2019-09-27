@@ -170,7 +170,7 @@ public class AppLicensing {
     /// See the callbacks or `AppLicensingDelegate` methods.
     ///
     /// - important: Set up licensing with `setUp` first or the app will crash here.
-    /// - parameter payload: Parts of the
+    /// - parameter payload: The information to attempt a registration with.
     ///
     /// See also for convenience:
     /// - `register(name:licenseCode:)`
@@ -182,6 +182,41 @@ public class AppLicensing {
         }
 
         registerApplication.register(payload: payload)
+    }
+
+    /// Try to validate a license with a personalized `RegistrationPayload`
+    /// and change the state of the app; will fire a change event if
+    /// things go well.
+    ///
+    /// See the callbacks or `AppLicensingDelegate` methods.
+    ///
+    /// - important: Set up licensing with `setUp` first or the app will crash here.
+    /// - parameter name: Licensee name.
+    /// - parameter licenseCode: License code for validation.
+    ///
+    /// See also:
+    /// - `register(payload:)`
+    /// - `register(licenseCode:)`
+    public static func register(name: String, licenseCode: String) {
+
+        register(payload: RegistrationPayload(name: name, licenseCode: licenseCode))
+    }
+
+    /// Try to validate a license with a non-personalized `RegistrationPayload`
+    /// and change the state of the app; will fire a change event if
+    /// things go well.
+    ///
+    /// See the callbacks or `AppLicensingDelegate` methods.
+    ///
+    /// - important: Set up licensing with `setUp` first or the app will crash here.
+    /// - parameter licenseCode: License code for validation.
+    ///
+    /// See also:
+    /// - `register(payload:)`
+    /// - `register(name:licenseCode)`
+    public static func register(licenseCode: String) {
+
+        register(payload: RegistrationPayload(licenseCode: licenseCode))
     }
 
     /// Registers a license owner from an incoming URL Scheme query.
