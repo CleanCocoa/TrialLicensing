@@ -6,7 +6,6 @@ import Cocoa
 import XCTest
 @testable import TrialLicense
 import Trial
-@_implementationOnly import Shared
 
 class LicenseInformationTests: XCTestCase {
 

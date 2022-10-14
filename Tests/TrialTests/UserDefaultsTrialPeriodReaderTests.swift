@@ -4,8 +4,6 @@
 
 import XCTest
 @testable import Trial
-@_implementationOnly import Shared
-@_implementationOnly import SharedTests
 
 class UserDefaultsTrialPeriodReaderTests: XCTestCase {
 

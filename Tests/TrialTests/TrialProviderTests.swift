@@ -4,7 +4,6 @@
 
 import XCTest
 @testable import Trial
-@_implementationOnly import Shared
 
 class TrialProviderTests: XCTestCase {
 

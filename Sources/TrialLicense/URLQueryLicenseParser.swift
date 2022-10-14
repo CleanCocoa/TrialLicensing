@@ -3,7 +3,6 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
-@_implementationOnly import Shared
 
 public class URLQueryLicenseParser {
     
@@ -59,7 +58,7 @@ public class URLQueryLicenseParser {
     fileprivate func queryValue(fromParameter parameter: String) -> String? {
         
         return escapedQueryValue(parameter: parameter)
-            >>- unescapeQueryValue
+            .flatMap(unescapeQueryValue(queryValue:))
     }
     
     fileprivate func unescapeQueryValue(queryValue: String) -> String? {

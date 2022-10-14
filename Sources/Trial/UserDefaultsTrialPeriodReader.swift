@@ -3,7 +3,6 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
-@_implementationOnly import Shared
 
 public protocol ReadsTrialPeriod {
     /// `Nil` when the info couldn't be found; a `TrialPeriod` of the source otherwise.
@@ -24,11 +23,12 @@ open class UserDefaultsTrialPeriodReader: ReadsTrialPeriod {
         self.userDefaults = userDefaults
     }
 
-    open var isConfigured: Bool { return hasValue(currentTrialPeriod) }
+    open var isConfigured: Bool { currentTrialPeriod != nil }
     
     open var currentTrialPeriod: TrialPeriod? {
-        guard let startDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.startDate) as? Date else { return nil }
-        guard let endDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.endDate) as? Date else { return nil }
+        guard let startDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.startDate) as? Date,
+              let endDate = userDefaults.object(forKey: TrialPeriod.UserDefaultsKeys.endDate) as? Date
+        else { return nil }
 
         return TrialPeriod(startDate: startDate, endDate: endDate)
     }

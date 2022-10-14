@@ -19,31 +19,24 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Shared",
-            path: "Sources/Shared"),
-        .target(
-            name: "SharedTests",
-            path: "Tests/Shared"),
-
-        .target(
             name: "Trial",
-            dependencies: ["Shared"],
+            dependencies: [],
             path: "Sources/Trial",
             exclude: ["Info.plist"]),
         .testTarget(
             name: "TrialTests",
-            dependencies: ["Trial", "SharedTests"],
+            dependencies: ["Trial"],
             path: "Tests/TrialTests",
             exclude: ["Info.plist"]),
 
         .target(
             name: "TrialLicense",
-            dependencies: ["Trial", "Shared", "CocoaFob"],
+            dependencies: ["Trial", "CocoaFob"],
             path: "Sources/TrialLicense",
             exclude: ["Info.plist"]),
         .testTarget(
             name: "TrialLicenseTests",
-            dependencies: ["TrialLicense", "SharedTests"],
+            dependencies: ["TrialLicense"],
             path: "Tests/TrialLicenseTests",
             exclude: ["Info.plist"]),
     ]

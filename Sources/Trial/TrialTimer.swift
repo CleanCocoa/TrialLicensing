@@ -3,7 +3,6 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
-@_implementationOnly import Shared
 
 public class TrialTimer {
     
@@ -21,10 +20,7 @@ public class TrialTimer {
         self.trialExpirationBlock = trialExpirationBlock
     }
     
-    public var isRunning: Bool {
-        
-        return hasValue(delayedBlock)
-    }
+    public var isRunning: Bool { delayedBlock != nil }
     
     var delayedBlock: CancelableDispatchBlock?
     

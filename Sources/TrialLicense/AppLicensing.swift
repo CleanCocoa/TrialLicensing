@@ -4,7 +4,6 @@
 
 import Foundation
 import Trial
-@_implementationOnly import Shared
 
 typealias LicenseChangeCallback = (_ licenseInformation:LicenseInformation) -> Void
 
@@ -88,10 +87,10 @@ public class AppLicensing {
         licensingScheme: LicensingScheme = .personalizedLicense,
         clock: KnowsTimeAndDate = Clock(),
         userDefaults: UserDefaults = UserDefaults.standard,
-        fireInitialState: Bool = false) {
-
-        guard !hasValue(AppLicensing.sharedInstance)
-            else { preconditionFailure("AppLicensing.startUp was called twice") }
+        fireInitialState: Bool = false
+    ) {
+        guard AppLicensing.sharedInstance == nil
+        else { preconditionFailure("AppLicensing.startUp was called twice") }
 
         AppLicensing.sharedInstance = {
 
