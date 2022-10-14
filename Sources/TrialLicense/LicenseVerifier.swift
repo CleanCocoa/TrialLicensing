@@ -5,7 +5,7 @@
 import Foundation
 import CocoaFob
 
-public protocol LicenseCodeVerification: class {
+public protocol LicenseCodeVerification: AnyObject {
     func isValid(licenseCode: String, registrationName: String) -> Bool
 }
 

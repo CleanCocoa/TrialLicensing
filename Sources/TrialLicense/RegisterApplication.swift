@@ -7,7 +7,7 @@ import Trial
 
 /// Implemented by `RegisterApplication`; use this for delegates
 /// or view controller callbacks.
-public protocol HandlesRegistering: class {
+public protocol HandlesRegistering: AnyObject {
 
     func register(payload: RegistrationPayload)
     func unregister()

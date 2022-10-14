@@ -198,11 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				501FAACE1D95258500D8D68C /* README.md */,
-				501FAA631D9424AE00D8D68C /* Shared */,
-				501FAA041D94232C00D8D68C /* TrialLicense */,
-				501FAA0F1D94232D00D8D68C /* TrialLicenseTests */,
-				501FAA2B1D94235900D8D68C /* Trial */,
-				501FAA361D94235900D8D68C /* TrialTests */,
+				50B2137928F9AA6C00A8B016 /* Tests */,
+				50B2137728F9A9B300A8B016 /* Sources */,
 				501FAA031D94232C00D8D68C /* Products */,
 				50DCA1BF21AAC7A000F1BEAC /* Frameworks */,
 			);
@@ -357,6 +354,25 @@
 				507FDBD71D990F8A00FE07E7 /* URLComponents.swift */,
 			);
 			name = "URL Scheme Activation";
+			sourceTree = "<group>";
+		};
+		50B2137728F9A9B300A8B016 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA631D9424AE00D8D68C /* Shared */,
+				501FAA041D94232C00D8D68C /* TrialLicense */,
+				501FAA2B1D94235900D8D68C /* Trial */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		50B2137928F9AA6C00A8B016 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				501FAA0F1D94232D00D8D68C /* TrialLicenseTests */,
+				501FAA361D94235900D8D68C /* TrialTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		50DCA1BF21AAC7A000F1BEAC /* Frameworks */ = {
@@ -780,7 +796,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = TrialLicense/Info.plist;
+				INFOPLIST_FILE = Sources/TrialLicense/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicense.License;
@@ -807,7 +823,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = TrialLicense/Info.plist;
+				INFOPLIST_FILE = Sources/TrialLicense/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicense.License;
@@ -826,7 +842,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = TrialLicenseTests/Info.plist;
+				INFOPLIST_FILE = Tests/TrialLicenseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicenseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -843,7 +859,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = TrialLicenseTests/Info.plist;
+				INFOPLIST_FILE = Tests/TrialLicenseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicenseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -861,7 +877,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Trial/Info.plist;
+				INFOPLIST_FILE = Sources/Trial/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicense.Trial;
@@ -882,7 +898,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Trial/Info.plist;
+				INFOPLIST_FILE = Sources/Trial/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialLicense.Trial;
@@ -897,7 +913,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TrialTests/Info.plist;
+				INFOPLIST_FILE = Tests/TrialTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -910,7 +926,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TrialTests/Info.plist;
+				INFOPLIST_FILE = Tests/TrialTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.TrialTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

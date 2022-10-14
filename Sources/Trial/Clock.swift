@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol KnowsTimeAndDate: class {
+public protocol KnowsTimeAndDate: AnyObject {
     
     func now() -> Date
 }
