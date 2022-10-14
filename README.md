@@ -12,11 +12,11 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/CleanCocoa/TrialLicense.git", .upToNextMinor(from: "2.1")),
+  .package(url: "https://github.com/CleanCocoa/TrialLicensing.git", .upToNextMinor(from: "2.1")),
 ]
 ```
 
-Add package depencency via Xcode by using this URL: `https://github.com/CleanCocoa/TrialLicense.git`
+Add package depencency via Xcode by using this URL: `https://github.com/CleanCocoa/TrialLicensing.git`
 
 CocoaFob is automatically linked statically for you, no need to do anything.
 
