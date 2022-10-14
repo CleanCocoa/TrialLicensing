@@ -4,6 +4,7 @@
 
 import Foundation
 import Trial
+@_implementationOnly import Shared
 
 typealias LicenseChangeCallback = (_ licenseInformation:LicenseInformation) -> Void
 

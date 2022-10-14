@@ -3,6 +3,7 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
+@_implementationOnly import Shared
 
 public class URLQueryLicenseParser {
     

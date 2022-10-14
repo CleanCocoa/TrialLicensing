@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CocoaFob",
+        "repositoryURL": "https://github.com/glebd/cocoafob",
+        "state": {
+          "branch": "ctietze/swiftpm",
+          "revision": "e9bc149308e2f5460b489242b1b3dcd10f4df5e2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

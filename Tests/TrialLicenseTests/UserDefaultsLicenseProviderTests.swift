@@ -4,6 +4,8 @@
 
 import XCTest
 @testable import TrialLicense
+@_implementationOnly import Shared
+@_implementationOnly import SharedTests
 
 class UserDefaultsLicenseProviderTests: XCTestCase {
 

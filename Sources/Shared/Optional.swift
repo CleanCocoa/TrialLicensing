@@ -2,9 +2,7 @@
 // 
 // See the file LICENSE for copying permission.
 
-import Foundation
-
-func hasValue<T>(_ value: T?) -> Bool {
+public func hasValue<T>(_ value: T?) -> Bool {
     switch (value) {
     case .some(_): return true
     case .none: return false
@@ -18,8 +16,7 @@ func hasValue<T>(_ value: T?) -> Bool {
 ///
 /// `.None` will cascade, `.Some(_:T)` will be passed 
 /// on to the next in chain.
-func bind<T, U>(_ optional: T?, f: (T) -> U?) -> U? {
-    
+public func bind<T, U>(_ optional: T?, f: (T) -> U?) -> U? {
     if let x = optional {
         return f(x)
     } else {
@@ -34,7 +31,7 @@ precedencegroup BindingPrecedence {
 
 infix operator >>- : BindingPrecedence
 
-func >>-<T, U>(optional: T?, f: (T) -> U?) -> U? {
+public func >>-<T, U>(optional: T?, f: (T) -> U?) -> U? {
     
     return bind(optional, f: f)
 }

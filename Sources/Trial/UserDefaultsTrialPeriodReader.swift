@@ -3,6 +3,7 @@
 // See the file LICENSE for copying permission.
 
 import Foundation
+@_implementationOnly import Shared
 
 public protocol ReadsTrialPeriod {
     /// `Nil` when the info couldn't be found; a `TrialPeriod` of the source otherwise.
