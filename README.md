@@ -6,10 +6,27 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 **For setup instructions of your own store and app preparation with FastSpring, have a look at my book [_Make Money Outside the Mac App Store_](https://christiantietze.de/books/make-money-outside-mac-app-store-fastspring/)!**
 
-## Usage 
+## Installation
+
+### Swift Package Manager
+
+```swift
+dependencies: [
+  .package(url: "https://github.com/CleanCocoa/TrialLicense.git", .upToNextMinor(from: "2.1")),
+]
+```
+
+Add package depencency via Xcode by using this URL: `https://github.com/CleanCocoa/TrialLicense.git`
+
+CocoaFob is automatically linked statically for you, no need to do anything.
+
+### Carthage
 
 * Include the `Trial` and `TrialLicense` libraries in your project.
 * Include the [CocoaFob (Swift 5)](https://github.com/glebd/cocoafob/tree/master/swift5) library in your project, too. (You have to link this in the app because a library cannot embed another library.)
+
+## Usage
+
 * Create an `AppLicensing` instance with `licenseChangeBlock` and `invalidLicenseInformationBlock` handling change events.
 * Set up and start the trial.
 
@@ -26,23 +43,23 @@ let publicKey = [
 let configuration = LicenseConfiguration(appName: "AmazingApp!", publicKey: publicKey)
 
 class MyApp: AppLicensingDelegate {
-    
+
     init() {
-        
+
         AppLicensing.setUp(
             configuration: configuration,
             initialTrialDuration: Days(30),
-            
+
             // Set up the callbacks:
             licenseChangeBlock: self.licenseDidChange(licenseInfo:),
             invalidLicenseInformationBlock: self.didEnterInvalidLicenseCode(name:licenseCode:),
-            
+
             // Get notified about initial state to unlock the app immediately:
             fireInitialState: true)
     }
-    
+
     func licenseDidChange(licenseInformation: LicenseInformation) {
-        
+
         switch licenseInformation {
         case .onTrial(_):
             // Changing back to trial may be possible if you support unregistering
@@ -61,9 +78,9 @@ class MyApp: AppLicensingDelegate {
             //   showRegisterApp()
         }
     }
-    
+
     func didEnterInvalidLicenseCode(name: String, licenseCode: String) {
-        
+
         // For example:
         //   displayInvalidLicenseAlert()
         // -- or show an error label in the license window.
