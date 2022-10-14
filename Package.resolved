@@ -5,9 +5,9 @@
         "package": "CocoaFob",
         "repositoryURL": "https://github.com/glebd/cocoafob",
         "state": {
-          "branch": "ctietze/swiftpm",
-          "revision": "e9bc149308e2f5460b489242b1b3dcd10f4df5e2",
-          "version": null
+          "branch": null,
+          "revision": "72a8a15095228366e2b2f955ada475e2c5c5cf17",
+          "version": "2.2.1"
         }
       }
     ]

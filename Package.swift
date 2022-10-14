@@ -15,7 +15,7 @@ let package = Package(
             targets: ["Trial"]),
     ],
     dependencies: [
-        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", .branchItem("ctietze/swiftpm")),
+        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", .upToNextMajor(from: Version(2, 2, 1))),
     ],
     targets: [
         .target(
