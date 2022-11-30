@@ -8,8 +8,10 @@ import Foundation
 /// using CocoaFob.
 public struct LicenseConfiguration: Equatable {
 
-    let appName: String
-    let publicKey: String
+    public let appName: String
+    public let publicKey: String
+
+    public let trimmingWhitespaceFromLicenseCodes: Bool
 
     /// - parameter appName: Name of the product as it is used
     ///   by the license generator.
@@ -22,10 +24,13 @@ public struct LicenseConfiguration: Equatable {
     ///         MIHwMIGoBgcqhkjOOAQBMI...
     ///         GcAkEAoKLaPXkgAPng5YtV...
     ///         -----END DSA PUBLIC KEY-----\n
-    public init(appName: String, publicKey: String) {
-
+    public init(
+        appName: String,
+        publicKey: String,
+        trimmingWhitespaceFromLicenseCodes: Bool = true
+    ) {
         self.appName = appName
         self.publicKey = publicKey
+        self.trimmingWhitespaceFromLicenseCodes = trimmingWhitespaceFromLicenseCodes
     }
 }
-

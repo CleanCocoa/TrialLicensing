@@ -6,14 +6,23 @@ import Foundation
 
 class UserDefaultsLicenseWriter: WritesLicense {
     
-    public let userDefaults: UserDefaults
+    let userDefaults: UserDefaults
+    let trimmingWhitespace: Bool
 
-    public init(userDefaults: UserDefaults) {
+    init(userDefaults: UserDefaults, trimmingWhitespace: Bool) {
         self.userDefaults = userDefaults
+        self.trimmingWhitespace = trimmingWhitespace
     }
 
-    func store(licenseCode: String, forName name: String?) {
-        
+    func store(licenseCode untreatedLicenseCode: String, forName name: String?) {
+
+        let licenseCode: String
+        if trimmingWhitespace {
+            licenseCode = untreatedLicenseCode.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            licenseCode = untreatedLicenseCode
+        }
+
         userDefaults.setValue(name, forKey: License.UserDefaultsKeys.name)
         userDefaults.setValue(licenseCode, forKey: License.UserDefaultsKeys.licenseCode)
     }

@@ -15,7 +15,7 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
 
         userDefaultsDouble = TestUserDefaults()
 
-        licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaultsDouble)
+        licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
     }
 
     override func tearDown() {
@@ -69,10 +69,10 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
         }
     }
 
-    func testObtainingCurrentLicense_WithLicenseCodeOnly_ReturnsLicenseWithInfo() {
+    func testObtainingCurrentLicense_WithLicenseCodeOnly_ReturnsLicenseWithInfoStrippingWhitespace() {
 
         let key = "a license key"
-        provideLicenseDefaults(name: nil, licenseCode: key)
+        provideLicenseDefaults(name: nil, licenseCode: "  \t  \(key) \n")
 
         let licenseInfo = licenseProvider.currentLicense
 
@@ -94,7 +94,7 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
 
         let name = "a name"
         let key = "a license key"
-        provideLicenseDefaults(name: name, licenseCode: key)
+        provideLicenseDefaults(name: name, licenseCode: "  \t  \(key) \n \t  ")
         
         let licenseInfo = licenseProvider.currentLicense
         

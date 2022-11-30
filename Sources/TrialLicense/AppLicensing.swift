@@ -288,8 +288,8 @@ public class AppLicensing {
         invalidLicenseInformationBlock: @escaping ((_ payload: RegistrationPayload) -> Void),
         licensingScheme: LicensingScheme,
         clock: KnowsTimeAndDate = Clock(),
-        userDefaults: UserDefaults = UserDefaults.standard) {
-
+        userDefaults: UserDefaults = UserDefaults.standard
+    ) {
         self.clock = clock
         self.userDefaults = userDefaults
         self.licenseChangeBlock = licenseChangeBlock
@@ -297,7 +297,9 @@ public class AppLicensing {
         self.licensingScheme = licensingScheme
 
         let licenseVerifier = LicenseVerifier(configuration: configuration)
-        let licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaults)
+        let licenseProvider = UserDefaultsLicenseProvider(
+            userDefaults: userDefaults,
+            trimmingWhitespace: configuration.trimmingWhitespaceFromLicenseCodes)
         self.trialPeriodReader = UserDefaultsTrialPeriodReader(userDefaults: userDefaults)
         self.trialProvider = TrialProvider(trialPeriodReader: trialPeriodReader)
         self.licenseInformationProvider = LicenseInformationProvider(
@@ -314,7 +316,9 @@ public class AppLicensing {
                 self?.licenseDidChange(licenseInformation: $0)
             })
 
-        let licenseWriter = UserDefaultsLicenseWriter(userDefaults: userDefaults)
+        let licenseWriter = UserDefaultsLicenseWriter(
+            userDefaults: userDefaults,
+            trimmingWhitespace: configuration.trimmingWhitespaceFromLicenseCodes)
         self.register = RegisterApplication(
             licenseVerifier: licenseVerifier,
             licenseWriter: licenseWriter,

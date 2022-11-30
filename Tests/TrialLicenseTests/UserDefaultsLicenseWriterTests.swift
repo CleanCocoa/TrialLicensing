@@ -15,7 +15,7 @@ class UserDefaultsLicenseWriterTests: XCTestCase {
 
         userDefaultsDouble = TestUserDefaults()
 
-        writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble)
+        writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
     }
 
     override func tearDown() {
@@ -33,7 +33,7 @@ class UserDefaultsLicenseWriterTests: XCTestCase {
         let name = "a name"
         
         // When
-        writer.store(licenseCode: licenseCode, forName: name)
+        writer.store(licenseCode: "  \t \n \(licenseCode) \n   ", forName: name)
         
         // Then
         let changedDefaults = userDefaultsDouble.didSetValuesForKeys

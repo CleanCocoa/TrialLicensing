@@ -6,15 +6,29 @@ import Foundation
 
 class UserDefaultsLicenseProvider: ProvidesLicense {
     
-    public let userDefaults: UserDefaults
+    let userDefaults: UserDefaults
+    let trimmingWhitespace: Bool
 
-    public init(userDefaults: UserDefaults) {
+    init(userDefaults: UserDefaults, trimmingWhitespace: Bool) {
         self.userDefaults = userDefaults
+        self.trimmingWhitespace = trimmingWhitespace
     }
     
     var currentLicense: License? {
-        guard let licenseCode = userDefaults.string(forKey: "\(License.UserDefaultsKeys.licenseCode)") else { return nil }
-        let name = userDefaults.string(forKey: "\(License.UserDefaultsKeys.name)")
-        return License(name: name, licenseCode: licenseCode)
+        guard let licenseCode = self.licenseCode else { return nil }
+        return License(name: self.name, licenseCode: licenseCode)
     }
+
+    @inline(__always)
+    private var licenseCode: String? {
+        let licenseCode = userDefaults.string(forKey: "\(License.UserDefaultsKeys.licenseCode)")
+        if trimmingWhitespace {
+            return licenseCode?.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            return licenseCode
+        }
+    }
+
+    @inline(__always)
+    private var name: String? { userDefaults.string(forKey: "\(License.UserDefaultsKeys.name)") }
 }
