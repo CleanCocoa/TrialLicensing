@@ -18,7 +18,7 @@ class UserDefaultsLicenseWriter: WritesLicense {
 
         let licenseCode: String
         if trimmingWhitespace {
-            licenseCode = untreatedLicenseCode.trimmingCharacters(in: .whitespacesAndNewlines)
+            licenseCode = untreatedLicenseCode.replacingCharacters(of: .whitespacesAndNewlines, with: "")
         } else {
             licenseCode = untreatedLicenseCode
         }

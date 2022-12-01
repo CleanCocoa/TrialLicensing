@@ -23,7 +23,7 @@ class UserDefaultsLicenseProvider: ProvidesLicense {
     private var licenseCode: String? {
         let licenseCode = userDefaults.string(forKey: "\(License.UserDefaultsKeys.licenseCode)")
         if trimmingWhitespace {
-            return licenseCode?.trimmingCharacters(in: .whitespacesAndNewlines)
+            return licenseCode?.replacingCharacters(of: .whitespacesAndNewlines, with: "")
         } else {
             return licenseCode
         }

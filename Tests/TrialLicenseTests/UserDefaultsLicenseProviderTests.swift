@@ -71,15 +71,14 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
 
     func testObtainingCurrentLicense_WithLicenseCodeOnly_ReturnsLicenseWithInfoStrippingWhitespace() {
 
-        let key = "a license key"
-        provideLicenseDefaults(name: nil, licenseCode: "  \t  \(key) \n")
+        provideLicenseDefaults(name: nil, licenseCode: "  \t  a license key \n")
 
         let licenseInfo = licenseProvider.currentLicense
 
         XCTAssert(hasValue(licenseInfo))
         if let licenseInfo = licenseInfo {
             XCTAssertNil(licenseInfo.name, name)
-            XCTAssertEqual(licenseInfo.licenseCode, key)
+            XCTAssertEqual(licenseInfo.licenseCode, "alicensekey")
         }
     }
 
@@ -93,15 +92,14 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
     func testObtainingCurrentLicense_WithNameAndLicenseCode_ReturnsLicenseWithInfo() {
 
         let name = "a name"
-        let key = "a license key"
-        provideLicenseDefaults(name: name, licenseCode: "  \t  \(key) \n \t  ")
+        provideLicenseDefaults(name: name, licenseCode: "  \t  a license key \n \t  ")
         
         let licenseInfo = licenseProvider.currentLicense
         
         XCTAssert(hasValue(licenseInfo))
         if let licenseInfo = licenseInfo {
             XCTAssertEqual(licenseInfo.name, name)
-            XCTAssertEqual(licenseInfo.licenseCode, key)
+            XCTAssertEqual(licenseInfo.licenseCode, "alicensekey")
         }
     }
     

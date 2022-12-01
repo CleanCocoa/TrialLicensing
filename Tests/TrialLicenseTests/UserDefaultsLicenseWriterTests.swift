@@ -7,40 +7,47 @@ import XCTest
 
 class UserDefaultsLicenseWriterTests: XCTestCase {
 
-    var writer: UserDefaultsLicenseWriter!
     var userDefaultsDouble: TestUserDefaults!
 
     override func setUp() {
         super.setUp()
 
         userDefaultsDouble = TestUserDefaults()
-
-        writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
     }
 
     override func tearDown() {
-        writer = nil
         userDefaultsDouble = nil
         super.tearDown()
     }
     
     // MARK: Storing
     
-    func testStoring_DelegatesToUserDefaults() {
-        
-        // Given
-        let licenseCode = "a license code"
+    func testStoring_TrimmingWhitespace_DelegatesToUserDefaults() {
+        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
         let name = "a name"
         
-        // When
-        writer.store(licenseCode: "  \t \n \(licenseCode) \n   ", forName: name)
+        writer.store(licenseCode: "  \t \n a license code \n   ", forName: name)
         
-        // Then
         let changedDefaults = userDefaultsDouble.didSetValuesForKeys
         XCTAssert(hasValue(changedDefaults))
-        
         if let changedDefaults = changedDefaults {
             
+            XCTAssert(changedDefaults[License.UserDefaultsKeys.name] == name)
+            XCTAssert(changedDefaults[License.UserDefaultsKeys.licenseCode] == "alicensecode")
+        }
+    }
+
+    func testStoring_PreservingWhitespace_DelegatesToUserDefaults() {
+        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: false)
+        let licenseCode = "  \t \n a license code \n   "
+        let name = "a name"
+
+        writer.store(licenseCode: licenseCode, forName: name)
+
+        let changedDefaults = userDefaultsDouble.didSetValuesForKeys
+        XCTAssert(hasValue(changedDefaults))
+        if let changedDefaults = changedDefaults {
+
             XCTAssert(changedDefaults[License.UserDefaultsKeys.name] == name)
             XCTAssert(changedDefaults[License.UserDefaultsKeys.licenseCode] == licenseCode)
         }
