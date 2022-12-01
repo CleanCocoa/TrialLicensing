@@ -12,7 +12,7 @@ Adds time-based trial and easy license verification using [CocoaFob](https://git
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/CleanCocoa/TrialLicensing.git", .upToNextMinor(from: "2.1")),
+  .package(url: "https://github.com/CleanCocoa/TrialLicensing.git", .upToNextMajor(from: Version(3, 0, 0))),
 ]
 ```
 
@@ -131,4 +131,4 @@ struct TrialPeriod {
 
 ## License
 
-Copyright (c) 2016 by [Christian Tietze](http://christiantietze.de/). Distributed under the MIT License. See the LICENSE file for details.
+Copyright (c) 2016 by [Christian Tietze](https://christiantietze.de/). Distributed under the MIT License. See the LICENSE file for details.
