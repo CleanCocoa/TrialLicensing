@@ -1,12 +1,11 @@
 // Copyright (c) 2015-2019 Christian Tietze
 //
 // See the file LICENSE for copying permission.
+
 import Foundation
 
 extension Sequence {
-
     func mapDictionary<K, V>(_ transform: (Self.Iterator.Element) throws -> (K, V)) rethrows -> [K : V] {
-
         var result = [K : V]()
 
         for element in self {
@@ -18,7 +17,6 @@ extension Sequence {
     }
 
     func mapDictionary<K, V>(_ transform: (Self.Iterator.Element) throws -> (K, V)?) rethrows -> [K : V] {
-
         var result = [K : V]()
 
         for element in self {
@@ -31,7 +29,6 @@ extension Sequence {
     }
 
     func flatMapDictionary<K, V>(_ transform: (Self.Iterator.Element) throws -> (K, V)?) rethrows -> [K : V] {
-
         var result = [K : V]()
 
         for element in self {
