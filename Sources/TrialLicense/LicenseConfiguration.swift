@@ -10,13 +10,11 @@ public struct LicenseConfiguration: Equatable {
 
     public let appName: String
     public let publicKey: String
+    public let removeWhitespaceFromLicenseCodes: Bool
 
-    public let removingWhitespaceFromLicenseCodes: Bool
-
-    /// - parameter appName: Name of the product as it is used
-    ///   by the license generator.
-    /// - parameter publicKey: Complete public key PEM,
-    ///   including the header and footer lines.
+    /// - Parameters:
+    ///   - appName: Name of the product as it is used by the license generator.
+    ///   - publicKey: Complete public key PEM, including the header and footer lines.
     ///
     ///     Example:
     ///
@@ -24,6 +22,9 @@ public struct LicenseConfiguration: Equatable {
     ///         MIHwMIGoBgcqhkjOOAQBMI...
     ///         GcAkEAoKLaPXkgAPng5YtV...
     ///         -----END DSA PUBLIC KEY-----\n
+    ///   - removeWhitespaceFromLicenseCodes: Determines whether writing and reading license codes
+    ///     from `UserDefaults` will remove any whitespace from license codes. This can make pasting
+    ///     license codes easier for end users.
     public init(
         appName: String,
         publicKey: String,
@@ -31,6 +32,6 @@ public struct LicenseConfiguration: Equatable {
     ) {
         self.appName = appName
         self.publicKey = publicKey
-        self.removingWhitespaceFromLicenseCodes = removingWhitespaceFromLicenseCodes
+        self.removeWhitespaceFromLicenseCodes = removingWhitespaceFromLicenseCodes
     }
 }
