@@ -11,7 +11,7 @@ public struct LicenseConfiguration: Equatable {
     public let appName: String
     public let publicKey: String
 
-    public let trimmingWhitespaceFromLicenseCodes: Bool
+    public let removingWhitespaceFromLicenseCodes: Bool
 
     /// - parameter appName: Name of the product as it is used
     ///   by the license generator.
@@ -27,10 +27,10 @@ public struct LicenseConfiguration: Equatable {
     public init(
         appName: String,
         publicKey: String,
-        trimmingWhitespaceFromLicenseCodes: Bool = true
+        removingWhitespaceFromLicenseCodes: Bool = true
     ) {
         self.appName = appName
         self.publicKey = publicKey
-        self.trimmingWhitespaceFromLicenseCodes = trimmingWhitespaceFromLicenseCodes
+        self.removingWhitespaceFromLicenseCodes = removingWhitespaceFromLicenseCodes
     }
 }

@@ -23,7 +23,7 @@ class UserDefaultsLicenseWriterTests: XCTestCase {
     // MARK: Storing
     
     func testStoring_TrimmingWhitespace_DelegatesToUserDefaults() {
-        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
+        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, removingWhitespace: true)
         let name = "a name"
         
         writer.store(licenseCode: "  \t \n a license code \n   ", forName: name)
@@ -38,7 +38,7 @@ class UserDefaultsLicenseWriterTests: XCTestCase {
     }
 
     func testStoring_PreservingWhitespace_DelegatesToUserDefaults() {
-        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, trimmingWhitespace: false)
+        let writer = UserDefaultsLicenseWriter(userDefaults: userDefaultsDouble, removingWhitespace: false)
         let licenseCode = "  \t \n a license code \n   "
         let name = "a name"
 

@@ -15,7 +15,7 @@ class UserDefaultsLicenseProviderTests: XCTestCase {
 
         userDefaultsDouble = TestUserDefaults()
 
-        licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaultsDouble, trimmingWhitespace: true)
+        licenseProvider = UserDefaultsLicenseProvider(userDefaults: userDefaultsDouble, removingWhitespace: true)
     }
 
     override func tearDown() {

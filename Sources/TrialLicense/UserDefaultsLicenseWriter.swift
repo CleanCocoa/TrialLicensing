@@ -7,17 +7,17 @@ import Foundation
 class UserDefaultsLicenseWriter: WritesLicense {
     
     let userDefaults: UserDefaults
-    let trimmingWhitespace: Bool
+    let removingWhitespace: Bool
 
-    init(userDefaults: UserDefaults, trimmingWhitespace: Bool) {
+    init(userDefaults: UserDefaults, removingWhitespace: Bool) {
         self.userDefaults = userDefaults
-        self.trimmingWhitespace = trimmingWhitespace
+        self.removingWhitespace = removingWhitespace
     }
 
     func store(licenseCode untreatedLicenseCode: String, forName name: String?) {
 
         let licenseCode: String
-        if trimmingWhitespace {
+        if removingWhitespace {
             licenseCode = untreatedLicenseCode.replacingCharacters(of: .whitespacesAndNewlines, with: "")
         } else {
             licenseCode = untreatedLicenseCode

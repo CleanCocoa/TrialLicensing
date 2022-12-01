@@ -299,7 +299,7 @@ public class AppLicensing {
         let licenseVerifier = LicenseVerifier(configuration: configuration)
         let licenseProvider = UserDefaultsLicenseProvider(
             userDefaults: userDefaults,
-            trimmingWhitespace: configuration.trimmingWhitespaceFromLicenseCodes)
+            removingWhitespace: configuration.removingWhitespaceFromLicenseCodes)
         self.trialPeriodReader = UserDefaultsTrialPeriodReader(userDefaults: userDefaults)
         self.trialProvider = TrialProvider(trialPeriodReader: trialPeriodReader)
         self.licenseInformationProvider = LicenseInformationProvider(
@@ -318,7 +318,7 @@ public class AppLicensing {
 
         let licenseWriter = UserDefaultsLicenseWriter(
             userDefaults: userDefaults,
-            trimmingWhitespace: configuration.trimmingWhitespaceFromLicenseCodes)
+            removingWhitespace: configuration.removingWhitespaceFromLicenseCodes)
         self.register = RegisterApplication(
             licenseVerifier: licenseVerifier,
             licenseWriter: licenseWriter,
