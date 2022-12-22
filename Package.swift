@@ -1,5 +1,4 @@
 // swift-tools-version: 5.5
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -17,7 +16,7 @@ let package = Package(
             targets: ["Trial"]),
     ],
     dependencies: [
-        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", .upToNextMajor(from: Version(2, 2, 1))),
+        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", branch: "xcode-14"),
     ],
     targets: [
         .target(
@@ -31,11 +30,11 @@ let package = Package(
             path: "Tests/TrialTests",
             exclude: ["Info.plist"]),
 
-        .target(
-            name: "TrialLicense",
-            dependencies: ["Trial", "CocoaFob"],
-            path: "Sources/TrialLicense",
-            exclude: ["Info.plist"]),
+            .target(
+                name: "TrialLicense",
+                dependencies: ["Trial", "CocoaFob"],
+                path: "Sources/TrialLicense",
+                exclude: ["Info.plist"]),
         .testTarget(
             name: "TrialLicenseTests",
             dependencies: ["TrialLicense"],

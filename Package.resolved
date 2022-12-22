@@ -5,9 +5,9 @@
         "package": "CocoaFob",
         "repositoryURL": "https://github.com/glebd/cocoafob",
         "state": {
-          "branch": null,
-          "revision": "72a8a15095228366e2b2f955ada475e2c5c5cf17",
-          "version": "2.2.1"
+          "branch": "xcode-14",
+          "revision": "ac8d67d32c6d6b889584a3471dc41b3b903bb63c",
+          "version": null
         }
       }
     ]
