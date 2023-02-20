@@ -16,7 +16,7 @@ let package = Package(
             targets: ["Trial"]),
     ],
     dependencies: [
-        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", branch: "xcode-14"),
+      .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", from: Version("2.4.0")),
     ],
     targets: [
         .target(
