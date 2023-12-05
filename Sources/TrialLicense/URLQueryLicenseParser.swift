@@ -9,6 +9,7 @@ public class URLQueryLicenseParser {
     public init() { }
 
     @inlinable
+    @inline(__always)
     public func parse(queryItems: [Foundation.URLQueryItem]) -> License? {
         let nameQueryItem: URLQueryItem? = queryItems
             .filter { $0.name == TrialLicense.URLComponents.licensee }
@@ -20,7 +21,16 @@ public class URLQueryLicenseParser {
 
         guard let licenseCode = licenseCodeQueryItem?.value else { return nil }
 
-        let name = nameQueryItem?.value.flatMap { string -> String? in
+        return parse(
+            base64EncodedName: nameQueryItem?.value,
+            licenseCode: licenseCode
+        )
+    }
+
+    @inlinable
+    @inline(__always)
+    public func parse(base64EncodedName: String?, licenseCode: String) -> License? {
+        let name = base64EncodedName.flatMap { string -> String? in
             guard let decodedData = Data(base64Encoded: string) else { return nil }
             return String(data: decodedData, encoding: .utf8)
         }
