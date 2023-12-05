@@ -2,16 +2,16 @@
 //
 // See the file LICENSE for copying permission.
 
-import Foundation
+public enum URLComponents {
+    @inlinable
+    @inline(__always)
+    public static var host: String { "activate" }
 
-@usableFromInline
-enum URLComponents {
-    @usableFromInline
-    static let host = "activate"
-    
-    @usableFromInline
-    static let licensee = "name"
-    
-    @usableFromInline
-    static let licenseCode = "licenseCode"
+    @inlinable
+    @inline(__always)
+    public static var licensee: String { "name" }
+
+    @inlinable
+    @inline(__always)
+    public static var licenseCode: String { "licenseCode" }
 }
