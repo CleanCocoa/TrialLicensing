@@ -239,17 +239,22 @@ public class AppLicensing {
     ///
     /// ```
     /// if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
-    ///     let url = URL(string: urlString) {
-    ///     AppLicensing.register(fromURL: url)
+    ///     let urlComponents = URLComponents(string: urlString) {
+    ///     AppLicensing.register(urlComponents: urlComponents)
     /// }
     /// ```
     ///
-    /// - parameter url: Complete query URL.
+    /// - parameter urlComponents: URL components from the URL scheme.
     @inlinable
     @inline(__always)
     public static func register(urlComponents: Foundation.URLComponents) {
 
-        URLQueryRegistration().register(urlComponents: urlComponents)
+        let queryParser = URLQueryLicenseParser()
+        guard urlComponents.host == TrialLicense.URLComponents.host,
+              let queryItems = urlComponents.queryItems,
+              let license = queryParser.parse(queryItems: queryItems)
+        else { return }
+        register(payload: license.payload)
     }
 
     /// Unregisters from whatever state the app is in;
