@@ -175,6 +175,8 @@ public class AppLicensing {
     /// See also for convenience:
     /// - `register(name:licenseCode:)`
     /// - `register(licenseCode:)`
+    @inlinable
+    @inline(__always)
     public static func register(payload: RegistrationPayload) {
 
         guard let registerApplication = registerApplication else {
@@ -197,6 +199,8 @@ public class AppLicensing {
     /// See also:
     /// - `register(payload:)`
     /// - `register(licenseCode:)`
+    @inlinable
+    @inline(__always)
     public static func register(name: String, licenseCode: String) {
 
         register(payload: RegistrationPayload(name: name, licenseCode: licenseCode))
@@ -214,6 +218,8 @@ public class AppLicensing {
     /// See also:
     /// - `register(payload:)`
     /// - `register(name:licenseCode)`
+    @inlinable
+    @inline(__always)
     public static func register(licenseCode: String) {
 
         register(payload: RegistrationPayload(licenseCode: licenseCode))
@@ -239,6 +245,8 @@ public class AppLicensing {
     /// ```
     ///
     /// - parameter url: Complete query URL.
+    @inlinable
+    @inline(__always)
     public static func register(urlComponents: Foundation.URLComponents) {
 
         URLQueryRegistration().register(urlComponents: urlComponents)
@@ -252,6 +260,8 @@ public class AppLicensing {
     /// See the callbacks or `AppLicensingDelegate` methods.
     ///
     /// - important: Set up licensing with  `setUp` first or the app will crash here.
+    @inlinable
+    @inline(__always)
     public static func unregister() {
 
         guard let registerApplication = registerApplication
