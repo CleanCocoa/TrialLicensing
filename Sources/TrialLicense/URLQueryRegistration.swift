@@ -4,13 +4,17 @@
 
 import Foundation
 
-public class URLQueryRegistration {
-    fileprivate static var expectedHost: String { return TrialLicense.URLComponents.host }
+@usableFromInline
+struct URLQueryRegistration {
+    @usableFromInline
+    init() { }
 
-    public lazy var queryParser: URLQueryLicenseParser = URLQueryLicenseParser()
-
-    public func register(urlComponents: Foundation.URLComponents) {
-        guard urlComponents.host == URLQueryRegistration.expectedHost,
+    @usableFromInline
+    func register(
+        urlComponents: Foundation.URLComponents
+    ) {
+        let queryParser = URLQueryLicenseParser()
+        guard urlComponents.host == TrialLicense.URLComponents.host,
               let queryItems = urlComponents.queryItems,
               let license = queryParser.parse(queryItems: queryItems)
         else { return }

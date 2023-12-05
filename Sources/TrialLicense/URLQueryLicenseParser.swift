@@ -4,8 +4,9 @@
 
 import Foundation
 
-public class URLQueryLicenseParser {
-    
+public struct URLQueryLicenseParser {
+    @inlinable
+    @inline(__always)
     public init() { }
 
     @inlinable
