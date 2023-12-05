@@ -8,6 +8,7 @@ public class URLQueryLicenseParser {
     
     public init() { }
 
+    @inlinable
     public func parse(queryItems: [Foundation.URLQueryItem]) -> License? {
         let nameQueryItem: URLQueryItem? = queryItems
             .filter { $0.name == TrialLicense.URLComponents.licensee }

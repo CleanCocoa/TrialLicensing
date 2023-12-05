@@ -4,9 +4,14 @@
 
 import Foundation
 
+@usableFromInline
 enum URLComponents {
-    
+    @usableFromInline
     static let host = "activate"
+    
+    @usableFromInline
     static let licensee = "name"
+    
+    @usableFromInline
     static let licenseCode = "licenseCode"
 }
