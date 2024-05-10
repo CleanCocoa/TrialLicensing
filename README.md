@@ -90,6 +90,14 @@ class MyApp: AppLicensingDelegate {
 let myApp = MyApp()
 ```
 
+
+## Privacy Manifest
+
+The package declares usage of `UserDefaults` API because it ships with these mechanisms to read/write information in principle. That's it.
+
+If you use this to store actual customer names and/or email addresses in your app, depending on the licensing scheme you use, you should check that your app has a `NSPrivacyCollectedDataTypes` entry with e.g. a value of `NSPrivacyCollectedDataTypeEmailAddress`.
+
+
 ## Components
 
 `LicenseInformation` reveals the state your app is in:

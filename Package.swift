@@ -16,25 +16,26 @@ let package = Package(
             targets: ["Trial"]),
     ],
     dependencies: [
-      .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", from: Version("2.4.0")),
+        .package(name: "CocoaFob", url: "https://github.com/glebd/cocoafob", from: Version("2.4.0")),
     ],
     targets: [
         .target(
             name: "Trial",
             dependencies: [],
             path: "Sources/Trial",
-            exclude: ["Info.plist"]),
+            exclude: ["Info.plist"],
+            resources: [.process("Resources/PrivacyInfo.xcprivacy")]),
         .testTarget(
             name: "TrialTests",
             dependencies: ["Trial"],
             path: "Tests/TrialTests",
             exclude: ["Info.plist"]),
-
-            .target(
-                name: "TrialLicense",
-                dependencies: ["Trial", "CocoaFob"],
-                path: "Sources/TrialLicense",
-                exclude: ["Info.plist"]),
+        .target(
+            name: "TrialLicense",
+            dependencies: ["Trial", "CocoaFob"],
+            path: "Sources/TrialLicense",
+            exclude: ["Info.plist"],
+            resources: [.process("Resources/PrivacyInfo.xcprivacy")]),
         .testTarget(
             name: "TrialLicenseTests",
             dependencies: ["TrialLicense"],
